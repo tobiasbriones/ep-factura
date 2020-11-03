@@ -3,7 +3,11 @@
 
 Example project for a silly billing application made in Java-Swing.
 
+## Screenshots
 [![Screenshot 1](https://raw.githubusercontent.com/TobiasBriones/images/master/example-projects/example.programming.java.factura/screenshot-1.png)](https://github.com/TobiasBriones/images/tree/master/example-projects)
+
+---
+
 [![Screenshot 2](https://raw.githubusercontent.com/TobiasBriones/images/master/example-projects/example.programming.java.factura/screenshot-2.png)](https://github.com/TobiasBriones/images/tree/master/example-projects)
 
 ## License
