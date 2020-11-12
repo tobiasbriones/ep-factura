@@ -27,7 +27,8 @@ import java.util.List;
 
 public final class MainWindow extends JFrame implements ActionListener {
 
-    private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat(".##");
+    private static final DecimalFormat decimalFormat = new DecimalFormat(".##");
+
     public interface Controller {
 
         List<String> getCities();
@@ -40,48 +41,40 @@ public final class MainWindow extends JFrame implements ActionListener {
 
     private static final class ListRenderer extends JPanel implements ListCellRenderer<BasketItem> {
 
+        private static final int WIDTH = 600;
+        private static final int HEIGHT = 30;
         private final JPanel panelLeft;
         private final JPanel panelRight;
-        private final JLabel label1;
-        private final JLabel label2;
-        private final JLabel label3;
-        private final JLabel label4;
+        private final JLabel quantityLabel;
+        private final JLabel productCodeLabel;
+        private final JLabel productDescriptionLabel;
+        private final JLabel priceLabel;
 
         private ListRenderer() {
+            super();
             this.panelLeft = new JPanel();
             this.panelRight = new JPanel();
-            this.label1 = new JLabel();
-            this.label2 = new JLabel();
-            this.label3 = new JLabel();
-            this.label4 = new JLabel();
+            this.quantityLabel = new JLabel();
+            this.productCodeLabel = new JLabel();
+            this.productDescriptionLabel = new JLabel();
+            this.priceLabel = new JLabel();
 
-            label1.setPreferredSize(new Dimension(40, 20));
-            label1.setHorizontalAlignment(SwingConstants.RIGHT);
-            panelLeft.setBackground(Color.decode("#FFFFFF"));
-            panelLeft.add(label1);
-            panelLeft.add(label2);
-            panelLeft.add(label3);
-            label4.setPreferredSize(new Dimension(140, 20));
-            label4.setHorizontalAlignment(SwingConstants.RIGHT);
-            panelRight.setBackground(Color.decode("#FFFFFF"));
-            panelRight.add(label4);
-            setLayout(new BorderLayout());
-            setPreferredSize(new Dimension(600, 30));
-            setBorder(new EmptyBorder(0, 10, 0, 10));
-            setOpaque(true);
-            add(panelLeft, BorderLayout.WEST);
-            add(panelRight, BorderLayout.EAST);
+            init();
         }
 
         @Override
         public Component getListCellRendererComponent(
-            JList<? extends BasketItem> list, BasketItem value, int index,
-            boolean isSelected, boolean cellHasFocus
+            JList<? extends BasketItem> list,
+            BasketItem value,
+            int index,
+            boolean isSelected,
+            boolean cellHasFocus
         ) {
-            label1.setText(String.valueOf(value.getQuantity()));
-            label2.setText(String.valueOf(value.getProduct().code));
-            label3.setText(value.getProduct().description);
-            label4.setText("$" + DECIMAL_FORMAT.format(value.getAmount()));
+            quantityLabel.setText(String.valueOf(value.getQuantity()));
+            productCodeLabel.setText(String.valueOf(value.getProduct().code));
+            productDescriptionLabel.setText(value.getProduct().description);
+            priceLabel.setText("$" + decimalFormat.format(value.getAmount()));
+
             if (isSelected) {
                 panelLeft.setBackground(Color.decode("#EAEAEA"));
                 panelRight.setBackground(Color.decode("#EAEAEA"));
@@ -95,6 +88,34 @@ public final class MainWindow extends JFrame implements ActionListener {
             return this;
         }
 
+        private void init() {
+            final var quantityLabelWidth = 40;
+            final var quantityLabelHeight = 20;
+            final var priceLabelWidth = 140;
+            final var priceLabelHeight = 20;
+
+            quantityLabel.setPreferredSize(new Dimension(quantityLabelWidth, quantityLabelHeight));
+            quantityLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+
+            panelLeft.setBackground(Color.decode("#FFFFFF"));
+            panelLeft.add(quantityLabel);
+            panelLeft.add(productCodeLabel);
+            panelLeft.add(productDescriptionLabel);
+
+            priceLabel.setPreferredSize(new Dimension(priceLabelWidth, priceLabelHeight));
+            priceLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+
+            panelRight.setBackground(Color.decode("#FFFFFF"));
+            panelRight.add(priceLabel);
+
+            setLayout(new BorderLayout());
+            setPreferredSize(new Dimension(WIDTH, HEIGHT));
+            setBorder(new EmptyBorder(0, 10, 0, 10));
+            setOpaque(true);
+            add(panelLeft, BorderLayout.LINE_START);
+            add(panelRight, BorderLayout.LINE_END);
+        }
+
     }
 
     private static final class ListMouseAdapter extends MouseAdapter {
@@ -104,35 +125,50 @@ public final class MainWindow extends JFrame implements ActionListener {
         private final JList<BasketItem> list;
 
         private ListMouseAdapter(MainWindow mw, JList<BasketItem> list) {
+            super();
             this.mw = mw;
             this.listModel = (DefaultListModel<BasketItem>) list.getModel();
             this.list = list;
         }
 
         @Override
-        public void mouseClicked(MouseEvent evt) {
-            if (evt.getClickCount() == 2) {
-                final int index = list.locationToIndex(evt.getPoint());
+        public void mouseClicked(MouseEvent e) {
+            if (e.getClickCount() == 2) {
+                final int index = list.locationToIndex(e.getPoint());
 
                 if (index != -1) {
                     final BasketItem item = list.getSelectedValue();
 
-                    new ItemEditDialog(mw, item, new ItemEditDialog.Callback() {
-
-                        @Override
-                        public void onDelete() {
-                            listModel.removeElement(item);
-                            mw.update();
-                        }
-
-                        @Override
-                        public void onUpdate(int quantity) {
-                            item.setQuantity(quantity);
-                            mw.update();
-                        }
-                    });
+                    handleDoubleClickOn(item);
                 }
             }
+        }
+
+        private void handleDoubleClickOn(BasketItem item) {
+            final var callback = new MyCallback(item);
+            new ItemEditDialog(mw, item, callback);
+        }
+
+        private class MyCallback implements ItemEditDialog.Callback {
+
+            private final BasketItem item;
+
+            private MyCallback(BasketItem item) {
+                this.item = item;
+            }
+
+            @Override
+            public void onDelete() {
+                listModel.removeElement(item);
+                mw.update();
+            }
+
+            @Override
+            public void onUpdate(int quantity) {
+                item.setQuantity(quantity);
+                mw.update();
+            }
+
         }
 
     }
@@ -147,37 +183,30 @@ public final class MainWindow extends JFrame implements ActionListener {
 
         }
 
+        private final MainWindow mw;
+        private final BasketItem edit;
+        private final Callback callback;
+        private final JTextField quantityField;
+        private final JButton deleteButton;
+        private final JButton saveButton;
+
         private ItemEditDialog(MainWindow mw, BasketItem edit, Callback callback) {
             super(mw);
+            this.mw = mw;
+            this.edit = edit;
+            this.callback = callback;
+            this.quantityField = new JTextField();
+            this.deleteButton = new JButton("Eliminar");
+            this.saveButton = new JButton("Guardar");
+
+            init();
+        }
+
+        private void init() {
             final JPanel panel = new JPanel();
             final JPanel quantityLabelPanel = new JPanel();
             final JPanel bottomPanel = new JPanel();
-            final JTextField quantityField = new JTextField();
-            final JButton deleteButton = new JButton("Eliminar");
-            final JButton saveButton = new JButton("Guardar");
-            final ActionListener l = e -> {
-                if (e.getSource() == deleteButton) {
-                    dispose();
-                    callback.onDelete();
-                }
-                else {
-                    final int quantity;
-
-                    try {
-                        quantity = Integer.parseInt(quantityField.getText());
-
-                        if (quantity < 0) {
-                            throw new NumberFormatException();
-                        }
-                    }
-                    catch (NumberFormatException ignore) {
-                        JOptionPane.showMessageDialog(mw, "Porfavor ingresar un cantidad válida");
-                        return;
-                    }
-                    dispose();
-                    callback.onUpdate(quantity);
-                }
-            };
+            final var l = new ClickListener();
 
             quantityField.setText(String.valueOf(edit.getQuantity()));
             deleteButton.addActionListener(l);
@@ -187,10 +216,10 @@ public final class MainWindow extends JFrame implements ActionListener {
             bottomPanel.setBackground(Color.WHITE);
             quantityLabelPanel.setLayout(new BorderLayout());
             quantityLabelPanel.add(new JLabel("Cantidad", SwingConstants.LEFT));
-            bottomPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 0));
+            bottomPanel.setLayout(new FlowLayout(FlowLayout.TRAILING, 5, 0));
             bottomPanel.add(deleteButton);
             bottomPanel.add(saveButton);
-            panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+            panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
             panel.setBorder(new EmptyBorder(10, 10, 10, 10));
             panel.add(quantityLabelPanel);
             panel.add(quantityField);
@@ -202,6 +231,43 @@ public final class MainWindow extends JFrame implements ActionListener {
             setLocationRelativeTo(null);
             setModalityType(ModalityType.APPLICATION_MODAL);
             setVisible(true);
+        }
+
+        private final class ClickListener implements ActionListener {
+
+            private ClickListener() {
+            }
+
+            private int getQuantityInt() {
+                final int quantity = Integer.parseInt(quantityField.getText());
+
+                if (quantity < 0) {
+                    throw new NumberFormatException();
+                }
+                return quantity;
+            }
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource() == deleteButton) {
+                    dispose();
+                    callback.onDelete();
+                }
+                else {
+                    final int quantity;
+
+                    try {
+                        quantity = getQuantityInt();
+                    }
+                    catch (NumberFormatException ignore) {
+                        JOptionPane.showMessageDialog(mw, "Porfavor ingresar una cantidad válida");
+                        return;
+                    }
+                    dispose();
+                    callback.onUpdate(quantity);
+                }
+            }
+
         }
 
     }
@@ -236,44 +302,46 @@ public final class MainWindow extends JFrame implements ActionListener {
             return buttonGroup.getSelection().getActionCommand();
         }
 
+        private final MainWindow mw;
+        private final Callback callback;
+        private final JTextField tf1;
+        private final JTextField tf2;
+        private final JTextField tf3;
+        private final JTextField tf4;
+        private final JComboBox<String> cb1;
+        private final JComboBox<String> cb2;
+        private final ButtonGroup buttonGroup;
+        private final JButton cancelButton;
+        private final JButton saveButton;
+
         private NewCustomerDialog(MainWindow mw, Callback callback) {
             super(mw, "Nuevo cliente");
+            this.mw = mw;
+            this.callback = callback;
+            this.tf1 = new JTextField();
+            this.tf2 = new JTextField();
+            this.tf3 = new JTextField();
+            this.tf4 = new JTextField();
+            this.cb1 = new JComboBox<>();
+            this.cb2 = new JComboBox<>();
+            this.buttonGroup = new ButtonGroup();
+            this.cancelButton = new JButton("Cancelar");
+            this.saveButton = new JButton("Guardar");
+
+            init();
+        }
+
+        private void init() {
             final JPanel panel = new JPanel();
             final JPanel genrePanel = new JPanel();
             final JPanel formPanel = new JPanel();
             final JPanel bottomPanel = new JPanel();
-            final JTextField tf1 = new JTextField();
-            final JTextField tf2 = new JTextField();
-            final JTextField tf3 = new JTextField();
-            final JTextField tf4 = new JTextField();
-            final JComboBox<String> cb1 = new JComboBox<>();
-            final JComboBox<String> cb2 = new JComboBox<>();
-            final ButtonGroup buttonGroup = new ButtonGroup();
             final JRadioButton rb1 = new JRadioButton("M");
             final JRadioButton rb2 = new JRadioButton("F");
             final JRadioButton rb3 = new JRadioButton("Otro");
-            final JButton cancelButton = new JButton("Cancelar");
-            final JButton saveButton = new JButton("Guardar");
             final List<String> cities = callback.getCities();
             final List<String> communities = callback.getCommunities();
-            final ActionListener l = e -> {
-                if (e.getSource() == saveButton) {
-                    if (!(isSet(tf1) && isSet(tf2) && isSet(tf3)) || getRadioValue(buttonGroup) == null
-                        || cb1.getSelectedItem() == null || cb2.getSelectedItem() == null) {
-                        JOptionPane.showMessageDialog(mw, "LLena todos los campos.");
-                        return;
-                    }
-                    callback.createCustomer(
-                        tf1.getText(),
-                        tf2.getText(),
-                        new Address(cb1.getSelectedItem().toString(), cb2.getSelectedItem().toString()),
-                        tf3.getText(),
-                        getRadioValue(buttonGroup),
-                        tf4.getText()
-                    );
-                }
-                dispose();
-            };
+            final ActionListener l = new ClickListener();
 
             cities.forEach(cb1::addItem);
             communities.forEach(cb2::addItem);
@@ -309,7 +377,7 @@ public final class MainWindow extends JFrame implements ActionListener {
             formPanel.add(genrePanel);
             formPanel.add(new JLabel("Fecha de nacimiento"));
             formPanel.add(tf4);
-            bottomPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 0));
+            bottomPanel.setLayout(new FlowLayout(FlowLayout.TRAILING, 5, 0));
             bottomPanel.setBorder(new EmptyBorder(10, 0, 5, 0));
             bottomPanel.setBackground(Color.WHITE);
             bottomPanel.add(cancelButton);
@@ -317,7 +385,7 @@ public final class MainWindow extends JFrame implements ActionListener {
             panel.setLayout(new BorderLayout());
             panel.setBackground(Color.WHITE);
             panel.setBorder(new EmptyBorder(10, 10, 10, 10));
-            panel.add(formPanel, BorderLayout.NORTH);
+            panel.add(formPanel, BorderLayout.PAGE_START);
             panel.add(bottomPanel, BorderLayout.CENTER);
 
             getContentPane().add(panel);
@@ -327,7 +395,51 @@ public final class MainWindow extends JFrame implements ActionListener {
             setVisible(true);
         }
 
+        private final class ClickListener implements ActionListener {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource() == saveButton) {
+                    if (!isFormSet()) {
+                        JOptionPane.showMessageDialog(mw, "LLena todos los campos.");
+                        return;
+                    }
+                    callCreateNewCustomer();
+                }
+                dispose();
+            }
+
+            private boolean areTextFieldSet() {
+                return isSet(tf1) && isSet(tf2) && isSet(tf3);
+            }
+
+            private boolean areComboBoxSet() {
+                return cb1.getSelectedItem() != null && cb2.getSelectedItem() != null;
+            }
+
+            private boolean isRadioGroupSet() {
+                return getRadioValue(buttonGroup) != null;
+            }
+
+            private boolean isFormSet() {
+                return areTextFieldSet() && areComboBoxSet() && isRadioGroupSet();
+            }
+
+            private void callCreateNewCustomer() {
+                callback.createCustomer(
+                    tf1.getText(),
+                    tf2.getText(),
+                    new Address(cb1.getSelectedItem().toString(), cb2.getSelectedItem().toString()),
+                    tf3.getText(),
+                    getRadioValue(buttonGroup),
+                    tf4.getText()
+                );
+            }
+
+        }
+
     }
+
     private final Controller controller;
     private final JTextField nameField;
     private final JTextField surnameField;
@@ -561,9 +673,9 @@ public final class MainWindow extends JFrame implements ActionListener {
             isv += currentItem.getISV();
             total += currentItem.getTotal();
         }
-        subtotalLabel.setText("$" + DECIMAL_FORMAT.format(subtotal));
-        isvLabel.setText("$" + DECIMAL_FORMAT.format(isv));
-        totalLabel.setText("$" + DECIMAL_FORMAT.format(total));
+        subtotalLabel.setText("$" + decimalFormat.format(subtotal));
+        isvLabel.setText("$" + decimalFormat.format(isv));
+        totalLabel.setText("$" + decimalFormat.format(total));
     }
 
     private void print() {
