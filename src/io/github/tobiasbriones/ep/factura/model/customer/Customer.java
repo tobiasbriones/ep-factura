@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-package io.github.tobiasbriones.exampleproject.factura.model.customer;
+package io.github.tobiasbriones.ep.factura.model.customer;
 
 public final class Customer {
     

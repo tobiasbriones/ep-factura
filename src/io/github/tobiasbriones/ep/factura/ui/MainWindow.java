@@ -5,13 +5,13 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-package io.github.tobiasbriones.exampleproject.factura.ui;
+package io.github.tobiasbriones.ep.factura.ui;
 
-import io.github.tobiasbriones.exampleproject.factura.model.BasketItem;
-import io.github.tobiasbriones.exampleproject.factura.model.Bill;
-import io.github.tobiasbriones.exampleproject.factura.model.Product;
-import io.github.tobiasbriones.exampleproject.factura.model.customer.Address;
-import io.github.tobiasbriones.exampleproject.factura.model.customer.Customer;
+import io.github.tobiasbriones.ep.factura.model.BasketItem;
+import io.github.tobiasbriones.ep.factura.model.Bill;
+import io.github.tobiasbriones.ep.factura.model.Product;
+import io.github.tobiasbriones.ep.factura.model.customer.Address;
+import io.github.tobiasbriones.ep.factura.model.customer.Customer;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

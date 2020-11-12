@@ -5,9 +5,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-package io.github.tobiasbriones.exampleproject.factura.model;
+package io.github.tobiasbriones.ep.factura.model;
 
-import io.github.tobiasbriones.exampleproject.factura.model.customer.Customer;
+import io.github.tobiasbriones.ep.factura.model.customer.Customer;
 
 import java.text.DecimalFormat;
 

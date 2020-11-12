@@ -5,11 +5,11 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-package io.github.tobiasbriones.exampleproject.factura;
+package io.github.tobiasbriones.ep.factura;
 
-import io.github.tobiasbriones.exampleproject.factura.model.Bill;
-import io.github.tobiasbriones.exampleproject.factura.model.Product;
-import io.github.tobiasbriones.exampleproject.factura.ui.MainWindow;
+import io.github.tobiasbriones.ep.factura.model.Bill;
+import io.github.tobiasbriones.ep.factura.model.Product;
+import io.github.tobiasbriones.ep.factura.ui.MainWindow;
 
 import javax.swing.*;
 import java.io.*;
