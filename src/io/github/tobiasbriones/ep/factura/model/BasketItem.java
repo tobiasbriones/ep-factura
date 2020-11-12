@@ -8,46 +8,48 @@
 package io.github.tobiasbriones.ep.factura.model;
 
 public final class BasketItem {
-    
+
     private final Product product;
     private int quantity;
-    
+
     public BasketItem(Product product, int quantity) {
         this.product = product;
         setQuantity(quantity);
     }
-    
+
     public BasketItem(Product product) {
         this(product, 0);
     }
-    
-    public void setQuantity(int quantity) {
-        if(quantity < 0) throw new RuntimeException("Quantity can't be negative, quantity: " + quantity);
-        this.quantity = quantity;
-    }
-    
+
     public Product getProduct() {
         return product;
     }
-    
+
     public int getQuantity() {
         return quantity;
     }
-    
+
+    public void setQuantity(int value) {
+        if (value < 0) {
+            throw new RuntimeException("Quantity can't be negative, quantity: " + value);
+        }
+        this.quantity = value;
+    }
+
     public double getAmount() {
         return product.price * quantity;
     }
-    
+
     public double getISV() {
         return product.isv() * quantity;
     }
-    
+
     public double getTotal() {
         return product.total() * quantity;
     }
-    
+
     public void addNew() {
         quantity++;
     }
-    
+
 }

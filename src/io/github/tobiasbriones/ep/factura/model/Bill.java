@@ -10,12 +10,11 @@ package io.github.tobiasbriones.ep.factura.model;
 import io.github.tobiasbriones.ep.factura.model.customer.Customer;
 
 import java.text.DecimalFormat;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public final class Bill {
-    
+
     private final List<BasketItem> items;
     private Customer customer;
     private String rtn;
@@ -24,29 +23,57 @@ public final class Bill {
     private double isv;
     private double total;
     private int totalItems;
-    
+
     public Bill() {
         this.items = new ArrayList<>();
     }
-    
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer value) {
+        this.customer = value;
+    }
+
+    public String getRtn() {
+        return rtn;
+    }
+
+    public void setRtn(String value) {
+        this.rtn = value;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String value) {
+        this.date = value;
+    }
+
+    public List<BasketItem> getItems() {
+        return items;
+    }
+
+    public double getSubtotal() {
+        return subtotal;
+    }
+
+    public double getIsv() {
+        return isv;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
     @Override
     public String toString() {
-        return items.size() + " productos, en total " + totalItems 
-                + "- total $" + new DecimalFormat(".##").format(total);
+        return items.size() + " productos, en total " + totalItems
+               + "- total $" + new DecimalFormat(".##").format(total);
     }
-    
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-    
-    public void setRtn(String rtn) {
-        this.rtn = rtn;
-    }
-    
-    public void setDate(String date) {
-        this.date = date;
-    }
-    
+
     public void addItem(BasketItem item) {
         items.add(item);
         subtotal += item.getAmount();
@@ -54,35 +81,7 @@ public final class Bill {
         total += item.getTotal();
         totalItems += item.getQuantity();
     }
-    
-    public Customer getCustomer() {
-        return customer;
-    }
-    
-    public String getRtn() {
-        return rtn;
-    }
-    
-    public String getDate() {
-        return date;
-    }
-    
-    public List<BasketItem> getItems() {
-        return items;
-    }
-    
-    public double getSubtotal() {
-        return subtotal;
-    }
-    
-    public double getIsv() {
-        return isv;
-    }
-    
-    public double getTotal() {
-        return total;
-    }
-    
+
     public void clear() {
         items.clear();
         customer = null;
@@ -92,5 +91,5 @@ public final class Bill {
         isv = 0;
         total = 0;
     }
-    
+
 }

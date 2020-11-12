@@ -8,62 +8,63 @@
 package io.github.tobiasbriones.ep.factura.model.customer;
 
 public final class Customer {
-    
+
     private String name;
     private String surname;
     private Address address;
     private String phone;
     private String genre;
     private String birthday;
-    
-    public Customer() {}
-    
-    public void setName(String name) {
-        this.name = name;
-    }
-    
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-    
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-    
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-    
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
-    
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
+
+    public Customer() {
     }
 
     public String getName() {
         return name;
     }
-    
+
+    public void setName(String value) {
+        this.name = value;
+    }
+
     public String getSurname() {
         return surname;
     }
-    
+
+    public void setSurname(String value) {
+        this.surname = value;
+    }
+
     public Address getAddress() {
         return address;
     }
-    
+
+    public void setAddress(Address value) {
+        this.address = value;
+    }
+
     public String getPhone() {
         return phone;
     }
-    
+
+    public void setPhone(String value) {
+        this.phone = value;
+    }
+
     public String getGenre() {
         return genre;
     }
-    
+
+    public void setGenre(String value) {
+        this.genre = value;
+    }
+
     public String getBirthday() {
         return birthday;
     }
-    
+
+    public void setBirthday(String value) {
+        this.birthday = value;
+    }
+
 }
