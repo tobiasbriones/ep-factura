@@ -27,6 +27,8 @@ import java.util.List;
 
 public final class MainWindow extends JFrame implements ActionListener {
 
+    private static final int WIDTH = 800;
+    private static final int HEIGHT = 300;
     private static final DecimalFormat decimalFormat = new DecimalFormat(".##");
 
     public interface Controller {
@@ -41,8 +43,8 @@ public final class MainWindow extends JFrame implements ActionListener {
 
     private static final class ListRenderer extends JPanel implements ListCellRenderer<BasketItem> {
 
-        private static final int WIDTH = 600;
-        private static final int HEIGHT = 30;
+        private static final int ITEM_WIDTH = 600;
+        private static final int ITEM_HEIGHT = 30;
         private final JPanel panelLeft;
         private final JPanel panelRight;
         private final JLabel quantityLabel;
@@ -109,7 +111,7 @@ public final class MainWindow extends JFrame implements ActionListener {
             panelRight.add(priceLabel);
 
             setLayout(new BorderLayout());
-            setPreferredSize(new Dimension(WIDTH, HEIGHT));
+            setPreferredSize(new Dimension(ITEM_WIDTH, ITEM_HEIGHT));
             setBorder(new EmptyBorder(0, 10, 0, 10));
             setOpaque(true);
             add(panelLeft, BorderLayout.LINE_START);
@@ -397,6 +399,14 @@ public final class MainWindow extends JFrame implements ActionListener {
 
         private final class ClickListener implements ActionListener {
 
+            private boolean isRadioGroupSet() {
+                return getRadioValue(buttonGroup) != null;
+            }
+
+            private boolean isFormSet() {
+                return areTextFieldSet() && areComboBoxSet() && isRadioGroupSet();
+            }
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == saveButton) {
@@ -415,14 +425,6 @@ public final class MainWindow extends JFrame implements ActionListener {
 
             private boolean areComboBoxSet() {
                 return cb1.getSelectedItem() != null && cb2.getSelectedItem() != null;
-            }
-
-            private boolean isRadioGroupSet() {
-                return getRadioValue(buttonGroup) != null;
-            }
-
-            private boolean isFormSet() {
-                return areTextFieldSet() && areComboBoxSet() && isRadioGroupSet();
             }
 
             private void callCreateNewCustomer() {
@@ -455,7 +457,7 @@ public final class MainWindow extends JFrame implements ActionListener {
     private final JCheckBox newCustomerCB;
     private final JButton printButton;
 
-    public MainWindow(Controller controller, List<Product> productsList) {
+    public MainWindow(Controller controller, Iterable<Product> products) {
         super("Factura");
         this.controller = controller;
         this.nameField = new JTextField();
@@ -471,18 +473,60 @@ public final class MainWindow extends JFrame implements ActionListener {
         this.totalLabel = new JLabel();
         this.newCustomerCB = new JCheckBox("Nuevo cliente");
         this.printButton = new JButton("Imprimir");
-        final JPanel panel = new JPanel();
-        final JPanel inputPanel = new JPanel();
-        final JPanel infoPanel = new JPanel();
-        final JPanel infoWrapperPanel = new JPanel();
-        final JPanel outputPanel = new JPanel();
-        final JPanel bottomPanel = new JPanel();
-        final GridBagConstraints gbc = new GridBagConstraints();
-        final JScrollPane scroll = new JScrollPane(list);
+
+        init(products);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == addButton) {
+            handleAddButtonClick();
+        }
+        else if (e.getSource() == printButton) {
+            handlePrintButtonClick();
+        }
+    }
+
+    private void handlePrintButtonClick() {
+        if (!checkFields()) {
+            JOptionPane.showMessageDialog(this, "Porfavor, llenar todos los campos.");
+            return;
+        }
+        if (newCustomerCB.isSelected()) {
+            new NewCustomerDialog(this, new NewCustomerDialogCallback());
+        }
+        else {
+            print();
+        }
+    }
+
+    private void handleAddButtonClick() {
+        final Product product = (Product) productsCB.getSelectedItem();
+        final BasketItem basket = isAdded(product);
+
+        if (basket != null) {
+            basket.addNew();
+            list.setSelectedValue(basket, true);
+        }
+        else {
+            listModel.addElement(new BasketItem(product, 1));
+        }
+        update();
+    }
+
+    private void init(Iterable<Product> products) {
+        final var panel = new JPanel();
+        final var inputPanel = new JPanel();
+        final var infoPanel = new JPanel();
+        final var infoWrapperPanel = new JPanel();
+        final var outputPanel = new JPanel();
+        final var bottomPanel = new JPanel();
+        final var gbc = new GridBagConstraints();
+        final var scroll = new JScrollPane(list);
 
         // Input panel
-        productsList.forEach(productsCB::addItem);
-        scroll.setPreferredSize(new Dimension(800, 300));
+        products.forEach(productsCB::addItem);
+        scroll.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         addButton.addActionListener(this);
         printButton.addActionListener(this);
         dateField.setText(new SimpleDateFormat().format(new Date()));
@@ -568,24 +612,24 @@ public final class MainWindow extends JFrame implements ActionListener {
         gbc.gridx = 1;
         gbc.gridy = 2;
         infoPanel.add(totalLabel, gbc);
-        infoWrapperPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        infoWrapperPanel.setLayout(new FlowLayout(FlowLayout.TRAILING));
         infoWrapperPanel.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, Color.decode("#737373")));
         infoWrapperPanel.add(infoPanel);
         outputPanel.setLayout(new BorderLayout());
-        outputPanel.add(scroll, BorderLayout.NORTH);
+        outputPanel.add(scroll, BorderLayout.PAGE_START);
         outputPanel.add(infoWrapperPanel, BorderLayout.CENTER);
 
         // Bottom panel
         bottomPanel.setLayout(new BorderLayout());
         bottomPanel.setBorder(new EmptyBorder(10, 0, 5, 0));
-        bottomPanel.add(newCustomerCB, BorderLayout.WEST);
-        bottomPanel.add(printButton, BorderLayout.EAST);
+        bottomPanel.add(newCustomerCB, BorderLayout.LINE_START);
+        bottomPanel.add(printButton, BorderLayout.LINE_END);
 
         panel.setLayout(new BorderLayout());
         panel.setBorder(new EmptyBorder(10, 10, 10, 10));
-        panel.add(inputPanel, BorderLayout.NORTH);
+        panel.add(inputPanel, BorderLayout.PAGE_START);
         panel.add(outputPanel, BorderLayout.CENTER);
-        panel.add(bottomPanel, BorderLayout.SOUTH);
+        panel.add(bottomPanel, BorderLayout.PAGE_END);
         getContentPane().add(panel);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -593,56 +637,6 @@ public final class MainWindow extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         setResizable(false);
         setVisible(true);
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == addButton) {
-            final Product product = (Product) productsCB.getSelectedItem();
-            final BasketItem basket = isAdded(product);
-
-            if (basket != null) {
-                basket.addNew();
-                list.setSelectedValue(basket, true);
-            }
-            else {
-                listModel.addElement(new BasketItem(product, 1));
-            }
-            update();
-        }
-        else if (e.getSource() == printButton) {
-            if (!checkFields()) {
-                JOptionPane.showMessageDialog(this, "Porfavor, llenar todos los campos.");
-                return;
-            }
-            if (newCustomerCB.isSelected()) {
-                new NewCustomerDialog(this, new NewCustomerDialog.Callback() {
-
-                    @Override
-                    public List<String> getCities() {
-                        return controller.getCities();
-                    }
-
-                    @Override
-                    public List<String> getCommunities() {
-                        return controller.getCommunities();
-                    }
-
-                    @Override
-                    public void createCustomer(
-                        String name, String surname, Address address, String phone,
-                        String sex, String birthday
-                    ) {
-                        JOptionPane.showMessageDialog(MainWindow.this, "Cliente creado: " +
-                                                                       name + " " + surname + " - " + address + " - " + phone + " - " + sex + " - " + birthday);
-                        print();
-                    }
-                });
-            }
-            else {
-                print();
-            }
-        }
     }
 
     private boolean checkFields() {
@@ -663,9 +657,9 @@ public final class MainWindow extends JFrame implements ActionListener {
 
     private void update() {
         BasketItem currentItem;
-        double subtotal = 0;
-        double isv = 0;
-        double total = 0;
+        double subtotal = 0.0d;
+        double isv = 0.0d;
+        double total = 0.0d;
 
         for (int i = 0; i < listModel.getSize(); i++) {
             currentItem = listModel.getElementAt(i);
@@ -679,7 +673,7 @@ public final class MainWindow extends JFrame implements ActionListener {
     }
 
     private void print() {
-        if (listModel.size() == 0) {
+        if (listModel.isEmpty()) {
             JOptionPane.showMessageDialog(this, "No se han agregado elementos.");
             return;
         }
@@ -708,6 +702,40 @@ public final class MainWindow extends JFrame implements ActionListener {
         isvLabel.setText("");
         totalLabel.setText("");
         listModel.removeAllElements();
+    }
+
+    private final class NewCustomerDialogCallback implements NewCustomerDialog.Callback {
+
+        private NewCustomerDialogCallback() {}
+
+        @Override
+        public List<String> getCities() {
+            return controller.getCities();
+        }
+
+        @Override
+        public List<String> getCommunities() {
+            return controller.getCommunities();
+        }
+
+        @Override
+        public void createCustomer(
+            String name,
+            String surname,
+            Address address,
+            String phone,
+            String sex,
+            String birthday
+        ) {
+            // create the customer ...
+            // ... customer created
+            final var msg = "Cliente creado: " + name + " " + surname + " - " + address + " - "
+                            + phone + " - " + sex + " - " + birthday;
+
+            JOptionPane.showMessageDialog(MainWindow.this, msg);
+            print();
+        }
+
     }
 
 }
