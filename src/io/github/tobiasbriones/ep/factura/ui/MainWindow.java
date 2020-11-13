@@ -27,6 +27,12 @@ import java.util.List;
 
 public final class MainWindow extends JFrame implements ActionListener {
 
+    //                                                                                            //
+    //                                                                                            //
+    //                                           CLASS                                            //
+    //                                                                                            //
+    //                                                                                            //
+
     private static final int WIDTH = 800;
     private static final int HEIGHT = 300;
     private static final DecimalFormat decimalFormat = new DecimalFormat(".##");
@@ -442,6 +448,12 @@ public final class MainWindow extends JFrame implements ActionListener {
 
     }
 
+    //                                                                                            //
+    //                                                                                            //
+    //                                          INSTANCE                                          //
+    //                                                                                            //
+    //                                                                                            //
+
     private final Controller controller;
     private final JTextField nameField;
     private final JTextField surnameField;
@@ -706,7 +718,8 @@ public final class MainWindow extends JFrame implements ActionListener {
 
     private final class NewCustomerDialogCallback implements NewCustomerDialog.Callback {
 
-        private NewCustomerDialogCallback() {}
+        private NewCustomerDialogCallback() {
+        }
 
         @Override
         public List<String> getCities() {
