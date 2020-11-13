@@ -5,8 +5,4 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-/**
- * Contains the Factura application models.
- */
-
-package io.github.tobiasbriones.ep.factura.model;
+package io.github.tobiasbriones.ep.factura.domain.model.basket;

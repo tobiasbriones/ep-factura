@@ -5,8 +5,12 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-/**
- * Contains customer related models.
- */
+package io.github.tobiasbriones.ep.factura.domain.model.customer;
 
-package io.github.tobiasbriones.ep.factura.model.customer;
+public interface CustomerNameAccessor {
+
+    String getName();
+
+    String getSurname();
+
+}

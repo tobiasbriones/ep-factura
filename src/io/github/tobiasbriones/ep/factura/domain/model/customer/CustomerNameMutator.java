@@ -5,6 +5,12 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-package io.github.tobiasbriones.ep.factura.model.bill;
+package io.github.tobiasbriones.ep.factura.domain.model.customer;
 
-public interface BillModel extends BillAccessor, BillMutator {}
+public interface CustomerNameMutator<M> {
+
+    M setName(String value);
+
+    M setSurname(String value);
+
+}

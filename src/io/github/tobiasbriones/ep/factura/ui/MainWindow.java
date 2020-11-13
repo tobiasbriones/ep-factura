@@ -7,11 +7,11 @@
 
 package io.github.tobiasbriones.ep.factura.ui;
 
-import io.github.tobiasbriones.ep.factura.model.basket.BasketItem;
-import io.github.tobiasbriones.ep.factura.model.bill.Bill;
-import io.github.tobiasbriones.ep.factura.model.product.Product;
-import io.github.tobiasbriones.ep.factura.model.customer.Address;
-import io.github.tobiasbriones.ep.factura.model.customer.Customer;
+import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketItem;
+import io.github.tobiasbriones.ep.factura.domain.model.bill.Bill;
+import io.github.tobiasbriones.ep.factura.domain.model.product.Product;
+import io.github.tobiasbriones.ep.factura.domain.model.customer.Address;
+import io.github.tobiasbriones.ep.factura.domain.model.customer.Customer;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -21,10 +21,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 public final class MainWindow extends JFrame implements ActionListener {

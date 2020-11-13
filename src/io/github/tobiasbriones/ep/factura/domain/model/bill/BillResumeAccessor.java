@@ -5,12 +5,14 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-package io.github.tobiasbriones.ep.factura.model.customer;
+package io.github.tobiasbriones.ep.factura.domain.model.bill;
 
-public interface CustomerNameAccessor {
+public interface BillResumeAccessor {
 
-    String getName();
+    double getSubtotal();
 
-    String getSurname();
+    double getIsv();
+
+    double getTotal();
 
 }

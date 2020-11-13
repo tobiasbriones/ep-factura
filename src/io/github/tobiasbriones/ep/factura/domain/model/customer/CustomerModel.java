@@ -5,6 +5,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-package io.github.tobiasbriones.ep.factura.model.basket;
+package io.github.tobiasbriones.ep.factura.domain.model.customer;
 
-public interface BasketItemModel extends BasketItemAccessor, BasketItemMutator {}
+public interface CustomerModel extends CustomerAccessor, CustomerMutator {}

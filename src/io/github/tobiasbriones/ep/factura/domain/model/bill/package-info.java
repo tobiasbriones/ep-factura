@@ -5,4 +5,4 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-package io.github.tobiasbriones.ep.factura.model.bill;
+package io.github.tobiasbriones.ep.factura.domain.model.bill;

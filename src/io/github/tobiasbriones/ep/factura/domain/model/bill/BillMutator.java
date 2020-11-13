@@ -5,10 +5,10 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-package io.github.tobiasbriones.ep.factura.model.bill;
+package io.github.tobiasbriones.ep.factura.domain.model.bill;
 
-import io.github.tobiasbriones.ep.factura.model.basket.BasketItem;
-import io.github.tobiasbriones.ep.factura.model.customer.Customer;
+import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketItem;
+import io.github.tobiasbriones.ep.factura.domain.model.customer.Customer;
 
 import java.time.LocalDateTime;
 

@@ -7,8 +7,8 @@
 
 package io.github.tobiasbriones.ep.factura;
 
-import io.github.tobiasbriones.ep.factura.model.bill.Bill;
-import io.github.tobiasbriones.ep.factura.model.product.Product;
+import io.github.tobiasbriones.ep.factura.domain.model.bill.Bill;
+import io.github.tobiasbriones.ep.factura.domain.model.product.Product;
 import io.github.tobiasbriones.ep.factura.ui.MainWindow;
 
 import javax.swing.*;

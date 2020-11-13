@@ -5,12 +5,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-package io.github.tobiasbriones.ep.factura.model.customer;
+/**
+ * Contains customer related models.
+ */
 
-public interface CustomerNameMutator<M> {
-
-    M setName(String value);
-
-    M setSurname(String value);
-
-}
+package io.github.tobiasbriones.ep.factura.domain.model.customer;

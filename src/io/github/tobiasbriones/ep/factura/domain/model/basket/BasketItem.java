@@ -5,9 +5,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-package io.github.tobiasbriones.ep.factura.model.basket;
+package io.github.tobiasbriones.ep.factura.domain.model.basket;
 
-import io.github.tobiasbriones.ep.factura.model.product.Product;
+import io.github.tobiasbriones.ep.factura.domain.model.product.Product;
 
 import java.util.Objects;
 

@@ -5,4 +5,12 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-package io.github.tobiasbriones.ep.factura.model.product;
+package io.github.tobiasbriones.ep.factura.domain.model.customer;
+
+public interface AddressModel {
+
+    String getCity();
+
+    String getCommunity();
+
+}

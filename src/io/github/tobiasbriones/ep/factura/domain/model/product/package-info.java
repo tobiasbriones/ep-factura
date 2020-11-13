@@ -5,12 +5,4 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-package io.github.tobiasbriones.ep.factura.model.basket;
-
-public interface BasketItemMutator {
-
-    void setQuantity(int value);
-
-    void incrementQuantity();
-
-}
+package io.github.tobiasbriones.ep.factura.domain.model.product;
