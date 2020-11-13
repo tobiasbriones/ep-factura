@@ -6,7 +6,7 @@
  */
 
 /**
- * Contains the immutable Product model.
+ * Contains the domain repository.
  */
 
-package io.github.tobiasbriones.ep.factura.domain.model.product;
+package io.github.tobiasbriones.ep.factura.domain.repository;

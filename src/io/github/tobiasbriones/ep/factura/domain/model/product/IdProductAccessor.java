@@ -7,10 +7,9 @@
 
 package io.github.tobiasbriones.ep.factura.domain.model.product;
 
-public interface Product extends ProductAccessor {
+@FunctionalInterface
+public interface IdProductAccessor {
 
-    static Product of(int code, String description, double price) {
-        return new ProductRecord(code, description, price);
-    }
+    int getCode();
 
 }

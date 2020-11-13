@@ -80,14 +80,14 @@ public final class Main implements MainWindow.Controller {
     private List<Product> loadProducts() {
         final List<Product> products = new ArrayList<>();
 
-        products.add(new Product(120, "Product 1", 45));
-        products.add(new Product(140, "Product 2", 446.99));
-        products.add(new Product(487, "Product 3", 0.25));
-        products.add(new Product(521, "Product 4", 42));
-        products.add(new Product(785, "Product 5", 7));
-        products.add(new Product(122, "Product 6", 10.33));
-        products.add(new Product(479, "Product 7", 785.50));
-        products.add(new Product(642, "Product 8", 12.99));
+        products.add(Product.of(120, "Product 1", 45));
+        products.add(Product.of(140, "Product 2", 446.99));
+        products.add(Product.of(487, "Product 3", 0.25));
+        products.add(Product.of(521, "Product 4", 42));
+        products.add(Product.of(785, "Product 5", 7));
+        products.add(Product.of(122, "Product 6", 10.33));
+        products.add(Product.of(479, "Product 7", 785.50));
+        products.add(Product.of(642, "Product 8", 12.99));
         return products;
     }
 

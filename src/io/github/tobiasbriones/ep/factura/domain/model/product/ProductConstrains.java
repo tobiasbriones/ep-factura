@@ -7,16 +7,10 @@
 
 package io.github.tobiasbriones.ep.factura.domain.model.product;
 
-public interface ProductModel {
+public final class ProductConstrains {
 
-    int getCode();
+    public static final int DEF_ISV_PERCENTAGE = 15;
 
-    String getDescription();
-
-    double getPrice();
-
-    double getIsv();
-
-    double getTotal();
+    private ProductConstrains() {}
 
 }
