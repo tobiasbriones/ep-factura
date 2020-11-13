@@ -644,6 +644,7 @@ public final class MainWindow extends JFrame implements ActionListener {
         panel.add(bottomPanel, BorderLayout.PAGE_END);
         getContentPane().add(panel);
 
+        setIconImage(Toolkit.getDefaultToolkit().getImage("icon.png"));
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         pack();
         setLocationRelativeTo(null);
