@@ -7,9 +7,9 @@
 
 package io.github.tobiasbriones.ep.factura.ui;
 
-import io.github.tobiasbriones.ep.factura.model.BasketItem;
-import io.github.tobiasbriones.ep.factura.model.Bill;
-import io.github.tobiasbriones.ep.factura.model.Product;
+import io.github.tobiasbriones.ep.factura.model.basket.BasketItem;
+import io.github.tobiasbriones.ep.factura.model.bill.Bill;
+import io.github.tobiasbriones.ep.factura.model.product.Product;
 import io.github.tobiasbriones.ep.factura.model.customer.Address;
 import io.github.tobiasbriones.ep.factura.model.customer.Customer;
 
@@ -79,8 +79,8 @@ public final class MainWindow extends JFrame implements ActionListener {
             boolean cellHasFocus
         ) {
             quantityLabel.setText(String.valueOf(value.getQuantity()));
-            productCodeLabel.setText(String.valueOf(value.getProduct().code));
-            productDescriptionLabel.setText(value.getProduct().description);
+            productCodeLabel.setText(String.valueOf(value.getProduct().getCode()));
+            productDescriptionLabel.setText(value.getProduct().getDescription());
             priceLabel.setText("$" + decimalFormat.format(value.getAmount()));
 
             if (isSelected) {
@@ -517,7 +517,7 @@ public final class MainWindow extends JFrame implements ActionListener {
         final BasketItem basket = isAdded(product);
 
         if (basket != null) {
-            basket.addNew();
+            basket.incrementQuantity();
             list.setSelectedValue(basket, true);
         }
         else {

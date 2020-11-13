@@ -7,64 +7,102 @@
 
 package io.github.tobiasbriones.ep.factura.model.customer;
 
-public final class Customer {
+import java.util.Objects;
+
+public final class Customer implements CustomerModel {
 
     private String name;
     private String surname;
-    private Address address;
+    private AddressModel address;
     private String phone;
     private String genre;
     private String birthday;
 
     public Customer() {
+        this.name = "";
+        this.surname = "";
+        this.address = new Address("", "");
+        this.phone = "";
+        this.genre = "";
+        this.birthday = "";
     }
 
+    @Override
+    public String toString() {
+        return "Customer[" +
+               "name=" + name + ", " +
+               "surname=" + surname + ", " +
+               "address=" + address + ", " +
+               "phone=" + phone + ", " +
+               "genre=" + genre + ", " +
+               "birthday=" + birthday + ", " +
+               "]";
+    }
+
+    @Override
     public String getName() {
         return name;
     }
 
-    public void setName(String value) {
-        this.name = value;
+    @Override
+    public Customer setName(String value) {
+        name = value;
+        return this;
     }
 
+    @Override
     public String getSurname() {
         return surname;
     }
 
-    public void setSurname(String value) {
-        this.surname = value;
+    @Override
+    public Customer setSurname(String value) {
+        surname = value;
+        return this;
     }
 
-    public Address getAddress() {
+    @Override
+    public AddressModel getAddress() {
         return address;
     }
 
-    public void setAddress(Address value) {
-        this.address = value;
+    @Override
+    public Customer setAddress(AddressModel value) {
+        address = value;
+        return this;
     }
 
+    @Override
     public String getPhone() {
         return phone;
     }
 
-    public void setPhone(String value) {
-        this.phone = value;
+    @Override
+    public Customer setPhone(String value) {
+        phone = value;
+        return this;
     }
 
+    @Override
     public String getGenre() {
         return genre;
     }
 
-    public void setGenre(String value) {
-        this.genre = value;
+    @Override
+    public Customer setGenre(String value) {
+        genre = value;
+        return this;
     }
 
+    @Override
     public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(String value) {
-        this.birthday = value;
+    @Override
+    public Customer setBirthday(String value) {
+        birthday = value;
+        return this;
     }
 
 }
