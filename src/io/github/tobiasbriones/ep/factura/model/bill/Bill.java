@@ -10,6 +10,8 @@ package io.github.tobiasbriones.ep.factura.model.bill;
 import io.github.tobiasbriones.ep.factura.model.basket.BasketItem;
 import io.github.tobiasbriones.ep.factura.model.customer.Customer;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -19,7 +21,7 @@ public final class Bill implements BillModel {
     private final List<BasketItem> items;
     private Customer customer;
     private String rtn;
-    private String date;
+    private LocalDateTime date;
     private double subtotal;
     private double isv;
     private double total;
@@ -72,12 +74,12 @@ public final class Bill implements BillModel {
     }
 
     @Override
-    public String getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
     @Override
-    public Bill setDate(String value) {
+    public Bill setDate(LocalDateTime value) {
         date = value;
         return this;
     }
@@ -120,7 +122,7 @@ public final class Bill implements BillModel {
         items.clear();
         customer = new Customer();
         rtn = "";
-        date = "";
+        date = LocalDateTime.now();
         subtotal = 0.0d;
         isv = 0.0d;
         total = 0.0d;

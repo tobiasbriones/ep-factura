@@ -10,6 +10,7 @@ package io.github.tobiasbriones.ep.factura.model.bill;
 import io.github.tobiasbriones.ep.factura.model.basket.BasketItem;
 import io.github.tobiasbriones.ep.factura.model.customer.Customer;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface BillAccessor extends BillResumeAccessor {
@@ -18,7 +19,7 @@ public interface BillAccessor extends BillResumeAccessor {
 
     String getRtn();
 
-    String getDate();
+    LocalDateTime getDate();
 
     List<BasketItem> getItems();
 

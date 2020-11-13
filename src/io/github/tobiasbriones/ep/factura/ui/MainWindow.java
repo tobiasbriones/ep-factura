@@ -22,6 +22,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -541,7 +543,8 @@ public final class MainWindow extends JFrame implements ActionListener {
         scroll.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         addButton.addActionListener(this);
         printButton.addActionListener(this);
-        dateField.setText(new SimpleDateFormat().format(new Date()));
+        dateField.setEnabled(false);
+        dateField.setText(LocalDate.now().toString());
         inputPanel.setLayout(new GridBagLayout());
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.weightx = 1;
@@ -697,7 +700,7 @@ public final class MainWindow extends JFrame implements ActionListener {
         customer.setName(nameField.getText());
         customer.setSurname(surnameField.getText());
         bill.setRtn(rtnField.getText());
-        bill.setDate(dateField.getText());
+        bill.setDate(LocalDateTime.now());
         bill.setCustomer(customer);
         for (int i = 0; i < listModel.getSize(); i++) {
             currentItem = listModel.getElementAt(i);

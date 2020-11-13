@@ -10,13 +10,15 @@ package io.github.tobiasbriones.ep.factura.model.bill;
 import io.github.tobiasbriones.ep.factura.model.basket.BasketItem;
 import io.github.tobiasbriones.ep.factura.model.customer.Customer;
 
+import java.time.LocalDateTime;
+
 public interface BillMutator {
 
     BillMutator setCustomer(Customer value);
 
     BillMutator setRtn(String value);
 
-    BillMutator setDate(String value);
+    BillMutator setDate(LocalDateTime value);
 
     void addItem(BasketItem item);
 
