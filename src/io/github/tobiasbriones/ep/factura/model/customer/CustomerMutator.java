@@ -7,11 +7,7 @@
 
 package io.github.tobiasbriones.ep.factura.model.customer;
 
-public interface CustomerMutator {
-
-    CustomerMutator setName(String value);
-
-    CustomerMutator setSurname(String value);
+public interface CustomerMutator extends CustomerNameMutator<CustomerMutator> {
 
     CustomerMutator setAddress(AddressModel value);
 

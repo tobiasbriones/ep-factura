@@ -7,14 +7,10 @@
 
 package io.github.tobiasbriones.ep.factura.model.customer;
 
-public interface CustomerAccessor extends CustomerNameAccessor {
+public interface CustomerNameMutator<M> {
 
-    AddressModel getAddress();
+    M setName(String value);
 
-    String getPhone();
-
-    String getGenre();
-
-    String getBirthday();
+    M setSurname(String value);
 
 }

@@ -12,7 +12,7 @@ import io.github.tobiasbriones.ep.factura.model.customer.Customer;
 
 import java.util.List;
 
-public interface BillAccessor {
+public interface BillAccessor extends BillResumeAccessor {
 
     Customer getCustomer();
 
@@ -21,11 +21,5 @@ public interface BillAccessor {
     String getDate();
 
     List<BasketItem> getItems();
-
-    double getSubtotal();
-
-    double getIsv();
-
-    double getTotal();
 
 }
