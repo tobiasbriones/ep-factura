@@ -9,12 +9,20 @@ package io.github.tobiasbriones.ep.factura.model.customer;
 
 public final class Address {
 
-    public final String city;
-    public final String community;
+    private final String city;
+    private final String community;
 
     public Address(String city, String community) {
         this.city = city;
         this.community = community;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getCommunity() {
+        return community;
     }
 
     @Override
