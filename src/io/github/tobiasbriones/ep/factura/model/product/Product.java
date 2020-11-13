@@ -46,7 +46,7 @@ public final class Product implements ProductModel {
         return "Product[" +
                "code=" + code + ", " +
                "description=" + description + ", " +
-               "price=" + price + ", " +
+               "price=" + price +
                "]";
     }
 

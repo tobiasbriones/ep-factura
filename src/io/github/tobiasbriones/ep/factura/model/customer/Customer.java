@@ -35,7 +35,7 @@ public final class Customer implements CustomerModel {
                "address=" + address + ", " +
                "phone=" + phone + ", " +
                "genre=" + genre + ", " +
-               "birthday=" + birthday + ", " +
+               "birthday=" + birthday +
                "]";
     }
 

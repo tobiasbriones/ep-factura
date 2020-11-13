@@ -45,7 +45,7 @@ public final class Bill implements BillModel {
                "subtotal=" + subtotal + ", " +
                "isv=" + isv + ", " +
                "total=" + total + ", " +
-               "totalItems=" + totalItems + ", " +
+               "totalItems=" + totalItems +
                "]";
     }
 

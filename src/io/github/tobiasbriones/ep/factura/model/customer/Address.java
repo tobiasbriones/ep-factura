@@ -23,7 +23,7 @@ public final class Address implements AddressModel {
     public String toString() {
         return "Address[" +
                "city=" + city + ", " +
-               "community=" + community + ", " +
+               "community=" + community +
                "]";
     }
 

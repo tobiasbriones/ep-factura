@@ -50,7 +50,7 @@ public final class BasketItem implements BasketItemModel {
     public String toString() {
         return "BasketItem[" +
                "product=" + product + ", " +
-               "quantity=" + quantity + ", " +
+               "quantity=" + quantity +
                "]";
     }
 
