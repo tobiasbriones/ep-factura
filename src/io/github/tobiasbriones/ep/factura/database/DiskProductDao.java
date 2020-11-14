@@ -20,7 +20,7 @@ import java.util.Optional;
 
 public final class DiskProductDao implements ProductDao {
 
-    private static final String PRODUCTS_FILE_PATH = "products.txt";
+    private static final String PRODUCTS_FILE_PATH = "products";
     private static final int ESTIMATED_INITIAL_CAPACITY = 50;
 
     private static int getEstimatedInitialCapacity() {

@@ -51,7 +51,6 @@ public final class InMemoryProductDao implements ProductDao {
         this.products = new HashMap<>(products.size());
 
         products.forEach(product -> this.products.put(product.getCode(), product));
-        init();
     }
 
     /**
