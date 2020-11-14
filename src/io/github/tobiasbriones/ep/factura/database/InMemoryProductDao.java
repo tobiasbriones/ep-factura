@@ -32,10 +32,10 @@ public final class InMemoryProductDao implements ProductDao {
 
     }
 
-    private final List<Product> products;
+    private final Map<Integer, Product> products;
 
     public InMemoryProductDao() {
-        this.products = new ArrayList<>(ESTIMATED_NUMBER_OF_PRODUCTS);
+        this.products = new HashMap<>(ESTIMATED_NUMBER_OF_PRODUCTS);
 
         init();
     }
@@ -48,8 +48,9 @@ public final class InMemoryProductDao implements ProductDao {
      *                 copy of the products is created
      */
     InMemoryProductDao(Collection<Product> products) {
-        this.products = List.copyOf(products);
+        this.products = new HashMap<>(products.size());
 
+        products.forEach(product -> this.products.put(product.getCode(), product));
         init();
     }
 
@@ -59,7 +60,7 @@ public final class InMemoryProductDao implements ProductDao {
      * @return the unmodifiable list of products of this product DAO
      */
     List<Product> getProducts() {
-        return Collections.unmodifiableList(products);
+        return List.copyOf(products.values());
     }
 
     @Override
@@ -75,18 +76,18 @@ public final class InMemoryProductDao implements ProductDao {
         }
         final var indexStart = page * pageSize;
         final var indexEnd = indexStart + pageSize;
-        return fetchRange(indexStart, indexEnd);
+        return fetchRangeByCode(indexStart, indexEnd);
     }
 
     @Override
     public void create(Product record) {
-        products.add(record);
+        products.put(record.getCode(), record);
     }
 
     @Override
     public void update(Product record) {
         if (isInBounds(record.getCode())) {
-            products.set(record.getCode(), record);
+            products.replace(record.getCode(), record);
         }
     }
 
@@ -102,28 +103,24 @@ public final class InMemoryProductDao implements ProductDao {
             final var description = "Product " + i + " description";
             final var price = Math.random() * 1500.0d;
 
-            products.add(Product.of(i, description, price));
+            products.put(i, Product.of(i, description, price));
         }
     }
 
-    private boolean isInBounds(int index) {
-        return index >= 0 && index < products.size();
+    private boolean isInBounds(int productCode) {
+        return products.containsKey(productCode);
     }
 
     private Optional<Product> fetchByCode(int code) {
-        final InMemoryProductFetcher fetcher = (
-            productList,
-            productCode
-        ) -> isInBounds(productCode) ? productList.get(productCode) : null;
-        return Optional.ofNullable(fetcher.fetch(products, code));
+        return Optional.ofNullable(products.get(code));
     }
 
-    private List<Product> fetchRange(int indexStart, int indexEnd) {
-        final var productsFound = new ArrayList<Product>(indexEnd - indexStart);
+    private List<Product> fetchRangeByCode(int productCodeStart, int productCodeEnd) {
+        final var productsFound = new ArrayList<Product>(productCodeEnd - productCodeStart);
 
-        for (int i = indexStart; i < indexEnd; i++) {
+        for (int i = productCodeStart; i < productCodeEnd; i++) {
             if (!isInBounds(i)) {
-                break;
+                continue;
             }
             productsFound.add(products.get(i));
         }
