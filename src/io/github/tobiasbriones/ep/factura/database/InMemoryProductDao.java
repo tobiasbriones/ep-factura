@@ -11,10 +11,7 @@ import io.github.tobiasbriones.ep.factura.data.ProductDao;
 import io.github.tobiasbriones.ep.factura.domain.model.product.IdProductAccessor;
 import io.github.tobiasbriones.ep.factura.domain.model.product.Product;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public final class InMemoryProductDao implements ProductDao {
 
@@ -41,6 +38,28 @@ public final class InMemoryProductDao implements ProductDao {
         this.products = new ArrayList<>(ESTIMATED_NUMBER_OF_PRODUCTS);
 
         init();
+    }
+
+    /**
+     * Special constructor to let {@link DiskProductDao} load a list of products
+     * from the local file.
+     *
+     * @param products list of products to assign to this product DAO, a new
+     *                 copy of the products is created
+     */
+    InMemoryProductDao(Collection<Product> products) {
+        this.products = List.copyOf(products);
+
+        init();
+    }
+
+    /**
+     * Special getter so that {@link DiskProductDao} can perform its operations.
+     *
+     * @return the unmodifiable list of products of this product DAO
+     */
+    List<Product> getProducts() {
+        return Collections.unmodifiableList(products);
     }
 
     @Override
