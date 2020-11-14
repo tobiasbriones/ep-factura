@@ -13,6 +13,6 @@ Example project for a silly billing application made in Java-Swing.
 ## License
 Example Project: Factura
 
-Copyright © 2019 Tobias Briones. All rights reserved.
+Copyright © 2019-2020 Tobias Briones. All rights reserved.
 
 This software is licensed under the [MIT License](https://github.com/TobiasBriones/example.programming.java.factura/blob/master/LICENSE).
