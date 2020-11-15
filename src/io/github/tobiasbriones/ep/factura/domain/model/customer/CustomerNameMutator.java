@@ -7,10 +7,10 @@
 
 package io.github.tobiasbriones.ep.factura.domain.model.customer;
 
-public interface CustomerNameMutator<M> {
+public interface CustomerNameMutator {
 
-    M setName(String value);
+    void setName(String value);
 
-    M setSurname(String value);
+    void setSurname(String value);
 
 }

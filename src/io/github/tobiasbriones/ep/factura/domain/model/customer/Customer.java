@@ -43,9 +43,8 @@ public final class Customer implements CustomerModel {
     }
 
     @Override
-    public Customer setName(String value) {
+    public void setName(String value) {
         name = value;
-        return this;
     }
 
     @Override
@@ -54,9 +53,8 @@ public final class Customer implements CustomerModel {
     }
 
     @Override
-    public Customer setSurname(String value) {
+    public void setSurname(String value) {
         surname = value;
-        return this;
     }
 
     @Override
@@ -65,9 +63,8 @@ public final class Customer implements CustomerModel {
     }
 
     @Override
-    public Customer setAddress(AddressModel value) {
+    public void setAddress(AddressModel value) {
         address = value;
-        return this;
     }
 
     @Override
@@ -76,9 +73,8 @@ public final class Customer implements CustomerModel {
     }
 
     @Override
-    public Customer setPhone(String value) {
+    public void setPhone(String value) {
         phone = value;
-        return this;
     }
 
     @Override
@@ -87,9 +83,8 @@ public final class Customer implements CustomerModel {
     }
 
     @Override
-    public Customer setGenre(String value) {
+    public void setGenre(String value) {
         genre = value;
-        return this;
     }
 
     @Override
@@ -98,9 +93,8 @@ public final class Customer implements CustomerModel {
     }
 
     @Override
-    public Customer setBirthday(String value) {
+    public void setBirthday(String value) {
         birthday = value;
-        return this;
     }
 
 }

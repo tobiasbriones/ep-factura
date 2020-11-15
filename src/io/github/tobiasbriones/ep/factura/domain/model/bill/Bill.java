@@ -56,9 +56,8 @@ public final class Bill implements BillModel {
     }
 
     @Override
-    public Bill setCustomer(Customer value) {
+    public void setCustomer(Customer value) {
         this.customer = value;
-        return this;
     }
 
     @Override
@@ -67,9 +66,8 @@ public final class Bill implements BillModel {
     }
 
     @Override
-    public Bill setRtn(String value) {
+    public void setRtn(String value) {
         rtn = value;
-        return this;
     }
 
     @Override
@@ -78,9 +76,8 @@ public final class Bill implements BillModel {
     }
 
     @Override
-    public Bill setDate(LocalDateTime value) {
+    public void setDate(LocalDateTime value) {
         date = value;
-        return this;
     }
 
     @Override

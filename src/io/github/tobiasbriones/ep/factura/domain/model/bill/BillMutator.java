@@ -14,11 +14,11 @@ import java.time.LocalDateTime;
 
 public interface BillMutator {
 
-    BillMutator setCustomer(Customer value);
+    void setCustomer(Customer value);
 
-    BillMutator setRtn(String value);
+    void setRtn(String value);
 
-    BillMutator setDate(LocalDateTime value);
+    void setDate(LocalDateTime value);
 
     void addItem(BasketItem item);
 

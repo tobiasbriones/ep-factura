@@ -7,14 +7,14 @@
 
 package io.github.tobiasbriones.ep.factura.domain.model.customer;
 
-public interface CustomerMutator extends CustomerNameMutator<CustomerMutator> {
+public interface CustomerMutator extends CustomerNameMutator {
 
-    CustomerMutator setAddress(AddressModel value);
+    void setAddress(AddressModel value);
 
-    CustomerMutator setPhone(String value);
+    void setPhone(String value);
 
-    CustomerMutator setGenre(String value);
+    void setGenre(String value);
 
-    CustomerMutator setBirthday(String value);
+    void setBirthday(String value);
 
 }
