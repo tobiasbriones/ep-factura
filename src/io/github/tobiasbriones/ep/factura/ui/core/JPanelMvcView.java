@@ -11,8 +11,8 @@ import javax.swing.*;
 
 public abstract class JPanelMvcView<C> extends SwingMvcView<JPanel, C> {
 
-    protected JPanelMvcView(C presenter) {
-        super(JPanel::new, presenter);
+    protected JPanelMvcView(C controller) {
+        super(JPanel::new, controller);
     }
 
 }

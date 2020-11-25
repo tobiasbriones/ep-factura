@@ -23,15 +23,15 @@ final class Mvc {
 
     }
 
-    interface Controller<View, Out> extends Initializable {
+    interface Controller<View, Output> extends Initializable {
 
         View getView();
 
         void setView(View value);
 
-        Optional<Out> getOutput();
+        Optional<Output> getOutput();
 
-        void setOutput(Out value);
+        void setOutput(Output value);
 
     }
 

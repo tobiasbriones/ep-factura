@@ -9,21 +9,21 @@ package io.github.tobiasbriones.ep.factura.ui.core;
 
 import java.util.Optional;
 
-public abstract class MvcController<View, Out> implements Mvc.Controller<View, Out> {
+public abstract class MvcController<View, Output> implements Mvc.Controller<View, Output> {
 
-    private Out output;
+    private Output output;
 
     protected MvcController() {
         this.output = null;
     }
 
     @Override
-    public final Optional<Out> getOutput() {
+    public final Optional<Output> getOutput() {
         return Optional.ofNullable(output);
     }
 
     @Override
-    public final void setOutput(Out value) {
+    public final void setOutput(Output value) {
         output = value;
     }
 
