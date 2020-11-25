@@ -7,9 +7,9 @@
 
 package io.github.tobiasbriones.ep.factura.ui.mainbilling.items.editor;
 
-final class ItemEditor {
+public final class ItemEditor {
 
-    interface Output {
+    public interface Output {
 
         void onDelete();
 

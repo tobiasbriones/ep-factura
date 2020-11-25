@@ -46,4 +46,6 @@ public final class ItemEditorComponent {
         controller.init();
     }
 
+    private ItemEditorComponent() {}
+
 }
