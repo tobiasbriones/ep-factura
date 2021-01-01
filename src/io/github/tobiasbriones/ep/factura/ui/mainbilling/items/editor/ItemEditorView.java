@@ -1,8 +1,13 @@
 /*
- * Copyright (c) 2020 Tobias Briones.
+ * Copyright (c) 2020 Tobias Briones. All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * SPDX-License-Identifier: MIT
+ *
+ * This file is part of Example Project: Factura.
+ *
+ * This source code is licensed under the MIT License found in the
+ * LICENSE file in the root directory of this source tree or at
+ * https://opensource.org/licenses/MIT.
  */
 
 package io.github.tobiasbriones.ep.factura.ui.mainbilling.items.editor;
@@ -61,7 +66,7 @@ final class ItemEditorView extends JDialogMvcView<ItemEditorController> {
 
     @Override
     public void bindEvents(ItemEditorController controller) {
-        deleteButton.addActionListener(e -> controller.onDelete());
+        deleteButton.addActionListener(e -> controller.onDelete(item));
         saveButton.addActionListener(e -> retrieveQuantity(controller::onUpdate));
     }
 

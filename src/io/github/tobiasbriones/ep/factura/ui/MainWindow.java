@@ -1,17 +1,24 @@
 /*
- * Copyright (c) 2019 Tobias Briones.
+ * Copyright (c) 2019-2020 Tobias Briones. All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * SPDX-License-Identifier: MIT
+ *
+ * This file is part of Example Project: Factura.
+ *
+ * This source code is licensed under the MIT License found in the
+ * LICENSE file in the root directory of this source tree or at
+ * https://opensource.org/licenses/MIT.
  */
 
 package io.github.tobiasbriones.ep.factura.ui;
 
+import io.github.tobiasbriones.ep.factura.database.InMemoryProductDao;
 import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketItem;
 import io.github.tobiasbriones.ep.factura.domain.model.bill.Bill;
-import io.github.tobiasbriones.ep.factura.domain.model.product.Product;
 import io.github.tobiasbriones.ep.factura.domain.model.customer.Address;
 import io.github.tobiasbriones.ep.factura.domain.model.customer.Customer;
+import io.github.tobiasbriones.ep.factura.domain.model.product.Product;
+import io.github.tobiasbriones.ep.factura.repository.AppProductRepository;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -33,8 +40,8 @@ public final class MainWindow extends JFrame implements ActionListener {
     //                                                                                            //
     //                                                                                            //
 
-    private static final int WIDTH = 800;
-    private static final int HEIGHT = 300;
+    public static final int WIDTH = 800;
+    public static final int HEIGHT = 300;
     private static final DecimalFormat decimalFormat = new DecimalFormat(".##");
 
     public interface Controller {
@@ -487,6 +494,8 @@ public final class MainWindow extends JFrame implements ActionListener {
         this.printButton = new JButton("Imprimir");
 
         init(products);
+        final var productDao = new InMemoryProductDao();
+        final var productRepository = new AppProductRepository(productDao);
     }
 
     @Override

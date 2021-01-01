@@ -1,12 +1,18 @@
 /*
- * Copyright (c) 2020 Tobias Briones.
+ * Copyright (c) 2020 Tobias Briones. All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * SPDX-License-Identifier: MIT
+ *
+ * This file is part of Example Project: Factura.
+ *
+ * This source code is licensed under the MIT License found in the
+ * LICENSE file in the root directory of this source tree or at
+ * https://opensource.org/licenses/MIT.
  */
 
 package io.github.tobiasbriones.ep.factura.ui.mainbilling.items.editor;
 
+import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketItem;
 import io.github.tobiasbriones.ep.factura.ui.core.MvcController;
 
 import static io.github.tobiasbriones.ep.factura.ui.mainbilling.items.editor.ItemEditor.Output;
@@ -36,8 +42,8 @@ final class ItemEditorController extends MvcController<ItemEditorView, Output> i
     }
 
     @Override
-    public void onDelete() {
-        getOutput().ifPresent(Output::onDelete);
+    public void onDelete(BasketItem item) {
+        getOutput().ifPresent(output -> output.onDelete(item));
         view.onDestroy();
     }
 
