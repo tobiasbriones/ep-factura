@@ -72,78 +72,9 @@ final class HeaderView extends JPanelMvcView<HeaderController> implements Header
 
         view.setLayout(new GridBagLayout());
 
-        productsBox.setRenderer(new ProductBoxRenderer());
-        dateField.setEditable(false);
-        addButton.setText("Agregar");
-
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.weightx = 1.0d;
-        gbc.gridwidth = 2;
-        gbc.insets.bottom = 5;
-        gbc.insets.left = 0;
-        gbc.insets.right = 5;
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        view.add(new JLabel("Nombre"), gbc);
-
-        gbc.insets.left = 5;
-        gbc.insets.right = 0;
-        gbc.gridx = 2;
-        gbc.gridy = 0;
-        view.add(new JLabel("Apellido"), gbc);
-
-        gbc.insets.left = 0;
-        gbc.insets.right = 5;
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        view.add(nameField, gbc);
-
-        gbc.insets.left = 5;
-        gbc.insets.right = 0;
-        gbc.gridx = 2;
-        gbc.gridy = 1;
-        view.add(surnameField, gbc);
-
-        gbc.gridwidth = 1;
-        gbc.insets.left = 0;
-        gbc.insets.right = 5;
-        gbc.gridx = 2;
-        gbc.gridy = 2;
-        view.add(new JLabel("RTN"), gbc);
-
-        gbc.insets.left = 5;
-        gbc.insets.right = 0;
-        gbc.gridx = 3;
-        gbc.gridy = 2;
-        view.add(new JLabel("Fecha"), gbc);
-
-        gbc.insets.left = 0;
-        gbc.insets.right = 5;
-        gbc.gridx = 2;
-        gbc.gridy = 3;
-        view.add(rtnField, gbc);
-
-        gbc.insets.left = 5;
-        gbc.insets.right = 0;
-        gbc.gridx = 3;
-        gbc.gridy = 3;
-        view.add(dateField, gbc);
-
-        gbc.gridx = 0;
-        view.add(new JLabel(), gbc);
-
-        gbc.gridx = 1;
-        view.add(new JLabel(), gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 4;
-        view.add(new JLabel("Producto"), gbc);
-
-        gbc.gridx = 1;
-        view.add(productsBox, gbc);
-
-        gbc.gridx = 3;
-        view.add(addButton, gbc);
+        setCustomerNameRows(view, gbc);
+        setRtnDateRows(view, gbc);
+        setProductsRow(view, gbc);
     }
 
     @Override
@@ -200,6 +131,86 @@ final class HeaderView extends JPanelMvcView<HeaderController> implements Header
     @Override
     public void setDate(LocalDate value) {
         dateField.setText(String.valueOf(value));
+    }
+
+    private void setCustomerNameRows(JPanel view, GridBagConstraints gbc) {
+        dateField.setEditable(false);
+
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1.0d;
+        gbc.gridwidth = 2;
+        gbc.insets.bottom = 5;
+        gbc.insets.left = 0;
+        gbc.insets.right = 5;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        view.add(new JLabel("Nombre"), gbc);
+
+        gbc.insets.left = 5;
+        gbc.insets.right = 0;
+        gbc.gridx = 2;
+        gbc.gridy = 0;
+        view.add(new JLabel("Apellido"), gbc);
+
+        gbc.insets.left = 0;
+        gbc.insets.right = 5;
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        view.add(nameField, gbc);
+
+        gbc.insets.left = 5;
+        gbc.insets.right = 0;
+        gbc.gridx = 2;
+        gbc.gridy = 1;
+        view.add(surnameField, gbc);
+    }
+
+    private void setRtnDateRows(JPanel view, GridBagConstraints gbc) {
+        gbc.gridwidth = 1;
+        gbc.insets.left = 0;
+        gbc.insets.right = 5;
+        gbc.gridx = 2;
+        gbc.gridy = 2;
+        view.add(new JLabel("RTN"), gbc);
+
+        gbc.insets.left = 5;
+        gbc.insets.right = 0;
+        gbc.gridx = 3;
+        gbc.gridy = 2;
+        view.add(new JLabel("Fecha"), gbc);
+
+        gbc.insets.left = 0;
+        gbc.insets.right = 5;
+        gbc.gridx = 2;
+        gbc.gridy = 3;
+        view.add(rtnField, gbc);
+
+        gbc.insets.left = 5;
+        gbc.insets.right = 0;
+        gbc.gridx = 3;
+        gbc.gridy = 3;
+        view.add(dateField, gbc);
+    }
+
+    private void setProductsRow(JPanel view, GridBagConstraints gbc) {
+        productsBox.setRenderer(new ProductBoxRenderer());
+        addButton.setText("Agregar");
+
+        gbc.gridx = 0;
+        view.add(new JLabel(), gbc);
+
+        gbc.gridx = 1;
+        view.add(new JLabel(), gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        view.add(new JLabel("Producto"), gbc);
+
+        gbc.gridx = 1;
+        view.add(productsBox, gbc);
+
+        gbc.gridx = 3;
+        view.add(addButton, gbc);
     }
 
 }
