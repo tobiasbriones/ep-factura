@@ -19,7 +19,14 @@ import io.github.tobiasbriones.ep.factura.domain.model.product.Product;
 import java.time.LocalDate;
 import java.util.List;
 
-final class Header {
+public final class Header {
+
+    @FunctionalInterface
+    public interface Output {
+
+        void onAddProduct(Product product);
+
+    }
 
     interface View extends CustomerNameAccessor, CustomerNameMutator {
 
@@ -34,13 +41,6 @@ final class Header {
         void setProductList(List<? extends Product> products);
 
         void setDate(LocalDate value);
-
-    }
-
-    @FunctionalInterface
-    interface Output {
-
-        void onAddProduct(Product product);
 
     }
 

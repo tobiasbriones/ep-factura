@@ -12,15 +12,20 @@
 
 package io.github.tobiasbriones.ep.factura.ui.mainbilling.header;
 
+import io.github.tobiasbriones.ep.factura.data.ProductDao;
 import io.github.tobiasbriones.ep.factura.domain.model.product.Product;
 import io.github.tobiasbriones.ep.factura.ui.core.MvcController;
 
+import java.time.LocalDate;
+
 final class HeaderController extends MvcController<HeaderView, Header.Output> {
 
+    private final ProductDao productDao;
     private HeaderView view;
 
-    HeaderController() {
+    HeaderController(ProductDao productDao) {
         super();
+        this.productDao = productDao;
         this.view = null;
     }
 
@@ -36,6 +41,8 @@ final class HeaderController extends MvcController<HeaderView, Header.Output> {
 
     @Override
     public void init() {
+        setProducts();
+        setDate();
         view.update();
     }
 
@@ -45,4 +52,13 @@ final class HeaderController extends MvcController<HeaderView, Header.Output> {
         getOutput().ifPresent(output -> output.onAddProduct(product));
     }
 
+    private void setProducts() {
+        final var products = productDao.fetchAll(0, 100);
+        view.setProductList(products);
+    }
+
+    private void setDate() {
+        final var date = LocalDate.now();
+        view.setDate(date);
+    }
 }

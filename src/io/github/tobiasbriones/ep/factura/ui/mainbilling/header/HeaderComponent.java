@@ -12,6 +12,7 @@
 
 package io.github.tobiasbriones.ep.factura.ui.mainbilling.header;
 
+import io.github.tobiasbriones.ep.factura.data.ProductDao;
 import io.github.tobiasbriones.ep.factura.ui.core.SwingComponent;
 
 import javax.swing.*;
@@ -19,10 +20,11 @@ import javax.swing.*;
 // Simple example of creating a component just to exemplify, checkout the order!
 public final class HeaderComponent {
 
-    public static SwingComponent<JPanel> newInstance() {
-        final var controller = new HeaderController();
+    public static SwingComponent<JPanel> newInstance(ProductDao productDao, Header.Output output) {
+        final var controller = new HeaderController(productDao);
         final var view = new HeaderView(controller);
 
+        controller.setOutput(output);
         init(view, controller);
         return new SwingComponent<>(view);
     }
@@ -40,5 +42,7 @@ public final class HeaderComponent {
         controller.setView(view);
         controller.init();
     }
+
+    private HeaderComponent() {}
 
 }

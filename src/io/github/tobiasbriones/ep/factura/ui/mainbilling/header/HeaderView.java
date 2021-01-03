@@ -36,13 +36,15 @@ final class HeaderView extends JPanelMvcView<HeaderController> implements Header
             boolean isSelected,
             boolean cellHasFocus
         ) {
+            super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+
             if (value != null) {
                 final var product = (Product) value;
-                final var str = product.getCode() + " " + product.getPrice();
+                final var str = product.getCode() + " " + product.getDescription() + " " + product.getPrice();
 
                 setText(str);
             }
-            return super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            return this;
         }
 
     }
@@ -71,10 +73,11 @@ final class HeaderView extends JPanelMvcView<HeaderController> implements Header
         view.setLayout(new GridBagLayout());
 
         productsBox.setRenderer(new ProductBoxRenderer());
+        dateField.setEditable(false);
         addButton.setText("Agregar");
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.weightx = 1;
+        gbc.weightx = 1.0d;
         gbc.gridwidth = 2;
         gbc.insets.bottom = 5;
         gbc.insets.left = 0;
