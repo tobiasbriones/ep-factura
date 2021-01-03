@@ -37,6 +37,12 @@ public final class InMemoryProductDao implements ProductDao {
 
     }
 
+    private static double toTwoDecimalDigits(double value) {
+        final double decimalFactor = 100.0;
+        final double integerForm = Math.floor(value * decimalFactor);
+        return integerForm / decimalFactor;
+    }
+
     private final Map<Integer, Product> products;
 
     public InMemoryProductDao() {
@@ -105,7 +111,7 @@ public final class InMemoryProductDao implements ProductDao {
     private void init() {
         for (int i = 0; i < ESTIMATED_NUMBER_OF_PRODUCTS; i++) {
             final var description = "Product " + i + " description";
-            final var price = Math.random() * 1500.0d;
+            final var price = toTwoDecimalDigits(Math.random() * 1500.0d);
 
             products.put(i, Product.of(i, description, price));
         }
