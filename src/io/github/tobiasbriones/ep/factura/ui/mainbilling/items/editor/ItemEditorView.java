@@ -67,7 +67,9 @@ final class ItemEditorView extends JDialogMvcView<ItemEditorController> {
     @Override
     public void bindEvents(ItemEditorController controller) {
         deleteButton.addActionListener(e -> controller.onDelete(item));
-        saveButton.addActionListener(e -> retrieveQuantity(controller::onUpdate));
+        saveButton.addActionListener(
+            e -> retrieveQuantity(quantity -> controller.onUpdateQuantity(item, quantity))
+        );
     }
 
     @Override

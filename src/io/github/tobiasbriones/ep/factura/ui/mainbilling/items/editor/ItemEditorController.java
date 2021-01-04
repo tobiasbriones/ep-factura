@@ -48,8 +48,8 @@ final class ItemEditorController extends MvcController<ItemEditorView, Output> i
     }
 
     @Override
-    public void onUpdate(int quantity) {
-        getOutput().ifPresent(output -> output.onUpdate(quantity));
+    public void onUpdateQuantity(BasketItem item, int quantity) {
+        getOutput().ifPresent(output -> output.onUpdateQuantity(item, quantity));
         view.onDestroy();
     }
 

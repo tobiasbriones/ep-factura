@@ -20,7 +20,7 @@ public final class ItemEditor {
 
         void onDelete(BasketItem item);
 
-        void onUpdate(int quantity);
+        void onUpdateQuantity(BasketItem item, int quantity);
 
     }
 
