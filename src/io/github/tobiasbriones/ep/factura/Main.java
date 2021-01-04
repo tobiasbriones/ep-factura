@@ -12,8 +12,14 @@
 
 package io.github.tobiasbriones.ep.factura;
 
+import io.github.tobiasbriones.ep.factura.data.ProductDao;
+import io.github.tobiasbriones.ep.factura.database.InMemoryProductDao;
+import io.github.tobiasbriones.ep.factura.domain.model.basket.Basket;
+import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketItem;
+import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketList;
 import io.github.tobiasbriones.ep.factura.domain.model.bill.Bill;
 import io.github.tobiasbriones.ep.factura.domain.model.product.Product;
+import io.github.tobiasbriones.ep.factura.domain.usecase.AddItemToBasketUseCase;
 import io.github.tobiasbriones.ep.factura.ui.MainWindow;
 
 import javax.swing.*;
@@ -25,12 +31,12 @@ import java.util.List;
 
 public final class Main implements MainWindow.Controller {
 
-
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         }
-        catch (Exception ignore) {}
+        catch (Exception ignore) {
+        }
         SwingUtilities.invokeLater(Main::new);
     }
 
@@ -46,13 +52,22 @@ public final class Main implements MainWindow.Controller {
         }
         return list;
     }
+
+    private final ProductDao productDao;
+    private final Basket basket;
     private final MainWindow mw;
     private final List<Bill> bills;
 
     private Main() {
-        final List<Product> products = loadProducts();
-        this.mw = new MainWindow(this, products);
+        this.productDao = new InMemoryProductDao();
+        this.basket = new BasketList();
+        this.mw = new MainWindow(this);
         this.bills = new ArrayList<>();
+    }
+
+    @Override
+    public ProductDao getProductDao() {
+        return productDao;
     }
 
     @Override
@@ -78,22 +93,21 @@ public final class Main implements MainWindow.Controller {
     }
 
     @Override
-    public void save(Bill bill) {
-        bills.add(bill);
+    public Basket getBasket() {
+        return basket;
     }
 
-    private List<Product> loadProducts() {
-        final List<Product> products = new ArrayList<>();
+    @Override
+    public void pushToBasket(Product product) {
+        final var item = new BasketItem(product, 1);
+        final var useCase = new AddItemToBasketUseCase(basket);
 
-        products.add(Product.of(120, "Product 1", 45));
-        products.add(Product.of(140, "Product 2", 446.99));
-        products.add(Product.of(487, "Product 3", 0.25));
-        products.add(Product.of(521, "Product 4", 42));
-        products.add(Product.of(785, "Product 5", 7));
-        products.add(Product.of(122, "Product 6", 10.33));
-        products.add(Product.of(479, "Product 7", 785.50));
-        products.add(Product.of(642, "Product 8", 12.99));
-        return products;
+        useCase.execute(item);
+    }
+
+    @Override
+    public void save(Bill bill) {
+        bills.add(bill);
     }
 
 }
