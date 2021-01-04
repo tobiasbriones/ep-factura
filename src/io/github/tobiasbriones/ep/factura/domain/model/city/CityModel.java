@@ -12,6 +12,7 @@
 
 package io.github.tobiasbriones.ep.factura.domain.model.city;
 
+@FunctionalInterface
 public interface CityModel {
 
     String getName();
