@@ -12,13 +12,13 @@
 
 package io.github.tobiasbriones.ep.factura.data;
 
-import io.github.tobiasbriones.ep.factura.domain.model.city.City;
+import io.github.tobiasbriones.ep.factura.domain.model.city.community.Community;
 
 import java.util.List;
 
 @FunctionalInterface
-public interface CityDao {
+public interface CommunityDao {
 
-    List<City> fetchAll();
+    List<Community> fetchAll();
 
 }
