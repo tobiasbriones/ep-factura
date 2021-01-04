@@ -12,6 +12,9 @@
 
 package io.github.tobiasbriones.ep.factura.domain.model.customer;
 
+import io.github.tobiasbriones.ep.factura.domain.model.city.City;
+import io.github.tobiasbriones.ep.factura.domain.model.city.community.Community;
+
 public final class Customer implements CustomerModel {
 
     private String name;
@@ -24,7 +27,7 @@ public final class Customer implements CustomerModel {
     public Customer() {
         this.name = "";
         this.surname = "";
-        this.address = new Address("", "");
+        this.address = new Address(new City(""), new Community(""));
         this.phone = "";
         this.genre = "";
         this.birthday = "";

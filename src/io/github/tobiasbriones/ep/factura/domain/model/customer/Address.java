@@ -12,14 +12,17 @@
 
 package io.github.tobiasbriones.ep.factura.domain.model.customer;
 
+import io.github.tobiasbriones.ep.factura.domain.model.city.City;
+import io.github.tobiasbriones.ep.factura.domain.model.city.community.Community;
+
 import java.util.Objects;
 
 public final class Address implements AddressModel {
 
-    private final String city;
-    private final String community;
+    private final City city;
+    private final Community community;
 
-    public Address(String city, String community) {
+    public Address(City city, Community community) {
         this.city = city;
         this.community = community;
     }
@@ -51,12 +54,12 @@ public final class Address implements AddressModel {
     }
 
     @Override
-    public String getCity() {
+    public City getCity() {
         return city;
     }
 
     @Override
-    public String getCommunity() {
+    public Community getCommunity() {
         return community;
     }
 

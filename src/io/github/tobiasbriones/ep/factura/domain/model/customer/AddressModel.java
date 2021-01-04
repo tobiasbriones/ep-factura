@@ -12,10 +12,13 @@
 
 package io.github.tobiasbriones.ep.factura.domain.model.customer;
 
+import io.github.tobiasbriones.ep.factura.domain.model.city.City;
+import io.github.tobiasbriones.ep.factura.domain.model.city.community.Community;
+
 public interface AddressModel {
 
-    String getCity();
+    City getCity();
 
-    String getCommunity();
+    Community getCommunity();
 
 }
