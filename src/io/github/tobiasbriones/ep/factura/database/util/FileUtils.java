@@ -40,7 +40,6 @@ public final class FileUtils {
         return readFile(fileName, DEF_FILE_LINES_INITIAL_CAPACITY);
     }
 
-    private FileUtils() {
-    }
+    private FileUtils() {}
 
 }
