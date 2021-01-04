@@ -23,8 +23,6 @@ import io.github.tobiasbriones.ep.factura.domain.usecase.AddItemToBasketUseCase;
 import io.github.tobiasbriones.ep.factura.ui.MainWindow;
 
 import javax.swing.*;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,19 +36,6 @@ public final class Main implements MainWindow.Controller {
         catch (Exception ignore) {
         }
         SwingUtilities.invokeLater(Main::new);
-    }
-
-    private static List<String> read(String file) throws IOException {
-        final List<String> list = new ArrayList<>();
-
-        try (final BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String line;
-
-            while ((line = br.readLine()) != null) {
-                list.add(line);
-            }
-        }
-        return list;
     }
 
     private final ProductDao productDao;
@@ -68,28 +53,6 @@ public final class Main implements MainWindow.Controller {
     @Override
     public ProductDao getProductDao() {
         return productDao;
-    }
-
-    @Override
-    public List<String> getCities() {
-        try {
-            return read("cities");
-        }
-        catch (IOException e) {
-            JOptionPane.showMessageDialog(mw, e.getMessage());
-        }
-        return new ArrayList<>();
-    }
-
-    @Override
-    public List<String> getCommunities() {
-        try {
-            return read("communities");
-        }
-        catch (IOException e) {
-            JOptionPane.showMessageDialog(mw, e.getMessage());
-        }
-        return new ArrayList<>();
     }
 
     @Override
