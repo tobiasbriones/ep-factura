@@ -14,6 +14,10 @@ package io.github.tobiasbriones.ep.factura.domain.model.basket;
 
 public interface BasketSummaryModel {
 
+    static double subtotal(double total, double isv) {
+        return total - isv;
+    }
+
     double getIsv();
 
     double getSubtotal();
