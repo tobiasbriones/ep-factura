@@ -20,7 +20,7 @@ public interface Basket {
 
     void push(BasketItem item);
 
-    void remove(BasketItem item);
+    boolean remove(BasketItem item);
 
     Iterator<BasketItem> iterator();
 
