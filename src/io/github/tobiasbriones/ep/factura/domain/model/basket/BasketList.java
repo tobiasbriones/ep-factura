@@ -24,13 +24,13 @@ public final class BasketList extends AbstractBasket {
     private static final int DEF_INITIAL_CAPACITY = 15;
     private final Set<BasketItem> items;
 
+    public BasketList() {
+        this(DEF_INITIAL_CAPACITY);
+    }
+
     public BasketList(int initialCapacity) {
         super();
         this.items = new LinkedHashSet<>(initialCapacity);
-    }
-
-    public BasketList() {
-        this(DEF_INITIAL_CAPACITY);
     }
 
     @Override
