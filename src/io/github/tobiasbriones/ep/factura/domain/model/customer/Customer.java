@@ -17,6 +17,18 @@ import io.github.tobiasbriones.ep.factura.domain.model.city.community.Community;
 
 public final class Customer implements CustomerModel {
 
+    public static Customer from(CustomerAccessor accessor) {
+        final var customer = new Customer();
+
+        customer.setName(accessor.getName());
+        customer.setSurname(accessor.getSurname());
+        customer.setAddress(accessor.getAddress());
+        customer.setPhone(accessor.getPhone());
+        customer.setGenre(accessor.getGenre());
+        customer.setBirthday(accessor.getBirthday());
+        return customer;
+    }
+
     private String name;
     private String surname;
     private AddressModel address;
