@@ -18,9 +18,9 @@ public interface Basket {
 
     int size();
 
-    void push(BasketItem basketItem);
+    void push(BasketItem item);
 
-    void remove(BasketItem basketItem);
+    void remove(BasketItem item);
 
     Iterator<BasketItem> iterator();
 

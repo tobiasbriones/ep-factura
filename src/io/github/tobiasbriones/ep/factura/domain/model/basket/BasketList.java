@@ -39,8 +39,8 @@ public final class BasketList extends AbstractBasket {
     }
 
     @Override
-    public void remove(BasketItem basketItem) {
-        items.remove(basketItem);
+    public void remove(BasketItem item) {
+        items.remove(item);
     }
 
     @Override

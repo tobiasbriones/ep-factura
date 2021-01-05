@@ -17,9 +17,9 @@ public abstract class AbstractBasket implements Basket {
     protected AbstractBasket() {}
 
     @Override
-    public final void push(BasketItem basketItem) {
-        if (!contains(basketItem)) {
-            pushItem(basketItem);
+    public final void push(BasketItem item) {
+        if (!contains(item)) {
+            pushItem(item);
         }
     }
 
