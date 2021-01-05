@@ -49,13 +49,13 @@ public final class BasketList extends AbstractBasket {
     }
 
     @Override
-    protected boolean contains(BasketItem basketItem) {
-        return items.contains(basketItem);
+    protected boolean contains(BasketItem item) {
+        return items.contains(item);
     }
 
     @Override
-    protected void pushItem(BasketItem basketItem) {
-        items.add(basketItem);
+    protected void pushItem(BasketItem item) {
+        items.add(item);
     }
 
 }

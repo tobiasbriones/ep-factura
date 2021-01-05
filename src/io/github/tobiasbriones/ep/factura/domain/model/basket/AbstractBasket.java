@@ -27,18 +27,18 @@ public abstract class AbstractBasket implements Basket {
      * Returns {@code true} if and only if the given basket item is already
      * added to this basket.
      *
-     * @param basketItem basket item to check
+     * @param item basket item to check
      *
      * @return {@code true} if and only if the given basket item is already
      * added to this basket
      */
-    protected abstract boolean contains(BasketItem basketItem);
+    protected abstract boolean contains(BasketItem item);
 
     /**
      * Pushes the given basket item into this basket.
      *
-     * @param basketItem basket item to push
+     * @param item basket item to push
      */
-    protected abstract void pushItem(BasketItem basketItem);
+    protected abstract void pushItem(BasketItem item);
 
 }
