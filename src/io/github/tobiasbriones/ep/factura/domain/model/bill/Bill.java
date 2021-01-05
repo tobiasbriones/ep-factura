@@ -89,7 +89,7 @@ public final class Bill implements BillModel {
     public void addItem(BasketItem item) {
         items.add(item);
         subtotal += item.getAmount();
-        isv += item.getISV();
+        isv += item.getIsv();
         total += item.getTotal();
         totalItems += item.getQuantity();
     }

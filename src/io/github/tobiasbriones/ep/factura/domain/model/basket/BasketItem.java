@@ -88,7 +88,7 @@ public final class BasketItem implements BasketItemModel {
     }
 
     @Override
-    public double getISV() {
+    public double getIsv() {
         return product.getIsv() * ((double) quantity);
     }
 

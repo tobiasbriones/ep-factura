@@ -22,7 +22,7 @@ public interface BasketItemAccessor {
 
     double getAmount();
 
-    double getISV();
+    double getIsv();
 
     double getTotal();
 
