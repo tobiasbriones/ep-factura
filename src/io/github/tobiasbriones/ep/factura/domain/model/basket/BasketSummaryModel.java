@@ -12,7 +12,7 @@
 
 package io.github.tobiasbriones.ep.factura.domain.model.basket;
 
-public interface BasketResumeModel {
+public interface BasketSummaryModel {
 
     double getIsv();
 

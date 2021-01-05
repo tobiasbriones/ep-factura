@@ -14,13 +14,13 @@ package io.github.tobiasbriones.ep.factura.domain.model.basket;
 
 import java.util.Objects;
 
-public final class BasketResume implements BasketResumeModel {
+public final class BasketSummary implements BasketSummaryModel {
 
     private final Double isv;
     private final Double subtotal;
     private final Double total;
 
-    BasketResume(double isv, double subtotal, double total) {
+    BasketSummary(double isv, double subtotal, double total) {
         this.isv = isv;
         this.subtotal = subtotal;
         this.total = total;
@@ -58,7 +58,7 @@ public final class BasketResume implements BasketResumeModel {
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        final BasketResumeModel basketResume = (BasketResumeModel) obj;
+        final BasketSummaryModel basketResume = (BasketSummaryModel) obj;
         return Double.compare(basketResume.getIsv(), isv) == 0 &&
                Double.compare(
                    basketResume.getSubtotal(),
