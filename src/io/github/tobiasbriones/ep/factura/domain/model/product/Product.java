@@ -73,7 +73,7 @@ final class Product implements ProductModel {
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        final ProductModel product = (ProductModel) obj;
+        final ProductAccessor product = (ProductAccessor) obj;
         return code == product.getCode() &&
                Double.compare(product.getPrice(), price) == 0 &&
                description.equals(product.getDescription());
