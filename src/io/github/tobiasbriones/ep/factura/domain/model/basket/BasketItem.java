@@ -12,6 +12,7 @@
 
 package io.github.tobiasbriones.ep.factura.domain.model.basket;
 
+import io.github.tobiasbriones.ep.factura.domain.model.Money;
 import io.github.tobiasbriones.ep.factura.domain.model.product.ProductModel;
 
 import java.util.Objects;
@@ -60,17 +61,17 @@ public final class BasketItem implements BasketItemModel {
 
     @Override
     public double getAmount() {
-        return product.getPrice() * ((double) quantity);
+        return Money.decimalFormat(product.getPrice() * ((double) quantity));
     }
 
     @Override
     public double getIsv() {
-        return product.getIsv() * ((double) quantity);
+        return Money.decimalFormat(product.getIsv() * ((double) quantity));
     }
 
     @Override
     public double getTotal() {
-        return product.getTotal() * ((double) quantity);
+        return Money.decimalFormat(product.getTotal() * ((double) quantity));
     }
 
     @Override

@@ -12,6 +12,8 @@
 
 package io.github.tobiasbriones.ep.factura.domain.model.product;
 
+import io.github.tobiasbriones.ep.factura.domain.model.Money;
+
 import java.util.Objects;
 
 import static io.github.tobiasbriones.ep.factura.domain.model.product.ProductConstrains.*;
@@ -25,7 +27,7 @@ final class Product implements ProductModel {
     Product(int code, String description, double price) {
         this.code = code;
         this.description = description != null ? description : "";
-        this.price = price;
+        this.price = Money.decimalFormat(price);
     }
 
     @Override
