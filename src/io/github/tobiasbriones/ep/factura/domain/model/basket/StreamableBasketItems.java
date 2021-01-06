@@ -14,7 +14,7 @@ package io.github.tobiasbriones.ep.factura.domain.model.basket;
 
 import java.util.stream.Stream;
 
-public interface BasketItemStream {
+public interface StreamableBasketItems {
 
     Stream<BasketItem> stream();
 

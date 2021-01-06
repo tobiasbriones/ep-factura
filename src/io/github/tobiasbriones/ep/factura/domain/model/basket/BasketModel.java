@@ -14,9 +14,9 @@ package io.github.tobiasbriones.ep.factura.domain.model.basket;
 
 import java.util.Iterator;
 
-public interface BasketModel extends BasketItemStream {
+public interface BasketModel extends StreamableBasketItems {
 
-    static BasketSummaryModel summary(BasketItemStream items) {
+    static BasketSummaryModel summary(StreamableBasketItems items) {
         // This Holder example is in Java 11. Use Java Record in Java 17+.
         final class Holder {
             private final double isv;
