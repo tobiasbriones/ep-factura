@@ -16,6 +16,20 @@ import java.util.Iterator;
 
 public interface Basket {
 
+    static BasketSummaryModel summary(Basket basket) {
+        final Iterator<BasketItem> iterator = basket.iterator();
+        double isv = 0.0d;
+        double total = 0.0d;
+
+        while (iterator.hasNext()) {
+            final BasketItem current = iterator.next();
+
+            isv += current.getIsv();
+            total += current.getTotal();
+        }
+        return new BasketSummary(isv, total);
+    }
+
     int size();
 
     void push(BasketItem item);
@@ -23,5 +37,9 @@ public interface Basket {
     boolean remove(BasketItem item);
 
     Iterator<BasketItem> iterator();
+
+    default BasketSummaryModel computeSummary() {
+        return summary(this);
+    }
 
 }
