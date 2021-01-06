@@ -19,7 +19,6 @@ import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketItem;
 import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketList;
 import io.github.tobiasbriones.ep.factura.domain.model.bill.Bill;
 import io.github.tobiasbriones.ep.factura.domain.model.product.ProductModel;
-import io.github.tobiasbriones.ep.factura.domain.usecase.AddItemToBasketUseCase;
 import io.github.tobiasbriones.ep.factura.ui.MainWindow;
 
 import javax.swing.*;
@@ -61,10 +60,7 @@ public final class Main implements MainWindow.Controller {
 
     @Override
     public void pushToBasket(ProductModel product) {
-        final var item = new BasketItem(product, 1);
-        final var useCase = new AddItemToBasketUseCase(basket);
 
-        useCase.execute(item);
     }
 
     @Override
