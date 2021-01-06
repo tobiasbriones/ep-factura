@@ -28,14 +28,6 @@ public final class Address implements AddressModel {
     }
 
     @Override
-    public String toString() {
-        return "Address[" +
-               "city=" + city + ", " +
-               "community=" + community +
-               "]";
-    }
-
-    @Override
     public int hashCode() {
         return Objects.hash(city, community);
     }
@@ -61,6 +53,14 @@ public final class Address implements AddressModel {
     @Override
     public Community getCommunity() {
         return community;
+    }
+
+    @Override
+    public String toString() {
+        return "Address[" +
+               "city=" + city + ", " +
+               "community=" + community +
+               "]";
     }
 
 }

@@ -31,28 +31,14 @@ public final class Bill implements BillModel {
     private double total;
     private int totalItems;
 
-    public Bill(int estimatedNumberOfItems) {
-        this.items = new ArrayList<>(estimatedNumberOfItems);
-
-        init();
-    }
-
     public Bill() {
         this(5);
     }
 
-    @Override
-    public String toString() {
-        return "Bill[" +
-               "items=" + items + ", " +
-               "customer=" + customer + ", " +
-               "rtn=" + rtn + ", " +
-               "date=" + date + ", " +
-               "subtotal=" + subtotal + ", " +
-               "isv=" + isv + ", " +
-               "total=" + total + ", " +
-               "totalItems=" + totalItems +
-               "]";
+    public Bill(int estimatedNumberOfItems) {
+        this.items = new ArrayList<>(estimatedNumberOfItems);
+
+        init();
     }
 
     @Override
@@ -117,6 +103,20 @@ public final class Bill implements BillModel {
     @Override
     public double getTotal() {
         return total;
+    }
+
+    @Override
+    public String toString() {
+        return "Bill[" +
+               "items=" + items + ", " +
+               "customer=" + customer + ", " +
+               "rtn=" + rtn + ", " +
+               "date=" + date + ", " +
+               "subtotal=" + subtotal + ", " +
+               "isv=" + isv + ", " +
+               "total=" + total + ", " +
+               "totalItems=" + totalItems +
+               "]";
     }
 
     private void init() {

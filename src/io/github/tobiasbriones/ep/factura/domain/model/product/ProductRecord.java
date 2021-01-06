@@ -29,34 +29,6 @@ final class ProductRecord implements Product {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(code, description, price);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-        final Product product = (Product) obj;
-        return code == product.getCode() &&
-               Double.compare(product.getPrice(), price) == 0 &&
-               description.equals(product.getDescription());
-    }
-
-    @Override
-    public String toString() {
-        return "Product[" +
-               "code=" + code + ", " +
-               "description=" + description + ", " +
-               "price=" + price +
-               "]";
-    }
-
-    @Override
     public int getCode() {
         return code;
     }
@@ -80,6 +52,34 @@ final class ProductRecord implements Product {
     @Override
     public double getTotal() {
         return price + getIsv();
+    }
+
+    @Override
+    public String toString() {
+        return "Product[" +
+               "code=" + code + ", " +
+               "description=" + description + ", " +
+               "price=" + price +
+               "]";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        final Product product = (Product) obj;
+        return code == product.getCode() &&
+               Double.compare(product.getPrice(), price) == 0 &&
+               description.equals(product.getDescription());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(code, description, price);
     }
 
 }

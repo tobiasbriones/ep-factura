@@ -46,18 +46,6 @@ public final class Customer implements CustomerModel {
     }
 
     @Override
-    public String toString() {
-        return "Customer[" +
-               "name=" + name + ", " +
-               "surname=" + surname + ", " +
-               "address=" + address + ", " +
-               "phone=" + phone + ", " +
-               "genre=" + genre + ", " +
-               "birthday=" + birthday +
-               "]";
-    }
-
-    @Override
     public String getName() {
         return name;
     }
@@ -115,6 +103,18 @@ public final class Customer implements CustomerModel {
     @Override
     public void setBirthday(String value) {
         birthday = value;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer[" +
+               "name=" + name + ", " +
+               "surname=" + surname + ", " +
+               "address=" + address + ", " +
+               "phone=" + phone + ", " +
+               "genre=" + genre + ", " +
+               "birthday=" + birthday +
+               "]";
     }
 
 }
