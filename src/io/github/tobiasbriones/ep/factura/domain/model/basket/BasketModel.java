@@ -16,18 +16,30 @@ import java.util.Iterator;
 
 public interface BasketModel extends BasketItemStream {
 
-    static BasketSummaryModel summary(BasketModel basket) {
-        final Iterator<BasketItem> iterator = basket.iterator();
-        double isv = 0.0d;
-        double total = 0.0d;
+    static BasketSummaryModel summary(BasketItemStream items) {
+        // This Holder example is in Java 11. Use Java Record in Java 17+.
+        final class Holder {
+            private final double isv;
+            private final double total;
 
-        while (iterator.hasNext()) {
-            final BasketItem current = iterator.next();
+            private Holder() { this(0.0, 0.0); }
 
-            isv += current.getIsv();
-            total += current.getTotal();
+            private Holder(Holder h1, Holder h2) { this(h1.isv() + h2.isv(), h1.total() + h2.total()); }
+
+            private Holder(double isv, double total) {
+                this.isv = isv;
+                this.total = total;
+            }
+
+            private double isv() { return isv; }
+
+            private double total() { return total; }
         }
-        return new BasketSummary(isv, total);
+        final var identity = new Holder();
+        final Holder result = items.stream()
+                                   .map(item -> new Holder(item.getIsv(), item.getTotal()))
+                                   .reduce(identity, Holder::new);
+        return new BasketSummary(result.isv(), result.total());
     }
 
     int size();
