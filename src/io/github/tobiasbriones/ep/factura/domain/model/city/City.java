@@ -21,15 +21,15 @@ public final class City implements CityModel {
     }
 
     @Override
-    public String toString() {
-        return "City[" +
-               "name=" + name + ", " +
-               "]";
+    public String getName() {
+        return name;
     }
 
     @Override
-    public String getName() {
-        return name;
+    public String toString() {
+        return "City[" +
+               "name=" + name +
+               "]";
     }
 
 }

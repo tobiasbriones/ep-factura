@@ -21,15 +21,15 @@ public final class Community implements CommunityModel {
     }
 
     @Override
-    public String toString() {
-        return "Community[" +
-               "name=" + name + ", " +
-               "]";
+    public String getName() {
+        return name;
     }
 
     @Override
-    public String getName() {
-        return name;
+    public String toString() {
+        return "Community[" +
+               "name=" + name +
+               "]";
     }
 
 }
