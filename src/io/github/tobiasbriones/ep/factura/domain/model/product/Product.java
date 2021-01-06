@@ -41,6 +41,11 @@ final class Product implements ProductModel {
     }
 
     @Override
+    public double getTotal() {
+        return price + getIsv();
+    }
+
+    @Override
     public double getPrice() {
         return price;
     }
@@ -49,11 +54,6 @@ final class Product implements ProductModel {
     public double getIsv() {
         final double isvFactor = ((double) DEF_ISV_PERCENTAGE) / 100.0d;
         return Money.decimalFormat(price * isvFactor);
-    }
-
-    @Override
-    public double getTotal() {
-        return price + getIsv();
     }
 
     @Override

@@ -16,10 +16,10 @@ public interface ProductAccessor extends IdProductAccessor {
 
     String getDescription();
 
+    double getTotal();
+
     double getPrice();
 
     double getIsv();
-
-    double getTotal();
 
 }
