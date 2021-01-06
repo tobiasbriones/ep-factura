@@ -13,6 +13,6 @@
 package io.github.tobiasbriones.ep.factura.domain.repository;
 
 import io.github.tobiasbriones.ep.factura.domain.model.product.IdProductAccessor;
-import io.github.tobiasbriones.ep.factura.domain.model.product.Product;
+import io.github.tobiasbriones.ep.factura.domain.model.product.ProductModel;
 
-public interface ProductRepository extends Repository<Product, IdProductAccessor> {}
+public interface ProductRepository extends Repository<ProductModel, IdProductAccessor> {}

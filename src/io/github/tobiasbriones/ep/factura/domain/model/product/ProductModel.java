@@ -10,11 +10,12 @@
  * https://opensource.org/licenses/MIT.
  */
 
-package io.github.tobiasbriones.ep.factura.data;
+package io.github.tobiasbriones.ep.factura.domain.model.product;
 
-import io.github.tobiasbriones.ep.factura.domain.model.product.IdProductAccessor;
-import io.github.tobiasbriones.ep.factura.domain.model.product.ProductModel;
+public interface ProductModel extends ProductAccessor {
 
-public interface ProductDao extends Dao<ProductModel, IdProductAccessor> {
+    static ProductModel of(int code, String description, double price) {
+        return new Product(code, description, price);
+    }
 
 }

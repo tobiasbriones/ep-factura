@@ -14,7 +14,7 @@ package io.github.tobiasbriones.ep.factura.ui.mainbilling.header;
 
 import io.github.tobiasbriones.ep.factura.domain.model.customer.CustomerNameAccessor;
 import io.github.tobiasbriones.ep.factura.domain.model.customer.CustomerNameMutator;
-import io.github.tobiasbriones.ep.factura.domain.model.product.Product;
+import io.github.tobiasbriones.ep.factura.domain.model.product.ProductModel;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -24,21 +24,21 @@ public final class Header {
     @FunctionalInterface
     public interface Output {
 
-        void onAddProduct(Product product);
+        void onAddProduct(ProductModel product);
 
     }
 
     interface View extends CustomerNameAccessor, CustomerNameMutator {
 
-        Product getProduct();
+        ProductModel getProduct();
 
-        void setProduct(Product value);
+        void setProduct(ProductModel value);
 
         String getRtn();
 
         void setRtn(String value);
 
-        void setProductList(List<? extends Product> products);
+        void setProductList(List<? extends ProductModel> products);
 
         void setDate(LocalDate value);
 

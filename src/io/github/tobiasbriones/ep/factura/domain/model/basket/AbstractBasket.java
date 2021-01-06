@@ -12,7 +12,7 @@
 
 package io.github.tobiasbriones.ep.factura.domain.model.basket;
 
-public abstract class AbstractBasket implements Basket {
+public abstract class AbstractBasket implements BasketModel {
 
     AbstractBasket() {}
 

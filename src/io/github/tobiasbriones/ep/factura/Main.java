@@ -14,16 +14,15 @@ package io.github.tobiasbriones.ep.factura;
 
 import io.github.tobiasbriones.ep.factura.data.ProductDao;
 import io.github.tobiasbriones.ep.factura.database.InMemoryProductDao;
-import io.github.tobiasbriones.ep.factura.domain.model.basket.Basket;
+import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketModel;
 import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketItem;
 import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketList;
 import io.github.tobiasbriones.ep.factura.domain.model.bill.Bill;
-import io.github.tobiasbriones.ep.factura.domain.model.product.Product;
+import io.github.tobiasbriones.ep.factura.domain.model.product.ProductModel;
 import io.github.tobiasbriones.ep.factura.domain.usecase.AddItemToBasketUseCase;
 import io.github.tobiasbriones.ep.factura.ui.MainWindow;
 
 import javax.swing.*;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +38,7 @@ public final class Main implements MainWindow.Controller {
     }
 
     private final ProductDao productDao;
-    private final Basket basket;
+    private final BasketModel basket;
     private final MainWindow mw;
     private final List<Bill> bills;
 
@@ -56,12 +55,12 @@ public final class Main implements MainWindow.Controller {
     }
 
     @Override
-    public Basket getBasket() {
+    public BasketModel getBasket() {
         return basket;
     }
 
     @Override
-    public void pushToBasket(Product product) {
+    public void pushToBasket(ProductModel product) {
         final var item = new BasketItem(product, 1);
         final var useCase = new AddItemToBasketUseCase(basket);
 

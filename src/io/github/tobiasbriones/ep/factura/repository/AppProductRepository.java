@@ -14,7 +14,7 @@ package io.github.tobiasbriones.ep.factura.repository;
 
 import io.github.tobiasbriones.ep.factura.data.ProductDao;
 import io.github.tobiasbriones.ep.factura.domain.model.product.IdProductAccessor;
-import io.github.tobiasbriones.ep.factura.domain.model.product.Product;
+import io.github.tobiasbriones.ep.factura.domain.model.product.ProductModel;
 import io.github.tobiasbriones.ep.factura.domain.repository.ProductRepository;
 
 import java.util.List;
@@ -29,27 +29,27 @@ public final class AppProductRepository implements ProductRepository {
     }
 
     @Override
-    public Optional<Product> get(IdProductAccessor id) {
+    public Optional<ProductModel> get(IdProductAccessor id) {
         return productDao.fetch(id);
     }
 
     @Override
-    public List<Product> getAll(int page, int pageSize) {
+    public List<ProductModel> getAll(int page, int pageSize) {
         return productDao.fetchAll(page, pageSize);
     }
 
     @Override
-    public void add(Product record) {
+    public void add(ProductModel record) {
         productDao.create(record);
     }
 
     @Override
-    public void set(Product record) {
+    public void set(ProductModel record) {
         productDao.update(record);
     }
 
     @Override
-    public void remove(Product record) {
+    public void remove(ProductModel record) {
         productDao.delete(record);
     }
 

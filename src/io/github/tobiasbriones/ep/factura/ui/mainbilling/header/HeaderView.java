@@ -12,7 +12,7 @@
 
 package io.github.tobiasbriones.ep.factura.ui.mainbilling.header;
 
-import io.github.tobiasbriones.ep.factura.domain.model.product.Product;
+import io.github.tobiasbriones.ep.factura.domain.model.product.ProductModel;
 import io.github.tobiasbriones.ep.factura.ui.core.JPanelMvcView;
 
 import javax.swing.*;
@@ -39,7 +39,7 @@ final class HeaderView extends JPanelMvcView<HeaderController> implements Header
             super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 
             if (value != null) {
-                final var product = (Product) value;
+                final var product = (ProductModel) value;
                 final var str = product.getCode() + " " + product.getDescription() + " " + product.getPrice();
 
                 setText(str);
@@ -53,7 +53,7 @@ final class HeaderView extends JPanelMvcView<HeaderController> implements Header
     private final JTextField surnameField;
     private final JTextField rtnField;
     private final JTextField dateField;
-    private final JComboBox<Product> productsBox;
+    private final JComboBox<ProductModel> productsBox;
     private final JButton addButton;
 
     HeaderView(HeaderController controller) {
@@ -103,12 +103,12 @@ final class HeaderView extends JPanelMvcView<HeaderController> implements Header
     }
 
     @Override
-    public Product getProduct() {
-        return (Product) productsBox.getSelectedItem();
+    public ProductModel getProduct() {
+        return (ProductModel) productsBox.getSelectedItem();
     }
 
     @Override
-    public void setProduct(Product value) {
+    public void setProduct(ProductModel value) {
         productsBox.setSelectedItem(value);
     }
 
@@ -123,7 +123,7 @@ final class HeaderView extends JPanelMvcView<HeaderController> implements Header
     }
 
     @Override
-    public void setProductList(List<? extends Product> products) {
+    public void setProductList(List<? extends ProductModel> products) {
         productsBox.removeAllItems();
         products.forEach(productsBox::addItem);
     }

@@ -13,9 +13,9 @@
 package io.github.tobiasbriones.ep.factura.ui;
 
 import io.github.tobiasbriones.ep.factura.data.ProductDao;
-import io.github.tobiasbriones.ep.factura.domain.model.basket.Basket;
+import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketModel;
 import io.github.tobiasbriones.ep.factura.domain.model.bill.Bill;
-import io.github.tobiasbriones.ep.factura.domain.model.product.Product;
+import io.github.tobiasbriones.ep.factura.domain.model.product.ProductModel;
 import io.github.tobiasbriones.ep.factura.ui.core.rx.AnyObservable;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.header.Header;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.header.HeaderComponent;
@@ -39,9 +39,9 @@ public final class MainWindow extends JFrame implements Header.Output, Summary.O
 
         ProductDao getProductDao();
 
-        Basket getBasket();
+        BasketModel getBasket();
 
-        void pushToBasket(Product product);
+        void pushToBasket(ProductModel product);
 
         void save(Bill bill);
 
@@ -65,7 +65,7 @@ public final class MainWindow extends JFrame implements Header.Output, Summary.O
     }
 
     @Override
-    public void onAddProduct(Product product) {
+    public void onAddProduct(ProductModel product) {
         controller.pushToBasket(product);
         basketObservable.notifyObservers();
     }

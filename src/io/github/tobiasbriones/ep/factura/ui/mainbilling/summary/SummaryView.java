@@ -12,7 +12,7 @@
 
 package io.github.tobiasbriones.ep.factura.ui.mainbilling.summary;
 
-import io.github.tobiasbriones.ep.factura.domain.model.basket.Basket;
+import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketModel;
 import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketSummaryModel;
 import io.github.tobiasbriones.ep.factura.ui.core.JPanelMvcView;
 import io.github.tobiasbriones.ep.factura.ui.core.rx.Observer;
@@ -23,7 +23,7 @@ import java.awt.*;
 
 final class SummaryView extends JPanelMvcView<SummaryController> implements Observer {
 
-    private final Basket basket;
+    private final BasketModel basket;
     private final JLabel subtotalLabel;
     private final JLabel isvLabel;
     private final JLabel totalLabel;
@@ -31,7 +31,7 @@ final class SummaryView extends JPanelMvcView<SummaryController> implements Obse
     private final JButton printButton;
     private BasketSummaryModel model;
 
-    SummaryView(SummaryController controller, Basket basket) {
+    SummaryView(SummaryController controller, BasketModel basket) {
         super(controller);
         this.basket = basket;
         this.subtotalLabel = new JLabel();

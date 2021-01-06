@@ -12,8 +12,6 @@
 
 package io.github.tobiasbriones.ep.factura.ui.mainbilling.summary;
 
-import io.github.tobiasbriones.ep.factura.domain.model.basket.Basket;
-import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketSummaryModel;
 import io.github.tobiasbriones.ep.factura.ui.core.MvcController;
 
 final class SummaryController extends MvcController<SummaryView, Summary.Output> {

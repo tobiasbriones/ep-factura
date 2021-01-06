@@ -12,10 +12,74 @@
 
 package io.github.tobiasbriones.ep.factura.domain.model.product;
 
-public interface Product extends ProductAccessor {
+import java.util.Objects;
 
-    static Product of(int code, String description, double price) {
-        return new ProductRecord(code, description, price);
+import static io.github.tobiasbriones.ep.factura.domain.model.product.ProductConstrains.*;
+
+final class Product implements ProductModel {
+
+    private final Integer code;
+    private final String description;
+    private final Double price;
+
+    Product(int code, String description, double price) {
+        this.code = code;
+        this.description = description != null ? description : "";
+        this.price = price;
+    }
+
+    @Override
+    public int getCode() {
+        return code;
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public double getPrice() {
+        return price;
+    }
+
+    @Override
+    public double getIsv() {
+        final double isvFactor = ((double) DEF_ISV_PERCENTAGE) / 100.0d;
+        return price * isvFactor;
+    }
+
+    @Override
+    public double getTotal() {
+        return price + getIsv();
+    }
+
+    @Override
+    public String toString() {
+        return "Product[" +
+               "code=" + code + ", " +
+               "description=" + description + ", " +
+               "price=" + price +
+               "]";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        final ProductModel product = (ProductModel) obj;
+        return code == product.getCode() &&
+               Double.compare(product.getPrice(), price) == 0 &&
+               description.equals(product.getDescription());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(code, description, price);
     }
 
 }

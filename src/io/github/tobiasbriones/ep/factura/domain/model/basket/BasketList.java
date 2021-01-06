@@ -17,7 +17,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
- * Default implementation of {@link Basket} based on a {@link LinkedHashSet}.
+ * Default implementation of {@link BasketModel} based on a {@link LinkedHashSet}.
  */
 public final class BasketList extends AbstractBasket {
 

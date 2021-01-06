@@ -14,7 +14,7 @@ package io.github.tobiasbriones.ep.factura.database;
 
 import io.github.tobiasbriones.ep.factura.data.ProductDao;
 import io.github.tobiasbriones.ep.factura.domain.model.product.IdProductAccessor;
-import io.github.tobiasbriones.ep.factura.domain.model.product.Product;
+import io.github.tobiasbriones.ep.factura.domain.model.product.ProductModel;
 
 import java.util.*;
 
@@ -33,7 +33,7 @@ public final class InMemoryProductDao implements ProductDao {
          *
          * @return the product if found, null otherwise
          */
-        Product fetch(List<Product> productList, int productCode);
+        ProductModel fetch(List<ProductModel> productList, int productCode);
 
     }
 
@@ -43,7 +43,7 @@ public final class InMemoryProductDao implements ProductDao {
         return integerForm / decimalFactor;
     }
 
-    private final Map<Integer, Product> products;
+    private final Map<Integer, ProductModel> products;
 
     public InMemoryProductDao() {
         this.products = new HashMap<>(ESTIMATED_NUMBER_OF_PRODUCTS);
@@ -58,7 +58,7 @@ public final class InMemoryProductDao implements ProductDao {
      * @param products list of products to assign to this product DAO, a new
      *                 copy of the products is created
      */
-    InMemoryProductDao(Collection<Product> products) {
+    InMemoryProductDao(Collection<ProductModel> products) {
         this.products = new HashMap<>(products.size());
 
         products.forEach(product -> this.products.put(product.getCode(), product));
@@ -69,17 +69,17 @@ public final class InMemoryProductDao implements ProductDao {
      *
      * @return the unmodifiable list of products of this product DAO
      */
-    List<Product> getProducts() {
+    List<ProductModel> getProducts() {
         return List.copyOf(products.values());
     }
 
     @Override
-    public Optional<Product> fetch(IdProductAccessor id) {
+    public Optional<ProductModel> fetch(IdProductAccessor id) {
         return fetchByCode(id.getCode());
     }
 
     @Override
-    public List<Product> fetchAll(int page, int pageSize) {
+    public List<ProductModel> fetchAll(int page, int pageSize) {
         if (page < 0 || pageSize < 0) {
             final var msg = "Page and Page Size are non-negative integers";
             throw new RuntimeException(msg);
@@ -90,19 +90,19 @@ public final class InMemoryProductDao implements ProductDao {
     }
 
     @Override
-    public void create(Product record) {
+    public void create(ProductModel record) {
         products.put(record.getCode(), record);
     }
 
     @Override
-    public void update(Product record) {
+    public void update(ProductModel record) {
         if (isInBounds(record.getCode())) {
             products.replace(record.getCode(), record);
         }
     }
 
     @Override
-    public void delete(Product record) {
+    public void delete(ProductModel record) {
         if (isInBounds(record.getCode())) {
             products.remove(record.getCode());
         }
@@ -113,7 +113,7 @@ public final class InMemoryProductDao implements ProductDao {
             final var description = "Product " + i + " description";
             final var price = toTwoDecimalDigits(Math.random() * 1500.0d);
 
-            products.put(i, Product.of(i, description, price));
+            products.put(i, ProductModel.of(i, description, price));
         }
     }
 
@@ -121,12 +121,12 @@ public final class InMemoryProductDao implements ProductDao {
         return products.containsKey(productCode);
     }
 
-    private Optional<Product> fetchByCode(int code) {
+    private Optional<ProductModel> fetchByCode(int code) {
         return Optional.ofNullable(products.get(code));
     }
 
-    private List<Product> fetchRangeByCode(int productCodeStart, int productCodeEnd) {
-        final var productsFound = new ArrayList<Product>(productCodeEnd - productCodeStart);
+    private List<ProductModel> fetchRangeByCode(int productCodeStart, int productCodeEnd) {
+        final var productsFound = new ArrayList<ProductModel>(productCodeEnd - productCodeStart);
 
         for (int i = productCodeStart; i < productCodeEnd; i++) {
             if (!isInBounds(i)) {

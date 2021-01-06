@@ -13,7 +13,7 @@
 package io.github.tobiasbriones.ep.factura.ui.mainbilling.header;
 
 import io.github.tobiasbriones.ep.factura.data.ProductDao;
-import io.github.tobiasbriones.ep.factura.domain.model.product.Product;
+import io.github.tobiasbriones.ep.factura.domain.model.product.ProductModel;
 import io.github.tobiasbriones.ep.factura.ui.core.MvcController;
 
 import java.time.LocalDate;
@@ -47,7 +47,7 @@ final class HeaderController extends MvcController<HeaderView, Header.Output> {
     }
 
     void onAddButtonClick() {
-        final Product product = view.getProduct();
+        final ProductModel product = view.getProduct();
 
         getOutput().ifPresent(output -> output.onAddProduct(product));
     }

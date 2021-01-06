@@ -12,9 +12,8 @@
 
 package io.github.tobiasbriones.ep.factura.ui.mainbilling.items;
 
-import io.github.tobiasbriones.ep.factura.domain.model.basket.Basket;
+import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketModel;
 import io.github.tobiasbriones.ep.factura.ui.core.SwingComponent;
-import io.github.tobiasbriones.ep.factura.ui.core.rx.AnyObservable;
 import io.github.tobiasbriones.ep.factura.ui.core.rx.Observable;
 
 import javax.swing.*;
@@ -22,7 +21,7 @@ import javax.swing.*;
 // Simple example of creating a component just to exemplify, checkout the order!
 public final class ItemsComponent {
 
-    public static SwingComponent<JPanel> newInstance(Basket basket, Observable observable) {
+    public static SwingComponent<JPanel> newInstance(BasketModel basket, Observable observable) {
         final var controller = new ItemsController(basket);
         final var view = new ItemsView(controller);
 

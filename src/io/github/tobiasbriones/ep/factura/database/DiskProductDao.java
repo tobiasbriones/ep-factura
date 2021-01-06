@@ -14,7 +14,7 @@ package io.github.tobiasbriones.ep.factura.database;
 
 import io.github.tobiasbriones.ep.factura.data.ProductDao;
 import io.github.tobiasbriones.ep.factura.domain.model.product.IdProductAccessor;
-import io.github.tobiasbriones.ep.factura.domain.model.product.Product;
+import io.github.tobiasbriones.ep.factura.domain.model.product.ProductModel;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -37,8 +37,8 @@ public final class DiskProductDao implements ProductDao {
         return new InMemoryProductDao(products);
     }
 
-    private static List<Product> read() throws IOException {
-        final List<Product> list = new ArrayList<>(getEstimatedInitialCapacity());
+    private static List<ProductModel> read() throws IOException {
+        final List<ProductModel> list = new ArrayList<>(getEstimatedInitialCapacity());
 
         try (var br = new BufferedReader(new FileReader(PRODUCTS_FILE_PATH))) {
             String line;
@@ -52,7 +52,7 @@ public final class DiskProductDao implements ProductDao {
         return list;
     }
 
-    private static void save(List<Product> products) throws IOException {
+    private static void save(List<ProductModel> products) throws IOException {
         // TODO
     }
 
@@ -61,13 +61,13 @@ public final class DiskProductDao implements ProductDao {
         private static final int NUMBER_OF_ATTRIBUTES = 3;
         private static final String SEPARATOR_TOKEN = ",";
 
-        static Optional<Product> readProductFrom(String productStr) {
+        static Optional<ProductModel> readProductFrom(String productStr) {
             final var tokens = productStr.split(SEPARATOR_TOKEN);
             return readTokens(tokens);
         }
 
-        private static Optional<Product> readTokens(String... tokens) {
-            final Optional<Product> product;
+        private static Optional<ProductModel> readTokens(String... tokens) {
+            final Optional<ProductModel> product;
 
             if (tokens.length == NUMBER_OF_ATTRIBUTES) {
                 product = readTokenValues(tokens[0], tokens[1], tokens[2]);
@@ -78,12 +78,12 @@ public final class DiskProductDao implements ProductDao {
             return product;
         }
 
-        private static Optional<Product> readTokenValues(
+        private static Optional<ProductModel> readTokenValues(
             String idToken,
             String descriptionToken,
             String priceToken
         ) {
-            Optional<Product> product;
+            Optional<ProductModel> product;
             final int id;
             final String description;
             final double price;
@@ -92,7 +92,7 @@ public final class DiskProductDao implements ProductDao {
                 id = Integer.parseInt(idToken);
                 description = descriptionToken;
                 price = Double.parseDouble(priceToken);
-                product = Optional.of(Product.of(id, description, price));
+                product = Optional.of(ProductModel.of(id, description, price));
             }
             catch (NumberFormatException | NullPointerException ignore) {
                 product = Optional.empty();
@@ -112,29 +112,29 @@ public final class DiskProductDao implements ProductDao {
     }
 
     @Override
-    public Optional<Product> fetch(IdProductAccessor id) {
+    public Optional<ProductModel> fetch(IdProductAccessor id) {
         return inMemoryDao.fetch(id);
     }
 
     @Override
-    public List<Product> fetchAll(int page, int pageSize) {
+    public List<ProductModel> fetchAll(int page, int pageSize) {
         return inMemoryDao.fetchAll(page, pageSize);
     }
 
     @Override
-    public void create(Product record) {
+    public void create(ProductModel record) {
         inMemoryDao.create(record);
         save();
     }
 
     @Override
-    public void update(Product record) {
+    public void update(ProductModel record) {
         inMemoryDao.update(record);
         save();
     }
 
     @Override
-    public void delete(Product record) {
+    public void delete(ProductModel record) {
         inMemoryDao.delete(record);
         save();
     }

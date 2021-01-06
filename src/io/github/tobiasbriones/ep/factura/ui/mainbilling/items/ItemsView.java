@@ -13,8 +13,6 @@
 package io.github.tobiasbriones.ep.factura.ui.mainbilling.items;
 
 import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketItem;
-import io.github.tobiasbriones.ep.factura.domain.model.product.Product;
-import io.github.tobiasbriones.ep.factura.ui.MainWindow;
 import io.github.tobiasbriones.ep.factura.ui.core.JPanelMvcView;
 import io.github.tobiasbriones.ep.factura.ui.core.rx.Observer;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.items.editor.ItemEditorComponent;

@@ -12,11 +12,11 @@
 
 package io.github.tobiasbriones.ep.factura.domain.model.basket;
 
-import io.github.tobiasbriones.ep.factura.domain.model.product.Product;
+import io.github.tobiasbriones.ep.factura.domain.model.product.ProductModel;
 
 public interface BasketItemAccessor {
 
-    Product getProduct();
+    ProductModel getProduct();
 
     int getQuantity();
 

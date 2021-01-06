@@ -12,16 +12,16 @@
 
 package io.github.tobiasbriones.ep.factura.domain.model.basket;
 
-import io.github.tobiasbriones.ep.factura.domain.model.product.Product;
+import io.github.tobiasbriones.ep.factura.domain.model.product.ProductModel;
 
 import java.util.Objects;
 
 public final class BasketItem implements BasketItemModel {
 
-    private final Product product;
+    private final ProductModel product;
     private int quantity;
 
-    public BasketItem(Product product, int quantity) {
+    public BasketItem(ProductModel product, int quantity) {
         if (product == null) {
             final var msg = "The product can't be null";
             throw new RuntimeException(msg);
@@ -30,7 +30,7 @@ public final class BasketItem implements BasketItemModel {
         setQuantity(quantity);
     }
 
-    public BasketItem(Product product) {
+    public BasketItem(ProductModel product) {
         this(product, 0);
     }
 
@@ -60,7 +60,7 @@ public final class BasketItem implements BasketItemModel {
     }
 
     @Override
-    public Product getProduct() {
+    public ProductModel getProduct() {
         return product;
     }
 

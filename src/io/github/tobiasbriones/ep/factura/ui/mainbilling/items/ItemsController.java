@@ -12,7 +12,7 @@
 
 package io.github.tobiasbriones.ep.factura.ui.mainbilling.items;
 
-import io.github.tobiasbriones.ep.factura.domain.model.basket.Basket;
+import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketModel;
 import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketItem;
 import io.github.tobiasbriones.ep.factura.ui.core.MvcController;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.items.editor.ItemEditor;
@@ -21,10 +21,10 @@ import java.util.Iterator;
 
 final class ItemsController extends MvcController<ItemsView, Void> implements ItemEditor.Output {
 
-    private final Basket basket;
+    private final BasketModel basket;
     private ItemsView view;
 
-    ItemsController(Basket basket) {
+    ItemsController(BasketModel basket) {
         super();
         this.basket = basket;
         this.view = null;

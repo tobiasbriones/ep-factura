@@ -12,14 +12,14 @@
 
 package io.github.tobiasbriones.ep.factura.domain.usecase;
 
-import io.github.tobiasbriones.ep.factura.domain.model.basket.Basket;
+import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketModel;
 import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketItem;
 
 public final class RemoveItemFromBasketUseCase {
 
-    private final Basket basket;
+    private final BasketModel basket;
 
-    public RemoveItemFromBasketUseCase(Basket basket) {
+    public RemoveItemFromBasketUseCase(BasketModel basket) {
         this.basket = basket;
     }
 

@@ -14,9 +14,9 @@ package io.github.tobiasbriones.ep.factura.domain.model.basket;
 
 import java.util.Iterator;
 
-public interface Basket {
+public interface BasketModel {
 
-    static BasketSummaryModel summary(Basket basket) {
+    static BasketSummaryModel summary(BasketModel basket) {
         final Iterator<BasketItem> iterator = basket.iterator();
         double isv = 0.0d;
         double total = 0.0d;
