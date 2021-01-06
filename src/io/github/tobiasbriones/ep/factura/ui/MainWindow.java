@@ -13,12 +13,14 @@
 package io.github.tobiasbriones.ep.factura.ui;
 
 import io.github.tobiasbriones.ep.factura.data.ProductDao;
+import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketItemModel;
 import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketModel;
 import io.github.tobiasbriones.ep.factura.domain.model.bill.Bill;
 import io.github.tobiasbriones.ep.factura.domain.model.product.ProductModel;
 import io.github.tobiasbriones.ep.factura.ui.core.rx.AnyObservable;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.header.Header;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.header.HeaderComponent;
+import io.github.tobiasbriones.ep.factura.ui.mainbilling.items.Items;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.items.ItemsComponent;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.summary.Summary;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.summary.SummaryComponent;
@@ -27,7 +29,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-public final class MainWindow extends JFrame implements Header.Output, Summary.Output {
+public final class MainWindow extends JFrame implements Header.Output, Summary.Output, Items.Output {
 
     //                                                                                            //
     //                                                                                            //
@@ -80,12 +82,17 @@ public final class MainWindow extends JFrame implements Header.Output, Summary.O
 
     }
 
+    @Override
+    public void onItemUpdated(BasketItemModel item) {
+        basketObservable.notifyObservers();
+    }
+
     private void init() {
         final var productDao = controller.getProductDao();
         final var basket = controller.getBasket();
         final var panel = new JPanel();
         final var inputPanel = HeaderComponent.newInstance(productDao, this).getComponent();
-        final var scroll = ItemsComponent.newInstance(basket, basketObservable).getComponent();
+        final var scroll = ItemsComponent.newInstance(basket, basketObservable, this).getComponent();
         final var summaryPanel = SummaryComponent.newInstance(basket, basketObservable, this).getComponent();
 
         panel.setLayout(new BorderLayout());

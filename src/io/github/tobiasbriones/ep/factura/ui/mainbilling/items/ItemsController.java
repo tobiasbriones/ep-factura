@@ -12,14 +12,15 @@
 
 package io.github.tobiasbriones.ep.factura.ui.mainbilling.items;
 
-import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketModel;
 import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketItem;
+import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketItemModel;
+import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketModel;
 import io.github.tobiasbriones.ep.factura.ui.core.MvcController;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.items.editor.ItemEditor;
 
 import java.util.Iterator;
 
-final class ItemsController extends MvcController<ItemsView, Void> implements ItemEditor.Output {
+final class ItemsController extends MvcController<ItemsView, Items.Output> implements ItemEditor.Output {
 
     private final BasketModel basket;
     private ItemsView view;
@@ -52,13 +53,17 @@ final class ItemsController extends MvcController<ItemsView, Void> implements It
     @Override
     public void onDelete(BasketItem item) {
         basket.remove(item);
-        view.update();
+        onItemUpdated(item);
     }
 
     @Override
     public void onUpdateQuantity(BasketItem item, int quantity) {
         item.setQuantity(quantity);
-        view.update();
+        onItemUpdated(item);
+    }
+
+    private void onItemUpdated(BasketItemModel item) {
+        getOutput().ifPresent(output -> output.onItemUpdated(item));
     }
 
 }

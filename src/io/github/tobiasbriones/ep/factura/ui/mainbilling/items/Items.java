@@ -12,7 +12,16 @@
 
 package io.github.tobiasbriones.ep.factura.ui.mainbilling.items;
 
-final class Items {
+import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketItemModel;
+
+public final class Items {
+
+    @FunctionalInterface
+    public interface Output {
+
+        void onItemUpdated(BasketItemModel item);
+
+    }
 
     private Items() {}
 

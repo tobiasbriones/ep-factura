@@ -21,11 +21,12 @@ import javax.swing.*;
 // Simple example of creating a component just to exemplify, checkout the order!
 public final class ItemsComponent {
 
-    public static SwingComponent<JPanel> newInstance(BasketModel basket, Observable observable) {
+    public static SwingComponent<JPanel> newInstance(BasketModel basket, Observable observable, Items.Output output) {
         final var controller = new ItemsController(basket);
         final var view = new ItemsView(controller);
 
         observable.subscribe(view);
+        controller.setOutput(output);
         init(view, controller);
         return new SwingComponent<>(view);
     }
