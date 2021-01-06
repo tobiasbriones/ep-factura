@@ -48,7 +48,7 @@ final class Product implements ProductModel {
     @Override
     public double getIsv() {
         final double isvFactor = ((double) DEF_ISV_PERCENTAGE) / 100.0d;
-        return price * isvFactor;
+        return Money.decimalFormat(price * isvFactor);
     }
 
     @Override

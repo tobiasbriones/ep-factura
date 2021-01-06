@@ -12,6 +12,8 @@
 
 package io.github.tobiasbriones.ep.factura.domain.model.basket;
 
+import io.github.tobiasbriones.ep.factura.domain.model.Money;
+
 import java.util.Objects;
 
 import static io.github.tobiasbriones.ep.factura.domain.model.basket.BasketSummaryModel.*;
@@ -23,9 +25,9 @@ public final class BasketSummary implements BasketSummaryModel {
     private final Double total;
 
     BasketSummary(double isv, double total) {
-        this.isv = isv;
+        this.isv = Money.decimalFormat(isv);
         this.subtotal = subtotal(total, isv);
-        this.total = total;
+        this.total = Money.decimalFormat(total);
     }
 
     @Override

@@ -12,10 +12,12 @@
 
 package io.github.tobiasbriones.ep.factura.domain.model.basket;
 
+import io.github.tobiasbriones.ep.factura.domain.model.Money;
+
 public interface BasketSummaryModel {
 
     static double subtotal(double total, double isv) {
-        return total - isv;
+        return Money.decimalFormat(total - isv);
     }
 
     double getIsv();
