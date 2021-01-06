@@ -21,22 +21,6 @@ import java.util.*;
 public final class InMemoryProductDao implements ProductDao {
 
     private static final int ESTIMATED_NUMBER_OF_PRODUCTS = 1000;
-
-    @FunctionalInterface
-    private interface InMemoryProductFetcher {
-
-        /**
-         * Fetches the product from the product list and the given product code.
-         *
-         * @param productList list of in memory products
-         * @param productCode code of the product to fetch
-         *
-         * @return the product if found, null otherwise
-         */
-        ProductModel fetch(List<ProductModel> productList, int productCode);
-
-    }
-
     private final Map<Integer, ProductModel> products;
 
     public InMemoryProductDao() {
