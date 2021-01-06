@@ -12,7 +12,10 @@
 
 package io.github.tobiasbriones.ep.factura.domain.model.basket;
 
+import io.github.tobiasbriones.ep.factura.domain.model.product.ProductModel;
+
 import java.util.Iterator;
+import java.util.Optional;
 
 public interface BasketModel extends StreamableBasketItems {
 
@@ -31,15 +34,26 @@ public interface BasketModel extends StreamableBasketItems {
                 this.total = total;
             }
 
-            private double isv() { return isv; }
+            private double isv() {
+                return isv;
+            }
 
-            private double total() { return total; }
+            private double total() {
+                return total;
+            }
+
         }
         final var identity = new Holder();
         final Holder result = items.stream()
                                    .map(item -> new Holder(item.getIsv(), item.getTotal()))
                                    .reduce(identity, Holder::new);
         return new BasketSummary(result.isv(), result.total());
+    }
+
+    static Optional<BasketItem> findAnyProduct(StreamableBasketItems items, ProductModel product) {
+        return items.stream()
+                    .filter(item -> item.getProduct().equals(product))
+                    .findAny();
     }
 
     int size();
@@ -52,6 +66,13 @@ public interface BasketModel extends StreamableBasketItems {
 
     default BasketSummaryModel computeSummary() {
         return summary(this);
+    }
+
+    default void pushProduct(ProductModel product) {
+        findAnyProduct(this, product).ifPresentOrElse(
+            BasketItem::incrementQuantity,
+            () -> push(new BasketItem(product))
+        );
     }
 
 }
