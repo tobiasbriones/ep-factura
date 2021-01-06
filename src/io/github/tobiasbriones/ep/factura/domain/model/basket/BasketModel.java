@@ -14,7 +14,6 @@ package io.github.tobiasbriones.ep.factura.domain.model.basket;
 
 import io.github.tobiasbriones.ep.factura.domain.model.product.ProductModel;
 
-import java.util.Iterator;
 import java.util.Optional;
 
 public interface BasketModel extends StreamableBasketItems {
@@ -60,8 +59,6 @@ public interface BasketModel extends StreamableBasketItems {
     void push(BasketItem item);
 
     boolean remove(BasketItem item);
-
-    Iterator<BasketItem> iterator();
 
     default BasketSummaryModel computeSummary() {
         return summary(this);

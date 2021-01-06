@@ -31,10 +31,6 @@ final class ItemsController extends MvcController<ItemsView, Items.Output> imple
         this.view = null;
     }
 
-    Iterator<BasketItem> getItems() {
-        return basket.iterator();
-    }
-
     @Override
     public ItemsView getView() {
         return view;

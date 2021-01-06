@@ -13,6 +13,7 @@
 package io.github.tobiasbriones.ep.factura.ui.mainbilling.items;
 
 import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketItem;
+import io.github.tobiasbriones.ep.factura.domain.model.basket.StreamableBasketItems;
 import io.github.tobiasbriones.ep.factura.ui.core.JPanelMvcView;
 import io.github.tobiasbriones.ep.factura.ui.core.rx.Observer;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.items.editor.ItemEditorComponent;
@@ -34,14 +35,6 @@ final class ItemsView extends JPanelMvcView<ItemsController> implements Observer
     //                                                                                            //
 
     private static final DecimalFormat decimalFormat = new DecimalFormat(".##");
-
-    private static void setItems(
-        DefaultListModel<? super BasketItem> listModel,
-        Iterator<BasketItem> items
-    ) {
-        listModel.clear();
-        items.forEachRemaining(listModel::addElement);
-    }
 
     //                                                                                            //
     //                                                                                            //
@@ -130,13 +123,13 @@ final class ItemsView extends JPanelMvcView<ItemsController> implements Observer
 
     }
 
-    private final ItemsController controller;
+    private final StreamableBasketItems model;
     private final DefaultListModel<BasketItem> listModel;
     private final JList<BasketItem> list;
 
-    ItemsView(ItemsController controller) {
+    ItemsView(ItemsController controller, StreamableBasketItems model) {
         super(controller);
-        this.controller = controller;
+        this.model = model;
         this.listModel = new DefaultListModel<>();
         this.list = new JList<>(listModel);
     }
@@ -157,9 +150,12 @@ final class ItemsView extends JPanelMvcView<ItemsController> implements Observer
 
     @Override
     public void update() {
-        final var items = controller.getItems();
+        setItems();
+    }
 
-        setItems(listModel, items);
+    private void setItems() {
+        listModel.clear();
+        model.stream().forEach(listModel::addElement);
     }
 
     private final class ListMouseAdapter extends MouseAdapter {

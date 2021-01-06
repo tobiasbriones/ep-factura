@@ -23,7 +23,7 @@ public final class ItemsComponent {
 
     public static SwingComponent<JPanel> newInstance(BasketModel basket, Observable observable, Items.Output output) {
         final var controller = new ItemsController(basket);
-        final var view = new ItemsView(controller);
+        final var view = new ItemsView(controller, basket);
 
         observable.subscribe(view);
         controller.setOutput(output);

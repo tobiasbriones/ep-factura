@@ -50,11 +50,6 @@ public final class BasketList extends AbstractBasket {
     }
 
     @Override
-    public Iterator<BasketItem> iterator() {
-        return items.iterator();
-    }
-
-    @Override
     protected boolean contains(BasketItem item) {
         return items.contains(item);
     }
