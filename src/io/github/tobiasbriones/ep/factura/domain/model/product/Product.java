@@ -41,11 +41,6 @@ final class Product implements ProductModel {
     }
 
     @Override
-    public double getTotal() {
-        return price + getIsv();
-    }
-
-    @Override
     public double getPrice() {
         return price;
     }

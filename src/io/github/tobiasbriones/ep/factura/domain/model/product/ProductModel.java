@@ -18,4 +18,8 @@ public interface ProductModel extends ProductAccessor {
         return new Product(code, description, price);
     }
 
+    default double getTotal() {
+        return getPrice() + getIsv();
+    }
+
 }
