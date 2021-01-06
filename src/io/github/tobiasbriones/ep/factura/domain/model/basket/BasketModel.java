@@ -14,7 +14,7 @@ package io.github.tobiasbriones.ep.factura.domain.model.basket;
 
 import java.util.Iterator;
 
-public interface BasketModel {
+public interface BasketModel extends BasketItemStream {
 
     static BasketSummaryModel summary(BasketModel basket) {
         final Iterator<BasketItem> iterator = basket.iterator();

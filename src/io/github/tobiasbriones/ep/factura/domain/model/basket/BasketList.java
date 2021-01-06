@@ -15,6 +15,7 @@ package io.github.tobiasbriones.ep.factura.domain.model.basket;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.stream.Stream;
 
 /**
  * Default implementation of {@link BasketModel} based on a {@link LinkedHashSet}.
@@ -31,6 +32,11 @@ public final class BasketList extends AbstractBasket {
     public BasketList(int initialCapacity) {
         super();
         this.items = new LinkedHashSet<>(initialCapacity);
+    }
+
+    @Override
+    public Stream<BasketItem> stream() {
+        return items.stream();
     }
 
     @Override
