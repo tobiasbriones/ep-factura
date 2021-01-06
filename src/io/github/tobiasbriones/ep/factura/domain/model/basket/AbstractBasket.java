@@ -14,7 +14,7 @@ package io.github.tobiasbriones.ep.factura.domain.model.basket;
 
 public abstract class AbstractBasket implements Basket {
 
-    protected AbstractBasket() {}
+    AbstractBasket() {}
 
     @Override
     public final void push(BasketItem item) {
