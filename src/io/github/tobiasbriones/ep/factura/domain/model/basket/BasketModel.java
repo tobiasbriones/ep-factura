@@ -34,20 +34,19 @@ public interface BasketModel extends StreamableBasketItems {
                 this.total = total;
             }
 
-            private double isv() {
-                return isv;
-            }
+            private double isv() { return isv; }
 
-            private double total() {
-                return total;
-            }
+            private double total() { return total; }
 
+            private BasketSummaryModel toBasketSummary() {
+                return new BasketSummary(isv, total);
+            }
         }
         final var identity = new Holder();
-        final Holder result = items.stream()
-                                   .map(item -> new Holder(item.getIsv(), item.getTotal()))
-                                   .reduce(identity, Holder::new);
-        return new BasketSummary(result.isv(), result.total());
+        return items.stream()
+                    .map(item -> new Holder(item.getIsv(), item.getTotal()))
+                    .reduce(identity, Holder::new)
+                    .toBasketSummary();
     }
 
     static Optional<BasketItem> findAnyProduct(StreamableBasketItems items, ProductModel product) {
