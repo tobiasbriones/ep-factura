@@ -60,7 +60,7 @@ public final class Main implements MainWindow.Controller {
 
     @Override
     public void pushToBasket(ProductModel product) {
-
+        basket.pushProduct(product);
     }
 
     @Override
