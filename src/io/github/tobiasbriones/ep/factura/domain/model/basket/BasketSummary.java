@@ -45,10 +45,10 @@ public final class BasketSummary implements BasketSummaryModel {
 
     @Override
     public String toString() {
-        return "BasketResume[" +
+        return "BasketSummary[" +
                "isv=" + isv + ", " +
                "subtotal=" + subtotal + ", " +
-               "total=" + total + ", " +
+               "total=" + total +
                "]";
     }
 
