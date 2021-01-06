@@ -18,8 +18,13 @@ import java.util.Objects;
 
 public final class BasketItem implements BasketItemModel {
 
+    public static final int DEF_QUANTITY = 1;
     private final ProductModel product;
     private int quantity;
+
+    public BasketItem(ProductModel product) {
+        this(product, DEF_QUANTITY);
+    }
 
     public BasketItem(ProductModel product, int quantity) {
         if (product == null) {
@@ -28,35 +33,6 @@ public final class BasketItem implements BasketItemModel {
         }
         this.product = product;
         setQuantity(quantity);
-    }
-
-    public BasketItem(ProductModel product) {
-        this(product, 0);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(product);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-        final BasketItemAccessor basketItem = (BasketItemAccessor) obj;
-        return product.equals(basketItem.getProduct());
-    }
-
-    @Override
-    public String toString() {
-        return "BasketItem[" +
-               "product=" + product + ", " +
-               "quantity=" + quantity +
-               "]";
     }
 
     @Override
@@ -95,6 +71,31 @@ public final class BasketItem implements BasketItemModel {
     @Override
     public double getTotal() {
         return product.getTotal() * ((double) quantity);
+    }
+
+    @Override
+    public String toString() {
+        return "BasketItem[" +
+               "product=" + product + ", " +
+               "quantity=" + quantity +
+               "]";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        final BasketItemAccessor basketItem = (BasketItemAccessor) obj;
+        return product.equals(basketItem.getProduct());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(product);
     }
 
 }
