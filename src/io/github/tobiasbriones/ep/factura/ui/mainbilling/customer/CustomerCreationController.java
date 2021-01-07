@@ -27,7 +27,7 @@ import io.github.tobiasbriones.ep.factura.ui.core.MvcController;
 import javax.swing.*;
 import java.util.List;
 
-final class CustomerCreationDialogController extends MvcController<CustomerCreationDialogView, CustomerCreationDialog.Output> {
+final class CustomerCreationController extends MvcController<CustomerCreationView, CustomerCreationDialog.Output> {
 
     private static boolean isFormSet(CustomerAccessor accessor) {
         return isSet(accessor.getPhone()) &&
@@ -63,9 +63,9 @@ final class CustomerCreationDialogController extends MvcController<CustomerCreat
 
     private final CityDao cityDao;
     private final CommunityDao communityDao;
-    private CustomerCreationDialogView view;
+    private CustomerCreationView view;
 
-    CustomerCreationDialogController(CityDao cityDao, CommunityDao communityDao) {
+    CustomerCreationController(CityDao cityDao, CommunityDao communityDao) {
         super();
         this.cityDao = cityDao;
         this.communityDao = communityDao;
@@ -81,12 +81,12 @@ final class CustomerCreationDialogController extends MvcController<CustomerCreat
     }
 
     @Override
-    public CustomerCreationDialogView getView() {
+    public CustomerCreationView getView() {
         return view;
     }
 
     @Override
-    public void setView(CustomerCreationDialogView value) {
+    public void setView(CustomerCreationView value) {
         view = value;
     }
 

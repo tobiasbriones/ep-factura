@@ -35,12 +35,12 @@ public final class CustomerCreationDialog implements SwingComponent<JDialog> {
         return component;
     }
 
-    private final CustomerCreationDialogController controller;
-    private final CustomerCreationDialogView view;
+    private final CustomerCreationController controller;
+    private final CustomerCreationView view;
 
     private CustomerCreationDialog(CityDao cityDao, CommunityDao communityDao) {
-        this.controller = new CustomerCreationDialogController(cityDao, communityDao);
-        this.view = new CustomerCreationDialogView(controller);
+        this.controller = new CustomerCreationController(cityDao, communityDao);
+        this.view = new CustomerCreationView(controller);
     }
 
     @Override

@@ -23,7 +23,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-final class CustomerCreationDialogView extends JDialogMvcView<CustomerCreationDialogController> implements CustomerAccessor {
+final class CustomerCreationView extends JDialogMvcView<CustomerCreationController> implements CustomerAccessor {
 
     private static String getRadioValue(ButtonGroup buttonGroup) {
         if (buttonGroup.getSelection() == null) {
@@ -32,7 +32,7 @@ final class CustomerCreationDialogView extends JDialogMvcView<CustomerCreationDi
         return buttonGroup.getSelection().getActionCommand();
     }
 
-    private final CustomerCreationDialogController controller;
+    private final CustomerCreationController controller;
     private final JTextField nameField;
     private final JTextField surnameField;
     private final JTextField phoneField;
@@ -43,7 +43,7 @@ final class CustomerCreationDialogView extends JDialogMvcView<CustomerCreationDi
     private final JButton cancelButton;
     private final JButton saveButton;
 
-    CustomerCreationDialogView(CustomerCreationDialogController controller) {
+    CustomerCreationView(CustomerCreationController controller) {
         super(controller);
         this.controller = controller;
         this.nameField = new JTextField();
@@ -154,7 +154,7 @@ final class CustomerCreationDialogView extends JDialogMvcView<CustomerCreationDi
     }
 
     @Override
-    public void bindEvents(CustomerCreationDialogController controller) {
+    public void bindEvents(CustomerCreationController controller) {
         saveButton.addActionListener(e -> controller.onSaveButtonClick());
         cancelButton.addActionListener(e -> controller.onCancelButtonClick());
     }
