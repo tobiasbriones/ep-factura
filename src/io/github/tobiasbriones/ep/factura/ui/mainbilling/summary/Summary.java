@@ -20,14 +20,6 @@ import javax.swing.*;
 
 public final class Summary implements SwingComponent<JPanel> {
 
-    public interface Output {
-
-        void onPrint();
-
-        void onPrintWithNewCustomer();
-
-    }
-
     public static Summary newInstance(BasketModel basket) {
         final var component = new Summary(basket);
 
@@ -46,10 +38,6 @@ public final class Summary implements SwingComponent<JPanel> {
     @Override
     public JPanel getViewComponent() {
         return view.getViewComponent();
-    }
-
-    public void setOutput(Summary.Output output) {
-        controller.setOutput(output);
     }
 
     public void subscribe(Observable observable) {

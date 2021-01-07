@@ -27,8 +27,6 @@ final class SummaryView extends JPanelMvcView<SummaryController> implements Obse
     private final JLabel subtotalLabel;
     private final JLabel isvLabel;
     private final JLabel totalLabel;
-    private final JCheckBox createNewCustomerBox;
-    private final JButton printButton;
     private BasketSummaryModel model;
 
     SummaryView(SummaryController controller, BasketModel basket) {
@@ -37,24 +35,13 @@ final class SummaryView extends JPanelMvcView<SummaryController> implements Obse
         this.subtotalLabel = new JLabel();
         this.isvLabel = new JLabel();
         this.totalLabel = new JLabel();
-        this.createNewCustomerBox = new JCheckBox();
-        this.printButton = new JButton();
         this.model = basket.computeSummary();
-    }
-
-    boolean isCreateNewCustomerSelected() {
-        return createNewCustomerBox.isSelected();
     }
 
     @Override
     public void createView(JPanel view) {
         final var infoPanel = new JPanel();
-        final var infoWrapperPanel = new JPanel();
-        final var actionPanel = new JPanel();
         final var gbc = new GridBagConstraints();
-
-        printButton.setText("Imprimir");
-        createNewCustomerBox.setText("Nuevo cliente");
 
         infoPanel.setLayout(new GridBagLayout());
         gbc.insets = new Insets(5, 20, 5, 20);
@@ -77,25 +64,10 @@ final class SummaryView extends JPanelMvcView<SummaryController> implements Obse
         gbc.gridx = 1;
         gbc.gridy = 2;
         infoPanel.add(totalLabel, gbc);
-        infoWrapperPanel.setLayout(new FlowLayout(FlowLayout.TRAILING));
-        infoWrapperPanel.setPreferredSize(new Dimension(630, 96));
-        infoWrapperPanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.decode("#737373")));
-        infoWrapperPanel.add(infoPanel);
 
-        actionPanel.setLayout(new BorderLayout());
-        actionPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
-        actionPanel.add(createNewCustomerBox, BorderLayout.LINE_START);
-        actionPanel.add(printButton, BorderLayout.LINE_END);
-
-        view.setLayout(new BorderLayout());
-        view.setBorder(new EmptyBorder(10, 0, 5, 0));
-        view.add(infoWrapperPanel, BorderLayout.LINE_END);
-        view.add(actionPanel, BorderLayout.PAGE_END);
-    }
-
-    @Override
-    public void bindEvents(SummaryController controller) {
-        printButton.addActionListener(e -> controller.onPrintButtonClick());
+        view.setLayout(new FlowLayout(FlowLayout.TRAILING));
+        view.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.decode("#737373")));
+        view.add(infoPanel);
     }
 
     @Override

@@ -14,7 +14,7 @@ package io.github.tobiasbriones.ep.factura.ui.mainbilling.summary;
 
 import io.github.tobiasbriones.ep.factura.ui.core.MvcController;
 
-final class SummaryController extends MvcController<SummaryView, Summary.Output> {
+final class SummaryController extends MvcController<SummaryView, Void> {
 
     private SummaryView view;
 
@@ -36,19 +36,6 @@ final class SummaryController extends MvcController<SummaryView, Summary.Output>
     @Override
     public void init() {
         view.update();
-    }
-
-    void onPrintButtonClick() {
-        final boolean mustCreateNewCustomer = view.isCreateNewCustomerSelected();
-
-        getOutput().ifPresent(output -> {
-            if (mustCreateNewCustomer) {
-                output.onPrintWithNewCustomer();
-            }
-            else {
-                output.onPrint();
-            }
-        });
     }
 
 }

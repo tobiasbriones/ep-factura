@@ -20,13 +20,14 @@ import io.github.tobiasbriones.ep.factura.domain.model.product.ProductModel;
 import io.github.tobiasbriones.ep.factura.ui.core.rx.AnyObservable;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.header.Header;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.items.Items;
+import io.github.tobiasbriones.ep.factura.ui.mainbilling.print.Print;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.summary.Summary;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-public final class MainWindow extends JFrame implements Header.Output, Summary.Output, Items.Output {
+public final class MainWindow extends JFrame implements Header.Output, Print.Output, Items.Output {
 
     //                                                                                            //
     //                                                                                            //
@@ -94,20 +95,28 @@ public final class MainWindow extends JFrame implements Header.Output, Summary.O
         final var itemsPanel = items.getViewComponent();
         final var summary = Summary.newInstance(basket);
         final var summaryPanel = summary.getViewComponent();
+        final var print = Print.newInstance();
+        final var printPanel = print.getViewComponent();
+        final var endPanel = new JPanel();
 
         header.setOutput(this);
 
         items.setOutput(this);
         items.subscribe(basketObservable);
 
-        summary.setOutput(this);
         summary.subscribe(basketObservable);
+
+        print.setOutput(this);
+
+        endPanel.setLayout(new BoxLayout(endPanel, BoxLayout.PAGE_AXIS));
+        endPanel.add(summaryPanel);
+        endPanel.add(printPanel);
 
         panel.setLayout(new BorderLayout());
         panel.setBorder(new EmptyBorder(10, 10, 10, 10));
         panel.add(headerPanel, BorderLayout.PAGE_START);
         panel.add(itemsPanel, BorderLayout.CENTER);
-        panel.add(summaryPanel, BorderLayout.PAGE_END);
+        panel.add(endPanel, BorderLayout.PAGE_END);
         getContentPane().add(panel);
 
         setIconImage(Toolkit.getDefaultToolkit().getImage("icon.png"));
