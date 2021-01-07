@@ -13,118 +13,45 @@
 package io.github.tobiasbriones.ep.factura.ui.mainbilling;
 
 import io.github.tobiasbriones.ep.factura.data.ProductDao;
-import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketItemModel;
 import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketModel;
-import io.github.tobiasbriones.ep.factura.domain.model.bill.Bill;
-import io.github.tobiasbriones.ep.factura.domain.model.product.ProductModel;
-import io.github.tobiasbriones.ep.factura.ui.core.rx.AnyObservable;
-import io.github.tobiasbriones.ep.factura.ui.mainbilling.header.Header;
-import io.github.tobiasbriones.ep.factura.ui.mainbilling.items.Items;
-import io.github.tobiasbriones.ep.factura.ui.mainbilling.print.Print;
-import io.github.tobiasbriones.ep.factura.ui.mainbilling.summary.Summary;
+import io.github.tobiasbriones.ep.factura.ui.core.SwingComponent;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import java.awt.*;
 
-public final class MainBillingWindow extends JFrame implements Header.Output, Print.Output, Items.Output {
+public final class MainBillingWindow implements SwingComponent<JFrame> {
 
-    //                                                                                            //
-    //                                                                                            //
-    //                                           CLASS                                            //
-    //                                                                                            //
-    //                                                                                            //
+    public static MainBillingWindow newInstance(BasketModel basket, ProductDao productDao) {
+        final var component = new MainBillingWindow(basket, productDao);
 
-    public interface Controller {
-
-        ProductDao getProductDao();
-
-        BasketModel getBasket();
-
-        void pushToBasket(ProductModel product);
-
-        void save(Bill bill);
-
+        component.init();
+        return component;
     }
 
-    //                                                                                            //
-    //                                                                                            //
-    //                                          INSTANCE                                          //
-    //                                                                                            //
-    //                                                                                            //
+    private final MainBillingController controller;
+    private final MainBillingView view;
 
-    private final Controller controller;
-    private final AnyObservable basketObservable;
-
-    public MainBillingWindow(Controller controller) {
-        super("Factura");
-        this.controller = controller;
-        this.basketObservable = new AnyObservable();
-
-        init();
+    private MainBillingWindow(BasketModel basket, ProductDao productDao) {
+        this.controller = new MainBillingController(basket, productDao);
+        this.view = new MainBillingView(controller);
     }
 
     @Override
-    public void onAddProduct(ProductModel product) {
-        controller.pushToBasket(product);
-        basketObservable.notifyObservers();
+    public JFrame getViewComponent() {
+        return view.getViewComponent();
     }
 
-    @Override
-    public void onPrint() {
-
-    }
-
-    @Override
-    public void onPrintWithNewCustomer() {
-
-    }
-
-    @Override
-    public void onItemUpdated(BasketItemModel item) {
-        basketObservable.notifyObservers();
+    public void show() {
+        view.show();
     }
 
     private void init() {
-        final var productDao = controller.getProductDao();
-        final var basket = controller.getBasket();
-        final var panel = new JPanel();
-        final var header = Header.newInstance(productDao);
-        final var headerPanel = header.getViewComponent();
-        final var items = Items.newInstance(basket);
-        final var itemsPanel = items.getViewComponent();
-        final var summary = Summary.newInstance(basket);
-        final var summaryPanel = summary.getViewComponent();
-        final var print = Print.newInstance();
-        final var printPanel = print.getViewComponent();
-        final var endPanel = new JPanel();
+        view.init();
+        initController();
+    }
 
-        header.setOutput(this);
-
-        items.setOutput(this);
-        items.subscribe(basketObservable);
-
-        summary.subscribe(basketObservable);
-
-        print.setOutput(this);
-
-        endPanel.setLayout(new BoxLayout(endPanel, BoxLayout.PAGE_AXIS));
-        endPanel.add(summaryPanel);
-        endPanel.add(printPanel);
-
-        panel.setLayout(new BorderLayout());
-        panel.setBorder(new EmptyBorder(10, 10, 10, 10));
-        panel.add(headerPanel, BorderLayout.PAGE_START);
-        panel.add(itemsPanel, BorderLayout.CENTER);
-        panel.add(endPanel, BorderLayout.PAGE_END);
-        getContentPane().add(panel);
-
-        setIconImage(Toolkit.getDefaultToolkit().getImage("icon.png"));
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        pack();
-        setLocationRelativeTo(null);
-        setResizable(false);
-        setVisible(true);
+    private void initController() {
+        controller.setView(view);
+        controller.init();
     }
 
 }

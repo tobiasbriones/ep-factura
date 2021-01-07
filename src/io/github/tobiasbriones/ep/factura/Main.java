@@ -12,19 +12,16 @@
 
 package io.github.tobiasbriones.ep.factura;
 
-import io.github.tobiasbriones.ep.factura.data.ProductDao;
 import io.github.tobiasbriones.ep.factura.database.InMemoryProductDao;
-import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketModel;
 import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketList;
 import io.github.tobiasbriones.ep.factura.domain.model.bill.Bill;
-import io.github.tobiasbriones.ep.factura.domain.model.product.ProductModel;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.MainBillingWindow;
 
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class Main implements MainBillingWindow.Controller {
+public final class Main {
 
     public static void main(String[] args) {
         try {
@@ -35,36 +32,18 @@ public final class Main implements MainBillingWindow.Controller {
         SwingUtilities.invokeLater(Main::new);
     }
 
-    private final ProductDao productDao;
-    private final BasketModel basket;
     private final MainBillingWindow mw;
     private final List<Bill> bills;
 
     private Main() {
-        this.productDao = new InMemoryProductDao();
-        this.basket = new BasketList();
-        this.mw = new MainBillingWindow(this);
+        this.mw = MainBillingWindow.newInstance(new BasketList(), new InMemoryProductDao());
         this.bills = new ArrayList<>();
+
+        init();
     }
 
-    @Override
-    public ProductDao getProductDao() {
-        return productDao;
-    }
-
-    @Override
-    public BasketModel getBasket() {
-        return basket;
-    }
-
-    @Override
-    public void pushToBasket(ProductModel product) {
-        basket.pushProduct(product);
-    }
-
-    @Override
-    public void save(Bill bill) {
-        bills.add(bill);
+    private void init() {
+        mw.show();
     }
 
 }
