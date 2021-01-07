@@ -75,6 +75,9 @@ final class ItemEditorView extends JDialogMvcView<ItemEditorController> {
     @Override
     public void update() {
         quantityField.setText(String.valueOf(item.getQuantity()));
+    }
+
+    void show() {
         getView().setVisible(true);
     }
 

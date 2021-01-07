@@ -18,35 +18,40 @@ import io.github.tobiasbriones.ep.factura.ui.core.SwingComponent;
 
 import javax.swing.*;
 
-public class CustomerCreationDialogComponent {
+public final class CustomerCreationDialogComponent implements SwingComponent<JDialog> {
 
-    public static SwingComponent<JDialog> newInstance(
-        CityDao cityDao,
-        CommunityDao communityDao,
-        CustomerCreationDialog.Output output
-    ) {
-        final var controller = new CustomerCreationDialogController(cityDao, communityDao);
-        final var view = new CustomerCreationDialogView(controller);
+    public static CustomerCreationDialogComponent newInstance(CityDao cityDao, CommunityDao communityDao) {
+        final var component = new CustomerCreationDialogComponent(cityDao, communityDao);
 
+        component.init();
+        return component;
+    }
+
+    private final CustomerCreationDialogController controller;
+    private final CustomerCreationDialogView view;
+
+    private CustomerCreationDialogComponent(CityDao cityDao, CommunityDao communityDao) {
+        this.controller = new CustomerCreationDialogController(cityDao, communityDao);
+        this.view = new CustomerCreationDialogView(controller);
+    }
+
+    @Override
+    public JDialog getComponent() {
+        return view.getComponent();
+    }
+
+    public void setOutput(CustomerCreationDialog.Output output) {
         controller.setOutput(output);
-        init(view, controller);
-        return new SwingComponent<>(view);
     }
 
-    private static void init(CustomerCreationDialogView view, CustomerCreationDialogController controller) {
-        initView(view);
-        initController(view, controller);
-    }
-
-    private static void initView(CustomerCreationDialogView view) {
+    private void init() {
         view.init();
+        initController();
     }
 
-    private static void initController(CustomerCreationDialogView view, CustomerCreationDialogController controller) {
+    private void initController() {
         controller.setView(view);
         controller.init();
     }
-
-    private CustomerCreationDialogComponent() {}
 
 }

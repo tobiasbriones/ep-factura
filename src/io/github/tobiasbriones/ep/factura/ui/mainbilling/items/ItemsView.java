@@ -182,11 +182,10 @@ final class ItemsView extends JPanelMvcView<ItemsController> implements Observer
         }
 
         private void showEditDialog(BasketItem item) {
-            final var dialogComponent = ItemEditorComponent.newInstance(
-                getController(),
-                item
-            );
-            final var dialog = dialogComponent.getComponent();
+            final var dialogComponent = ItemEditorComponent.newInstance(item);
+
+            dialogComponent.setOutput(getController());
+            dialogComponent.show();
         }
 
     }

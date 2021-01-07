@@ -17,32 +17,41 @@ import io.github.tobiasbriones.ep.factura.ui.core.SwingComponent;
 
 import javax.swing.*;
 
-// Simple example of creating a component just to exemplify, checkout the order!
-public final class HeaderComponent {
+public final class HeaderComponent implements SwingComponent<JPanel> {
 
-    public static SwingComponent<JPanel> newInstance(ProductDao productDao, Header.Output output) {
-        final var controller = new HeaderController(productDao);
-        final var view = new HeaderView(controller);
+    public static HeaderComponent newInstance(ProductDao productDao) {
+        final var component = new HeaderComponent(productDao);
 
+        component.init();
+        return component;
+    }
+
+    private final HeaderController controller;
+    private final HeaderView view;
+
+    private HeaderComponent(ProductDao productDao) {
+        super();
+        this.controller = new HeaderController(productDao);
+        this.view = new HeaderView(controller);
+    }
+
+    @Override
+    public JPanel getComponent() {
+        return view.getComponent();
+    }
+
+    public void setOutput(Header.Output output) {
         controller.setOutput(output);
-        init(view, controller);
-        return new SwingComponent<>(view);
     }
 
-    private static void init(HeaderView view, HeaderController controller) {
-        initView(view);
-        initController(view, controller);
-    }
-
-    private static void initView(HeaderView view) {
+    private void init() {
         view.init();
+        initController();
     }
 
-    private static void initController(HeaderView view, HeaderController controller) {
+    private void initController() {
         controller.setView(view);
         controller.init();
     }
-
-    private HeaderComponent() {}
 
 }

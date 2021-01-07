@@ -14,17 +14,5 @@ package io.github.tobiasbriones.ep.factura.ui.core;
 
 import java.awt.*;
 
-public final class SwingComponent<V extends Component> implements SwingView<V> {
-
-    private final V view;
-
-    public SwingComponent(SwingView<V> view) {
-        this.view = view.getComponent();
-    }
-
-    @Override
-    public V getComponent() {
-        return view;
-    }
-
-}
+@FunctionalInterface
+public interface SwingComponent<V extends Component> extends SwingView<V> {}

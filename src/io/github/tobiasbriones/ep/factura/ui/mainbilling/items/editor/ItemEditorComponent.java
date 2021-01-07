@@ -17,40 +17,44 @@ import io.github.tobiasbriones.ep.factura.ui.core.SwingComponent;
 
 import javax.swing.*;
 
-// Simple example of how to create a component
-public final class ItemEditorComponent {
+public final class ItemEditorComponent implements SwingComponent<JDialog> {
 
-    public static SwingComponent<JDialog> newInstance(ItemEditor.Output output, BasketItem item) {
-        final var controller = new ItemEditorController();
-        final var view = new ItemEditorView(controller, item);
+    public static ItemEditorComponent newInstance(BasketItem basketItem) {
+        final var component = new ItemEditorComponent(basketItem);
 
-        init(view, controller, output);
-        return new SwingComponent<>(view);
+        component.init();
+        return component;
     }
 
-    private static void init(
-        ItemEditorView view,
-        ItemEditorController controller,
-        ItemEditor.Output output
-    ) {
-        initView(view);
-        initController(view, controller, output);
+    private final ItemEditorController controller;
+    private final ItemEditorView view;
+
+    private ItemEditorComponent(BasketItem item) {
+        this.controller = new ItemEditorController();
+        this.view = new ItemEditorView(controller, item);
     }
 
-    private static void initView(ItemEditorView view) {
-        view.init();
+    @Override
+    public JDialog getComponent() {
+        return view.getComponent();
     }
 
-    private static void initController(
-        ItemEditorView view,
-        ItemEditorController controller,
-        ItemEditor.Output output
-    ) {
-        controller.setView(view);
+    public void setOutput(ItemEditor.Output output) {
         controller.setOutput(output);
+    }
+
+    public void show() {
+        view.show();
+    }
+
+    private void init() {
+        view.init();
+        initController();
+    }
+
+    private void initController() {
+        controller.setView(view);
         controller.init();
     }
-
-    private ItemEditorComponent() {}
 
 }

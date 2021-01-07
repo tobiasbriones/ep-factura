@@ -18,29 +18,42 @@ import io.github.tobiasbriones.ep.factura.ui.core.rx.Observable;
 
 import javax.swing.*;
 
-// Simple example of creating a component just to exemplify, checkout the order!
-public final class ItemsComponent {
+public final class ItemsComponent implements SwingComponent<JPanel> {
 
-    public static SwingComponent<JPanel> newInstance(BasketModel basket, Observable observable, Items.Output output) {
-        final var controller = new ItemsController(basket);
-        final var view = new ItemsView(controller, basket);
+    public static ItemsComponent newInstance(BasketModel basket) {
+        final var component = new ItemsComponent(basket);
 
-        observable.subscribe(view);
+        component.init();
+        return component;
+    }
+
+    private final ItemsController controller;
+    private final ItemsView view;
+
+    private ItemsComponent(BasketModel basket) {
+        this.controller = new ItemsController(basket);
+        this.view = new ItemsView(controller, basket);
+    }
+
+    @Override
+    public JPanel getComponent() {
+        return view.getComponent();
+    }
+
+    public void setOutput(Items.Output output) {
         controller.setOutput(output);
-        init(view, controller);
-        return new SwingComponent<>(view);
     }
 
-    private static void init(ItemsView view, ItemsController controller) {
-        initView(view);
-        initController(view, controller);
+    public void subscribe(Observable observable) {
+        observable.subscribe(view);
     }
 
-    private static void initView(ItemsView view) {
+    private void init() {
         view.init();
+        initController();
     }
 
-    private static void initController(ItemsView view, ItemsController controller) {
+    private void initController() {
         controller.setView(view);
         controller.init();
     }

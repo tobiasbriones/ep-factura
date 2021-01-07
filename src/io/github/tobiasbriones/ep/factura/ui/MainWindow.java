@@ -91,14 +91,25 @@ public final class MainWindow extends JFrame implements Header.Output, Summary.O
         final var productDao = controller.getProductDao();
         final var basket = controller.getBasket();
         final var panel = new JPanel();
-        final var inputPanel = HeaderComponent.newInstance(productDao, this).getComponent();
-        final var scroll = ItemsComponent.newInstance(basket, basketObservable, this).getComponent();
-        final var summaryPanel = SummaryComponent.newInstance(basket, basketObservable, this).getComponent();
+        final var headerComponent = HeaderComponent.newInstance(productDao);
+        final var headerPanel = headerComponent.getComponent();
+        final var itemsComponent = ItemsComponent.newInstance(basket);
+        final var itemsPanel = itemsComponent.getComponent();
+        final var summaryComponent = SummaryComponent.newInstance(basket);
+        final var summaryPanel = summaryComponent.getComponent();
+
+        headerComponent.setOutput(this);
+
+        itemsComponent.setOutput(this);
+        itemsComponent.subscribe(basketObservable);
+
+        summaryComponent.setOutput(this);
+        summaryComponent.subscribe(basketObservable);
 
         panel.setLayout(new BorderLayout());
         panel.setBorder(new EmptyBorder(10, 10, 10, 10));
-        panel.add(inputPanel, BorderLayout.PAGE_START);
-        panel.add(scroll, BorderLayout.CENTER);
+        panel.add(headerPanel, BorderLayout.PAGE_START);
+        panel.add(itemsPanel, BorderLayout.CENTER);
         panel.add(summaryPanel, BorderLayout.PAGE_END);
         getContentPane().add(panel);
 

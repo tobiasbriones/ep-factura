@@ -18,37 +18,44 @@ import io.github.tobiasbriones.ep.factura.ui.core.rx.Observable;
 
 import javax.swing.*;
 
-public final class SummaryComponent {
+public final class SummaryComponent implements SwingComponent<JPanel> {
 
-    public static SwingComponent<JPanel> newInstance(
-        BasketModel basket,
-        Observable observable,
-        Summary.Output output
-    ) {
-        final var controller = new SummaryController();
-        final var view = new SummaryView(controller, basket);
+    public static SummaryComponent newInstance(BasketModel basket) {
+        final var component = new SummaryComponent(basket);
 
+        component.init();
+        return component;
+    }
+
+    private final SummaryController controller;
+    private final SummaryView view;
+
+    private SummaryComponent(BasketModel basket) {
+        this.controller = new SummaryController();
+        this.view = new SummaryView(controller, basket);
+    }
+
+    @Override
+    public JPanel getComponent() {
+        return view.getComponent();
+    }
+
+    public void setOutput(Summary.Output output) {
         controller.setOutput(output);
+    }
+
+    public void subscribe(Observable observable) {
         observable.subscribe(view);
-        init(view, controller);
-        return new SwingComponent<>(view);
     }
 
-    private static void init(SummaryView view, SummaryController controller) {
-        initView(view);
-        initController(view, controller);
-    }
-
-    private static void initView(SummaryView view) {
+    private void init() {
         view.init();
+        initController();
     }
 
-    private static void initController(SummaryView view, SummaryController controller) {
+    private void initController() {
         controller.setView(view);
         controller.init();
-    }
-
-    private SummaryComponent() {
     }
 
 }
