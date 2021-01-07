@@ -16,7 +16,7 @@ import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketItem;
 import io.github.tobiasbriones.ep.factura.domain.model.basket.StreamableBasketItems;
 import io.github.tobiasbriones.ep.factura.ui.core.JPanelMvcView;
 import io.github.tobiasbriones.ep.factura.ui.core.rx.Observer;
-import io.github.tobiasbriones.ep.factura.ui.mainbilling.items.editor.ItemEditorComponent;
+import io.github.tobiasbriones.ep.factura.ui.mainbilling.items.editor.ItemEditor;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -24,7 +24,6 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
-import java.util.Iterator;
 
 final class ItemsView extends JPanelMvcView<ItemsController> implements Observer {
 
@@ -182,7 +181,7 @@ final class ItemsView extends JPanelMvcView<ItemsController> implements Observer
         }
 
         private void showEditDialog(BasketItem item) {
-            final var dialogComponent = ItemEditorComponent.newInstance(item);
+            final var dialogComponent = ItemEditor.newInstance(item);
 
             dialogComponent.setOutput(getController());
             dialogComponent.show();

@@ -13,8 +13,13 @@
 package io.github.tobiasbriones.ep.factura.ui.mainbilling.items;
 
 import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketItemModel;
+import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketModel;
+import io.github.tobiasbriones.ep.factura.ui.core.SwingComponent;
+import io.github.tobiasbriones.ep.factura.ui.core.rx.Observable;
 
-public final class Items {
+import javax.swing.*;
+
+public final class Items implements SwingComponent<JPanel> {
 
     @FunctionalInterface
     public interface Output {
@@ -23,6 +28,42 @@ public final class Items {
 
     }
 
-    private Items() {}
+    public static Items newInstance(BasketModel basket) {
+        final var component = new Items(basket);
+
+        component.init();
+        return component;
+    }
+
+    private final ItemsController controller;
+    private final ItemsView view;
+
+    private Items(BasketModel basket) {
+        this.controller = new ItemsController(basket);
+        this.view = new ItemsView(controller, basket);
+    }
+
+    @Override
+    public JPanel getViewComponent() {
+        return view.getViewComponent();
+    }
+
+    public void setOutput(Items.Output output) {
+        controller.setOutput(output);
+    }
+
+    public void subscribe(Observable observable) {
+        observable.subscribe(view);
+    }
+
+    private void init() {
+        view.init();
+        initController();
+    }
+
+    private void initController() {
+        controller.setView(view);
+        controller.init();
+    }
 
 }

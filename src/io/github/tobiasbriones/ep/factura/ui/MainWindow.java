@@ -19,11 +19,8 @@ import io.github.tobiasbriones.ep.factura.domain.model.bill.Bill;
 import io.github.tobiasbriones.ep.factura.domain.model.product.ProductModel;
 import io.github.tobiasbriones.ep.factura.ui.core.rx.AnyObservable;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.header.Header;
-import io.github.tobiasbriones.ep.factura.ui.mainbilling.header.HeaderComponent;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.items.Items;
-import io.github.tobiasbriones.ep.factura.ui.mainbilling.items.ItemsComponent;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.summary.Summary;
-import io.github.tobiasbriones.ep.factura.ui.mainbilling.summary.SummaryComponent;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -91,20 +88,20 @@ public final class MainWindow extends JFrame implements Header.Output, Summary.O
         final var productDao = controller.getProductDao();
         final var basket = controller.getBasket();
         final var panel = new JPanel();
-        final var headerComponent = HeaderComponent.newInstance(productDao);
-        final var headerPanel = headerComponent.getViewComponent();
-        final var itemsComponent = ItemsComponent.newInstance(basket);
-        final var itemsPanel = itemsComponent.getViewComponent();
-        final var summaryComponent = SummaryComponent.newInstance(basket);
-        final var summaryPanel = summaryComponent.getViewComponent();
+        final var header = Header.newInstance(productDao);
+        final var headerPanel = header.getViewComponent();
+        final var items = Items.newInstance(basket);
+        final var itemsPanel = items.getViewComponent();
+        final var summary = Summary.newInstance(basket);
+        final var summaryPanel = summary.getViewComponent();
 
-        headerComponent.setOutput(this);
+        header.setOutput(this);
 
-        itemsComponent.setOutput(this);
-        itemsComponent.subscribe(basketObservable);
+        items.setOutput(this);
+        items.subscribe(basketObservable);
 
-        summaryComponent.setOutput(this);
-        summaryComponent.subscribe(basketObservable);
+        summary.setOutput(this);
+        summary.subscribe(basketObservable);
 
         panel.setLayout(new BorderLayout());
         panel.setBorder(new EmptyBorder(10, 10, 10, 10));

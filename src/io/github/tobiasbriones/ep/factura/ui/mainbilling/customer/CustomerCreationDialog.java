@@ -12,9 +12,14 @@
 
 package io.github.tobiasbriones.ep.factura.ui.mainbilling.customer;
 
+import io.github.tobiasbriones.ep.factura.data.CityDao;
+import io.github.tobiasbriones.ep.factura.data.CommunityDao;
 import io.github.tobiasbriones.ep.factura.domain.model.customer.Customer;
+import io.github.tobiasbriones.ep.factura.ui.core.SwingComponent;
 
-public final class CustomerCreationDialog {
+import javax.swing.*;
+
+public final class CustomerCreationDialog implements SwingComponent<JDialog> {
 
     @FunctionalInterface
     public interface Output {
@@ -23,6 +28,38 @@ public final class CustomerCreationDialog {
 
     }
 
-    private CustomerCreationDialog() {}
+    public static CustomerCreationDialog newInstance(CityDao cityDao, CommunityDao communityDao) {
+        final var component = new CustomerCreationDialog(cityDao, communityDao);
+
+        component.init();
+        return component;
+    }
+
+    private final CustomerCreationDialogController controller;
+    private final CustomerCreationDialogView view;
+
+    private CustomerCreationDialog(CityDao cityDao, CommunityDao communityDao) {
+        this.controller = new CustomerCreationDialogController(cityDao, communityDao);
+        this.view = new CustomerCreationDialogView(controller);
+    }
+
+    @Override
+    public JDialog getViewComponent() {
+        return view.getViewComponent();
+    }
+
+    public void setOutput(CustomerCreationDialog.Output output) {
+        controller.setOutput(output);
+    }
+
+    private void init() {
+        view.init();
+        initController();
+    }
+
+    private void initController() {
+        controller.setView(view);
+        controller.init();
+    }
 
 }

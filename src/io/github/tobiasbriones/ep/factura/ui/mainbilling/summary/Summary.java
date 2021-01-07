@@ -12,7 +12,13 @@
 
 package io.github.tobiasbriones.ep.factura.ui.mainbilling.summary;
 
-public final class Summary {
+import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketModel;
+import io.github.tobiasbriones.ep.factura.ui.core.SwingComponent;
+import io.github.tobiasbriones.ep.factura.ui.core.rx.Observable;
+
+import javax.swing.*;
+
+public final class Summary implements SwingComponent<JPanel> {
 
     public interface Output {
 
@@ -22,6 +28,42 @@ public final class Summary {
 
     }
 
-    private Summary() {}
+    public static Summary newInstance(BasketModel basket) {
+        final var component = new Summary(basket);
+
+        component.init();
+        return component;
+    }
+
+    private final SummaryController controller;
+    private final SummaryView view;
+
+    private Summary(BasketModel basket) {
+        this.controller = new SummaryController();
+        this.view = new SummaryView(controller, basket);
+    }
+
+    @Override
+    public JPanel getViewComponent() {
+        return view.getViewComponent();
+    }
+
+    public void setOutput(Summary.Output output) {
+        controller.setOutput(output);
+    }
+
+    public void subscribe(Observable observable) {
+        observable.subscribe(view);
+    }
+
+    private void init() {
+        view.init();
+        initController();
+    }
+
+    private void initController() {
+        controller.setView(view);
+        controller.init();
+    }
 
 }

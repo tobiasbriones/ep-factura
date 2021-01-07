@@ -13,8 +13,11 @@
 package io.github.tobiasbriones.ep.factura.ui.mainbilling.items.editor;
 
 import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketItem;
+import io.github.tobiasbriones.ep.factura.ui.core.SwingComponent;
 
-public final class ItemEditor {
+import javax.swing.*;
+
+public final class ItemEditor implements SwingComponent<JDialog> {
 
     public interface Output {
 
@@ -24,6 +27,42 @@ public final class ItemEditor {
 
     }
 
-    private ItemEditor() {}
+    public static ItemEditor newInstance(BasketItem basketItem) {
+        final var component = new ItemEditor(basketItem);
+
+        component.init();
+        return component;
+    }
+
+    private final ItemEditorController controller;
+    private final ItemEditorView view;
+
+    private ItemEditor(BasketItem item) {
+        this.controller = new ItemEditorController();
+        this.view = new ItemEditorView(controller, item);
+    }
+
+    @Override
+    public JDialog getViewComponent() {
+        return view.getViewComponent();
+    }
+
+    public void setOutput(ItemEditor.Output output) {
+        controller.setOutput(output);
+    }
+
+    public void show() {
+        view.show();
+    }
+
+    private void init() {
+        view.init();
+        initController();
+    }
+
+    private void initController() {
+        controller.setView(view);
+        controller.init();
+    }
 
 }
