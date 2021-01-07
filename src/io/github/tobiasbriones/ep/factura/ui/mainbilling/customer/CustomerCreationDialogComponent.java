@@ -36,8 +36,8 @@ public final class CustomerCreationDialogComponent implements SwingComponent<JDi
     }
 
     @Override
-    public JDialog getComponent() {
-        return view.getComponent();
+    public JDialog getViewComponent() {
+        return view.getViewComponent();
     }
 
     public void setOutput(CustomerCreationDialog.Output output) {

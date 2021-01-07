@@ -36,8 +36,8 @@ public final class HeaderComponent implements SwingComponent<JPanel> {
     }
 
     @Override
-    public JPanel getComponent() {
-        return view.getComponent();
+    public JPanel getViewComponent() {
+        return view.getViewComponent();
     }
 
     public void setOutput(Header.Output output) {

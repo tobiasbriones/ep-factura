@@ -22,7 +22,7 @@ public abstract class SwingMvcView<V extends Component, C> extends MvcView<V, C>
     }
 
     @Override
-    public final V getComponent() {
+    public final V getViewComponent() {
         return getView();
     }
 

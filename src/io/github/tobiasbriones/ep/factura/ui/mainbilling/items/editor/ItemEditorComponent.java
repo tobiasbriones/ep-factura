@@ -35,8 +35,8 @@ public final class ItemEditorComponent implements SwingComponent<JDialog> {
     }
 
     @Override
-    public JDialog getComponent() {
-        return view.getComponent();
+    public JDialog getViewComponent() {
+        return view.getViewComponent();
     }
 
     public void setOutput(ItemEditor.Output output) {

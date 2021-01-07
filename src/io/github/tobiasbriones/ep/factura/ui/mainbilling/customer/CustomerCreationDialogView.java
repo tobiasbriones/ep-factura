@@ -166,7 +166,7 @@ final class CustomerCreationDialogView extends JDialogMvcView<CustomerCreationDi
     }
 
     void dispose() {
-        getComponent().dispose();
+        getViewComponent().dispose();
     }
 
 }

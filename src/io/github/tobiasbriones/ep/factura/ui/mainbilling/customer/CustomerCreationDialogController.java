@@ -101,7 +101,7 @@ final class CustomerCreationDialogController extends MvcController<CustomerCreat
         }
         else {
             final var msg = "LLena todos los campos.";
-            JOptionPane.showMessageDialog(view.getComponent(), msg);
+            JOptionPane.showMessageDialog(view.getViewComponent(), msg);
         }
         view.dispose();
     }

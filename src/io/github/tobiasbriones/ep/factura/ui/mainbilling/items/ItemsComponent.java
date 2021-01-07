@@ -36,8 +36,8 @@ public final class ItemsComponent implements SwingComponent<JPanel> {
     }
 
     @Override
-    public JPanel getComponent() {
-        return view.getComponent();
+    public JPanel getViewComponent() {
+        return view.getViewComponent();
     }
 
     public void setOutput(Items.Output output) {

@@ -17,6 +17,6 @@ import java.awt.*;
 @FunctionalInterface
 public interface SwingView<V extends Component> {
 
-    V getComponent();
+    V getViewComponent();
 
 }
