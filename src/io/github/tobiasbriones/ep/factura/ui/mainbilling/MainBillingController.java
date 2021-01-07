@@ -12,8 +12,6 @@
 
 package io.github.tobiasbriones.ep.factura.ui.mainbilling;
 
-import io.github.tobiasbriones.ep.factura.data.ProductDao;
-import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketModel;
 import io.github.tobiasbriones.ep.factura.ui.core.MvcController;
 
 import javax.swing.*;
@@ -23,9 +21,9 @@ final class MainBillingController extends MvcController<MainBillingView, Void> {
     private final MainBillingMediator mediator;
     private MainBillingView view;
 
-    MainBillingController(BasketModel basket, ProductDao productDao) {
+    MainBillingController(MainBillingWindow.Dependency dependency) {
         super();
-        this.mediator = new MainBillingMediator(basket, productDao);
+        this.mediator = new MainBillingMediator(dependency);
         this.view = null;
     }
 

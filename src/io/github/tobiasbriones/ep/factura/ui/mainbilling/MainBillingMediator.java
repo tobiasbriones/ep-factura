@@ -33,10 +33,10 @@ final class MainBillingMediator implements Header.Output, Print.Output, Items.Ou
     private final Summary summary;
     private final Print print;
 
-    MainBillingMediator(BasketModel basket, ProductDao productDao) {
-        this.basket = basket;
+    MainBillingMediator(MainBillingWindow.Dependency dependency) {
+        this.basket = dependency.basket();
         this.basketObservable = new AnyObservable();
-        this.header = Header.newInstance(productDao);
+        this.header = Header.newInstance(dependency.productDao());
         this.items = Items.newInstance(basket);
         this.summary = Summary.newInstance(basket);
         this.print = Print.newInstance();

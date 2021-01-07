@@ -20,18 +20,33 @@ import javax.swing.*;
 
 public final class MainBillingWindow implements SwingComponent<JFrame> {
 
-    public static MainBillingWindow newInstance(BasketModel basket, ProductDao productDao) {
-        final var component = new MainBillingWindow(basket, productDao);
+    public static MainBillingWindow newInstance(Dependency dependency) {
+        final var component = new MainBillingWindow(dependency);
 
         component.init();
         return component;
     }
 
+    // Again, this would be a record class in Java 17+
+    public static final class Dependency {
+        private final BasketModel basket;
+        private final ProductDao productDao;
+
+        public Dependency(BasketModel basket, ProductDao productDao) {
+            this.basket = basket;
+            this.productDao = productDao;
+        }
+
+        BasketModel basket() { return basket; }
+
+        ProductDao productDao() { return productDao; }
+    }
+
     private final MainBillingController controller;
     private final MainBillingView view;
 
-    private MainBillingWindow(BasketModel basket, ProductDao productDao) {
-        this.controller = new MainBillingController(basket, productDao);
+    private MainBillingWindow(Dependency dependency) {
+        this.controller = new MainBillingController(dependency);
         this.view = new MainBillingView(controller);
     }
 

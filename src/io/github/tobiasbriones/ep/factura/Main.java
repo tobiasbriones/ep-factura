@@ -32,11 +32,27 @@ public final class Main {
         SwingUtilities.invokeLater(Main::new);
     }
 
+    private static MainBillingWindow newMainBillingWindow() {
+        return MainBillingWindow.newInstance(Config.newMainDependency());
+    }
+
+    private static final class Config {
+
+        static MainBillingWindow.Dependency newMainDependency() {
+            return new MainBillingWindow.Dependency(
+                new BasketList(), new InMemoryProductDao()
+            );
+        }
+
+        private Config() {}
+
+    }
+
     private final MainBillingWindow mw;
     private final List<Bill> bills;
 
     private Main() {
-        this.mw = MainBillingWindow.newInstance(new BasketList(), new InMemoryProductDao());
+        this.mw = newMainBillingWindow();
         this.bills = new ArrayList<>();
 
         init();
