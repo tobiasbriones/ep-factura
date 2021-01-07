@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019-2020 Tobias Briones. All rights reserved.
+ * Copyright (c) 2020 Tobias Briones. All rights reserved.
  *
  * SPDX-License-Identifier: MIT
  *
@@ -10,7 +10,7 @@
  * https://opensource.org/licenses/MIT.
  */
 
-package io.github.tobiasbriones.ep.factura.ui;
+package io.github.tobiasbriones.ep.factura.ui.mainbilling;
 
 import io.github.tobiasbriones.ep.factura.data.ProductDao;
 import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketItemModel;
@@ -27,7 +27,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-public final class MainWindow extends JFrame implements Header.Output, Print.Output, Items.Output {
+public final class MainBillingWindow extends JFrame implements Header.Output, Print.Output, Items.Output {
 
     //                                                                                            //
     //                                                                                            //
@@ -56,7 +56,7 @@ public final class MainWindow extends JFrame implements Header.Output, Print.Out
     private final Controller controller;
     private final AnyObservable basketObservable;
 
-    public MainWindow(Controller controller) {
+    public MainBillingWindow(Controller controller) {
         super("Factura");
         this.controller = controller;
         this.basketObservable = new AnyObservable();
