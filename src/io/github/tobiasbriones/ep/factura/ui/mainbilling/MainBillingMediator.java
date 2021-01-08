@@ -35,10 +35,10 @@ final class MainBillingMediator implements MainBillingWindow.ChildViewConfig,
     private final Summary summary;
     private final Print print;
 
-    MainBillingMediator(MainBillingWindow.DependencyConfig dependency) {
-        this.basket = dependency.basket();
+    MainBillingMediator(MainBillingWindow.DependencyConfig config) {
+        this.basket = config.basket();
         this.basketObservable = new AnyObservable();
-        this.header = Header.newInstance(dependency.productDao());
+        this.header = Header.newInstance(config.productDao());
         this.items = Items.newInstance(basket);
         this.summary = Summary.newInstance(basket);
         this.print = Print.newInstance();
