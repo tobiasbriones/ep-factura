@@ -23,7 +23,10 @@ import io.github.tobiasbriones.ep.factura.ui.mainbilling.summary.Summary;
 
 import javax.swing.*;
 
-final class MainBillingMediator implements Header.Output, Print.Output, Items.Output {
+final class MainBillingMediator implements MainBillingWindow.ChildViewConfig,
+                                           Header.Output,
+                                           Print.Output,
+                                           Items.Output {
 
     private final BasketModel basket;
     private final AnyObservable basketObservable;
@@ -41,19 +44,23 @@ final class MainBillingMediator implements Header.Output, Print.Output, Items.Ou
         this.print = Print.newInstance();
     }
 
-    JPanel getHeaderViewComponent() {
+    @Override
+    public JPanel getHeaderViewComponent() {
         return header.getViewComponent();
     }
 
-    JPanel getItemsViewComponent() {
+    @Override
+    public JPanel getItemsViewComponent() {
         return items.getViewComponent();
     }
 
-    JPanel getSummaryViewComponent() {
+    @Override
+    public JPanel getSummaryViewComponent() {
         return summary.getViewComponent();
     }
 
-    JPanel getPrintViewComponent() {
+    @Override
+    public JPanel getPrintViewComponent() {
         return print.getViewComponent();
     }
 

@@ -20,6 +20,18 @@ import javax.swing.*;
 
 public final class MainBillingWindow implements SwingComponent<JFrame> {
 
+    interface ChildViewConfig {
+
+        JPanel getHeaderViewComponent();
+
+        JPanel getItemsViewComponent();
+
+        JPanel getSummaryViewComponent();
+
+        JPanel getPrintViewComponent();
+
+    }
+
     public static MainBillingWindow newInstance(DependencyConfig config) {
         final var component = new MainBillingWindow(config);
 
@@ -42,12 +54,14 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
         ProductDao productDao() { return productDao; }
     }
 
+    private final MainBillingMediator mediator;
     private final MainBillingController controller;
     private final MainBillingView view;
 
     private MainBillingWindow(DependencyConfig config) {
-        this.controller = new MainBillingController(config);
-        this.view = new MainBillingView(controller);
+        this.mediator = new MainBillingMediator(config);
+        this.controller = new MainBillingController();
+        this.view = new MainBillingView(controller, mediator);
     }
 
     @Override
@@ -60,6 +74,7 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
     }
 
     private void init() {
+        mediator.init();
         view.init();
         initController();
     }

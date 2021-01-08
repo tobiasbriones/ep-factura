@@ -26,12 +26,12 @@ final class MainBillingView extends JFrameMvcView<MainBillingController> {
     private final JPanel summaryPanel;
     private final JPanel printPanel;
 
-    MainBillingView(MainBillingController controller) {
+    MainBillingView(MainBillingController controller, MainBillingWindow.ChildViewConfig config) {
         super(controller);
-        this.headerPanel = controller.getHeaderViewComponent();
-        this.itemsPanel = controller.getItemsViewComponent();
-        this.summaryPanel = controller.getSummaryViewComponent();
-        this.printPanel = controller.getPrintViewComponent();
+        this.headerPanel = config.getHeaderViewComponent();
+        this.itemsPanel = config.getItemsViewComponent();
+        this.summaryPanel = config.getSummaryViewComponent();
+        this.printPanel = config.getPrintViewComponent();
     }
 
     @Override

@@ -18,29 +18,11 @@ import javax.swing.*;
 
 final class MainBillingController extends MvcController<MainBillingView, Void> {
 
-    private final MainBillingMediator mediator;
     private MainBillingView view;
 
-    MainBillingController(MainBillingWindow.DependencyConfig dependency) {
+    MainBillingController() {
         super();
-        this.mediator = new MainBillingMediator(dependency);
         this.view = null;
-    }
-
-    JPanel getHeaderViewComponent() {
-        return mediator.getHeaderViewComponent();
-    }
-
-    JPanel getItemsViewComponent() {
-        return mediator.getItemsViewComponent();
-    }
-
-    JPanel getSummaryViewComponent() {
-        return mediator.getSummaryViewComponent();
-    }
-
-    JPanel getPrintViewComponent() {
-        return mediator.getPrintViewComponent();
     }
 
     @Override
@@ -55,7 +37,7 @@ final class MainBillingController extends MvcController<MainBillingView, Void> {
 
     @Override
     public void init() {
-        mediator.init();
+        view.update();
     }
 
 }
