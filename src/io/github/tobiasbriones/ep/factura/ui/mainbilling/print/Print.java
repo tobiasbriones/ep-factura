@@ -12,9 +12,7 @@
 
 package io.github.tobiasbriones.ep.factura.ui.mainbilling.print;
 
-import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketModel;
 import io.github.tobiasbriones.ep.factura.ui.core.SwingComponent;
-import io.github.tobiasbriones.ep.factura.ui.core.rx.Observable;
 
 import javax.swing.*;
 
