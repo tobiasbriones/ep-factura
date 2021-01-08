@@ -150,7 +150,6 @@ final class CustomerCreationView extends JDialogMvcView<CustomerCreationControll
         view.pack();
         view.setLocationRelativeTo(null);
         view.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
-        view.setVisible(true);
     }
 
     @Override
@@ -163,6 +162,10 @@ final class CustomerCreationView extends JDialogMvcView<CustomerCreationControll
     public void update() {
         controller.getCities().forEach(citiesBox::addItem);
         controller.getCommunities().forEach(communitiesBox::addItem);
+    }
+
+    void show() {
+        getView().setVisible(true);
     }
 
     void dispose() {

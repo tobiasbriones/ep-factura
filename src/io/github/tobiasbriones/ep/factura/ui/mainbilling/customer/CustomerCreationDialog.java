@@ -52,6 +52,10 @@ public final class CustomerCreationDialog implements SwingComponent<JDialog> {
         controller.setOutput(output);
     }
 
+    public void show() {
+        view.show();
+    }
+
     private void init() {
         view.init();
         initController();
