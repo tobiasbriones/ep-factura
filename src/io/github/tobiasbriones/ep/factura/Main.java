@@ -33,13 +33,13 @@ public final class Main {
     }
 
     private static MainBillingWindow newMainBillingWindow() {
-        return MainBillingWindow.newInstance(Config.newMainDependency());
+        return MainBillingWindow.newInstance(Config.newMainDependencyConfig());
     }
 
     private static final class Config {
 
-        static MainBillingWindow.DependencyRepository newMainDependency() {
-            return new MainBillingWindow.DependencyRepository(
+        static MainBillingWindow.DependencyConfig newMainDependencyConfig() {
+            return new MainBillingWindow.DependencyConfig(
                 new BasketList(),
                 new InMemoryProductDao()
             );
