@@ -38,9 +38,10 @@ public final class Main {
 
     private static final class Config {
 
-        static MainBillingWindow.Dependency newMainDependency() {
-            return new MainBillingWindow.Dependency(
-                new BasketList(), new InMemoryProductDao()
+        static MainBillingWindow.DependencyRepository newMainDependency() {
+            return new MainBillingWindow.DependencyRepository(
+                new BasketList(),
+                new InMemoryProductDao()
             );
         }
 

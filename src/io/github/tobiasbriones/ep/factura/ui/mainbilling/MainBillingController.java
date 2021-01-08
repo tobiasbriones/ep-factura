@@ -21,7 +21,7 @@ final class MainBillingController extends MvcController<MainBillingView, Void> {
     private final MainBillingMediator mediator;
     private MainBillingView view;
 
-    MainBillingController(MainBillingWindow.Dependency dependency) {
+    MainBillingController(MainBillingWindow.DependencyRepository dependency) {
         super();
         this.mediator = new MainBillingMediator(dependency);
         this.view = null;

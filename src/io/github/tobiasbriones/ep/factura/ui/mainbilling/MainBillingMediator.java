@@ -12,7 +12,6 @@
 
 package io.github.tobiasbriones.ep.factura.ui.mainbilling;
 
-import io.github.tobiasbriones.ep.factura.data.ProductDao;
 import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketItemModel;
 import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketModel;
 import io.github.tobiasbriones.ep.factura.domain.model.product.ProductModel;
@@ -33,7 +32,7 @@ final class MainBillingMediator implements Header.Output, Print.Output, Items.Ou
     private final Summary summary;
     private final Print print;
 
-    MainBillingMediator(MainBillingWindow.Dependency dependency) {
+    MainBillingMediator(MainBillingWindow.DependencyRepository dependency) {
         this.basket = dependency.basket();
         this.basketObservable = new AnyObservable();
         this.header = Header.newInstance(dependency.productDao());
