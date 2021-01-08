@@ -12,8 +12,12 @@
 
 package io.github.tobiasbriones.ep.factura;
 
+import io.github.tobiasbriones.ep.factura.data.CityDao;
+import io.github.tobiasbriones.ep.factura.data.CommunityDao;
 import io.github.tobiasbriones.ep.factura.data.ProductDao;
 import io.github.tobiasbriones.ep.factura.database.InMemoryProductDao;
+import io.github.tobiasbriones.ep.factura.database.LocalStorageCityDao;
+import io.github.tobiasbriones.ep.factura.database.LocalStorageCommunityDao;
 import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketList;
 import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketModel;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.MainBillingWindow;
@@ -22,14 +26,18 @@ final class AppConfig {
 
     private final BasketModel basket;
     private final ProductDao productDao;
+    private final CityDao cityDao;
+    private final CommunityDao communityDao;
 
     AppConfig() {
         this.basket = new BasketList();
         this.productDao = new InMemoryProductDao();
+        this.cityDao = new LocalStorageCityDao();
+        this.communityDao = new LocalStorageCommunityDao();
     }
 
     MainBillingWindow.DependencyConfig newMainDependencyConfig() {
-        return new MainBillingWindow.DependencyConfig(basket, productDao);
+        return new MainBillingWindow.DependencyConfig(basket, productDao, cityDao, communityDao);
     }
 
 }
