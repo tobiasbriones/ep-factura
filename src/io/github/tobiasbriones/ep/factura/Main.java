@@ -12,14 +12,9 @@
 
 package io.github.tobiasbriones.ep.factura;
 
-import io.github.tobiasbriones.ep.factura.database.InMemoryProductDao;
-import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketList;
-import io.github.tobiasbriones.ep.factura.domain.model.bill.Bill;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.MainBillingWindow;
 
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public final class Main {
 
@@ -27,36 +22,22 @@ public final class Main {
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         }
-        catch (Exception ignore) {
-        }
+        catch (Exception ignore) {}
         SwingUtilities.invokeLater(Main::new);
     }
 
-    private static MainBillingWindow newMainBillingWindow() {
-        return MainBillingWindow.newInstance(Config.newMainDependencyConfig());
-    }
-
-    private static final class Config {
-
-        static MainBillingWindow.DependencyConfig newMainDependencyConfig() {
-            return new MainBillingWindow.DependencyConfig(
-                new BasketList(),
-                new InMemoryProductDao()
-            );
-        }
-
-        private Config() {}
-
-    }
-
+    private final AppConfig config;
     private final MainBillingWindow mw;
-    private final List<Bill> bills;
 
     private Main() {
+        this.config = new AppConfig();
         this.mw = newMainBillingWindow();
-        this.bills = new ArrayList<>();
 
         init();
+    }
+
+    private MainBillingWindow newMainBillingWindow() {
+        return MainBillingWindow.newInstance(config.newMainDependencyConfig());
     }
 
     private void init() {
