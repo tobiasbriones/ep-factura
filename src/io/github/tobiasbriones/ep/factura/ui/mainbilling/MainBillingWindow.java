@@ -24,7 +24,6 @@ import io.github.tobiasbriones.ep.factura.ui.mainbilling.print.Print;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.summary.Summary;
 
 import javax.swing.*;
-import java.util.function.Function;
 
 public final class MainBillingWindow implements SwingComponent<JFrame> {
 
