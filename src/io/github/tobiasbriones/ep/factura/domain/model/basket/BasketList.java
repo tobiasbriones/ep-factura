@@ -35,6 +35,13 @@ public final class BasketList extends AbstractBasket {
     }
 
     @Override
+    public String toString() {
+        return "BasketList[" +
+               "items=" + items +
+               "] ";
+    }
+
+    @Override
     public Stream<BasketItem> stream() {
         return items.stream();
     }
