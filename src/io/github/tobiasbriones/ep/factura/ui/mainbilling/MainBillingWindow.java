@@ -17,6 +17,7 @@ import io.github.tobiasbriones.ep.factura.data.CommunityDao;
 import io.github.tobiasbriones.ep.factura.data.ProductDao;
 import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketModel;
 import io.github.tobiasbriones.ep.factura.domain.model.customer.Customer;
+import io.github.tobiasbriones.ep.factura.domain.usecase.PrintBillUseCase;
 import io.github.tobiasbriones.ep.factura.ui.core.SwingComponent;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.customer.CustomerCreationDialog;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.header.Header;
@@ -154,7 +155,6 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
     }
 
     private void init() {
-        mediator.setPrintFn(this::print);
         mediator.setShowCustomerDialogFn(this::showCustomerCreationDialog);
         childrenConfig.initChildren(mediator);
         view.init();
@@ -173,17 +173,8 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
     }
 
     private void showCustomerCreationDialog(CustomerCreationDialog dialog) {
-        dialog.setOutput(this::printWithNewCustomer);
+        mediator.onInitCustomerCreationDialog(dialog);
         dialog.show();
-    }
-
-    private void printWithNewCustomer(Customer customer) {
-        System.out.println(customer);
-        print();
-    }
-
-    private void print() {
-        System.out.println(config.basket());
     }
 
     private CustomerCreationDialog newCustomerCreationDialog() {
