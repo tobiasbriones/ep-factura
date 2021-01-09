@@ -93,60 +93,9 @@ final class CustomerCreationView extends JDialogMvcView<CustomerCreationControll
 
     @Override
     public void createView(JDialog view) {
-        final var panel = new JPanel();
-        final var genrePanel = new JPanel();
-        final var formPanel = new JPanel();
-        final var bottomPanel = new JPanel();
-        final var rb1 = new JRadioButton("M");
-        final var rb2 = new JRadioButton("F");
-        final var rb3 = new JRadioButton("Otro");
+        final Container container = view.getContentPane();
 
-        cancelButton.setText("Cancelar");
-        saveButton.setText("Guardar");
-
-        rb1.setActionCommand("Masculino");
-        rb1.setBackground(Color.WHITE);
-        rb2.setActionCommand("Femenino");
-        rb2.setBackground(Color.WHITE);
-        rb3.setActionCommand("Otro");
-        rb3.setBackground(Color.WHITE);
-
-        buttonGroup.add(rb1);
-        buttonGroup.add(rb2);
-        buttonGroup.add(rb3);
-
-        genrePanel.setBackground(Color.WHITE);
-        genrePanel.add(rb1);
-        genrePanel.add(rb2);
-        genrePanel.add(rb3);
-        formPanel.setLayout(new GridLayout(7, 1, 0, 5));
-        formPanel.setBackground(Color.WHITE);
-        formPanel.add(new JLabel("Nombre"));
-        formPanel.add(nameField);
-        formPanel.add(new JLabel("Apellido"));
-        formPanel.add(surnameField);
-        formPanel.add(new JLabel("Ciudad"));
-        formPanel.add(citiesBox);
-        formPanel.add(new JLabel("Colonia/Barrio"));
-        formPanel.add(communitiesBox);
-        formPanel.add(new JLabel("Teléfono"));
-        formPanel.add(phoneField);
-        formPanel.add(new JLabel("Género"));
-        formPanel.add(genrePanel);
-        formPanel.add(new JLabel("Fecha de nacimiento"));
-        formPanel.add(birthdayField);
-        bottomPanel.setLayout(new FlowLayout(FlowLayout.TRAILING, 5, 0));
-        bottomPanel.setBorder(new EmptyBorder(10, 0, 5, 0));
-        bottomPanel.setBackground(Color.WHITE);
-        bottomPanel.add(cancelButton);
-        bottomPanel.add(saveButton);
-        panel.setLayout(new BorderLayout());
-        panel.setBackground(Color.WHITE);
-        panel.setBorder(new EmptyBorder(10, 10, 10, 10));
-        panel.add(formPanel, BorderLayout.PAGE_START);
-        panel.add(bottomPanel, BorderLayout.CENTER);
-
-        view.getContentPane().add(panel);
+        createPanel(container);
         view.pack();
         view.setLocationRelativeTo(null);
         view.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
@@ -170,6 +119,73 @@ final class CustomerCreationView extends JDialogMvcView<CustomerCreationControll
 
     void dispose() {
         getViewComponent().dispose();
+    }
+
+    private void createPanel(Container container) {
+        final var panel = new JPanel();
+
+        panel.setLayout(new BorderLayout());
+        panel.setBackground(Color.WHITE);
+        panel.setBorder(new EmptyBorder(10, 10, 10, 10));
+        createFormPanel(panel);
+        createBottomPanel(panel);
+        container.add(panel);
+    }
+
+    private void createFormPanel(JPanel panel) {
+        final var formPanel = new JPanel();
+        final var genrePanel = new JPanel();
+        final var rb1 = new JRadioButton("M");
+        final var rb2 = new JRadioButton("F");
+        final var rb3 = new JRadioButton("Otro");
+
+        rb1.setActionCommand("Masculino");
+        rb1.setBackground(Color.WHITE);
+        rb2.setActionCommand("Femenino");
+        rb2.setBackground(Color.WHITE);
+        rb3.setActionCommand("Otro");
+        rb3.setBackground(Color.WHITE);
+
+        buttonGroup.add(rb1);
+        buttonGroup.add(rb2);
+        buttonGroup.add(rb3);
+
+        genrePanel.setBackground(Color.WHITE);
+        genrePanel.add(rb1);
+        genrePanel.add(rb2);
+        genrePanel.add(rb3);
+
+        formPanel.setLayout(new GridLayout(7, 1, 0, 5));
+        formPanel.setBackground(Color.WHITE);
+        formPanel.add(new JLabel("Nombre"));
+        formPanel.add(nameField);
+        formPanel.add(new JLabel("Apellido"));
+        formPanel.add(surnameField);
+        formPanel.add(new JLabel("Ciudad"));
+        formPanel.add(citiesBox);
+        formPanel.add(new JLabel("Colonia/Barrio"));
+        formPanel.add(communitiesBox);
+        formPanel.add(new JLabel("Teléfono"));
+        formPanel.add(phoneField);
+        formPanel.add(new JLabel("Género"));
+        formPanel.add(genrePanel);
+        formPanel.add(new JLabel("Fecha de nacimiento"));
+        formPanel.add(birthdayField);
+        panel.add(formPanel, BorderLayout.PAGE_START);
+    }
+
+    private void createBottomPanel(JPanel panel) {
+        final var bottomPanel = new JPanel();
+
+        cancelButton.setText("Cancelar");
+        saveButton.setText("Guardar");
+
+        bottomPanel.setLayout(new FlowLayout(FlowLayout.TRAILING, 5, 0));
+        bottomPanel.setBorder(new EmptyBorder(10, 0, 5, 0));
+        bottomPanel.setBackground(Color.WHITE);
+        bottomPanel.add(cancelButton);
+        bottomPanel.add(saveButton);
+        panel.add(bottomPanel, BorderLayout.CENTER);
     }
 
 }
