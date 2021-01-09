@@ -20,4 +20,16 @@ public abstract class JDialogMvcView<C> extends SwingMvcView<JDialog, C> {
         super(JDialog::new, controller);
     }
 
+    public final void show() {
+        getView().setVisible(true);
+    }
+
+    public final void hide() {
+        getView().setVisible(false);
+    }
+
+    public final void dispose() {
+        getViewComponent().dispose();
+    }
+
 }

@@ -77,12 +77,8 @@ final class ItemEditorView extends JDialogMvcView<ItemEditorController> {
         quantityField.setText(String.valueOf(item.getQuantity()));
     }
 
-    void show() {
-        getView().setVisible(true);
-    }
-
     void onDestroy() {
-        getView().dispose();
+        dispose();
     }
 
     private void retrieveQuantity(Consumer<? super Integer> consumer) {

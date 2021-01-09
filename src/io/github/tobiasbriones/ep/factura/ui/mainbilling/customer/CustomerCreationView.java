@@ -113,14 +113,6 @@ final class CustomerCreationView extends JDialogMvcView<CustomerCreationControll
         controller.getCommunities().forEach(communitiesBox::addItem);
     }
 
-    void show() {
-        getView().setVisible(true);
-    }
-
-    void dispose() {
-        getViewComponent().dispose();
-    }
-
     private void createPanel(Container container) {
         final var panel = new JPanel();
 
