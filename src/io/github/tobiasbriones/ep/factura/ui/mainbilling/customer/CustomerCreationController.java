@@ -72,14 +72,6 @@ final class CustomerCreationController extends MvcController<CustomerCreationVie
         this.view = null;
     }
 
-    List<City> getCities() {
-        return cityDao.fetchAll();
-    }
-
-    List<Community> getCommunities() {
-        return communityDao.fetchAll();
-    }
-
     @Override
     public CustomerCreationView getView() {
         return view;
@@ -92,6 +84,8 @@ final class CustomerCreationController extends MvcController<CustomerCreationVie
 
     @Override
     public void init() {
+        view.setCities(cityDao.fetchAll());
+        view.setCommunities(communityDao.fetchAll());
         view.update();
     }
 

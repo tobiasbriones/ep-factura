@@ -22,6 +22,9 @@ import io.github.tobiasbriones.ep.factura.ui.core.JDialogMvcView;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 final class CustomerCreationView extends JDialogMvcView<CustomerCreationController> implements CustomerAccessor {
 
@@ -32,7 +35,8 @@ final class CustomerCreationView extends JDialogMvcView<CustomerCreationControll
         return buttonGroup.getSelection().getActionCommand();
     }
 
-    private final CustomerCreationController controller;
+    private final List<City> cities;
+    private final List<Community> communities;
     private final JTextField nameField;
     private final JTextField surnameField;
     private final JTextField phoneField;
@@ -45,7 +49,8 @@ final class CustomerCreationView extends JDialogMvcView<CustomerCreationControll
 
     CustomerCreationView(CustomerCreationController controller) {
         super(controller);
-        this.controller = controller;
+        this.cities = new ArrayList<>(15);
+        this.communities = new ArrayList<>(15);
         this.nameField = new JTextField();
         this.surnameField = new JTextField();
         this.phoneField = new JTextField();
@@ -55,6 +60,16 @@ final class CustomerCreationView extends JDialogMvcView<CustomerCreationControll
         this.buttonGroup = new ButtonGroup();
         this.cancelButton = new JButton();
         this.saveButton = new JButton();
+    }
+
+    void setCities(Collection<City> value) {
+        cities.clear();
+        cities.addAll(value);
+    }
+
+    void setCommunities(Collection<Community> value) {
+        communities.clear();
+        communities.addAll(value);
     }
 
     @Override
@@ -109,8 +124,8 @@ final class CustomerCreationView extends JDialogMvcView<CustomerCreationControll
 
     @Override
     public void update() {
-        controller.getCities().forEach(citiesBox::addItem);
-        controller.getCommunities().forEach(communitiesBox::addItem);
+        cities.forEach(citiesBox::addItem);
+        communities.forEach(communitiesBox::addItem);
     }
 
     private void createPanel(Container container) {
