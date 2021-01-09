@@ -24,7 +24,7 @@ public final class CustomerCreationDialog implements SwingComponent<JDialog> {
     @FunctionalInterface
     public interface Output {
 
-        void onCreateCustomer(Customer customer);
+        void onCustomerCreated(Customer customer);
 
     }
 

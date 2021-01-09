@@ -103,7 +103,6 @@ final class CustomerCreationController extends MvcController<CustomerCreationVie
             final var msg = "LLena todos los campos.";
             JOptionPane.showMessageDialog(view.getViewComponent(), msg);
         }
-        view.dispose();
     }
 
     void onCancelButtonClick() {
@@ -112,7 +111,15 @@ final class CustomerCreationController extends MvcController<CustomerCreationVie
 
     private void createNewCustomer() {
         final Customer customer = Customer.from(view);
-        getOutput().ifPresent(output -> output.onCreateCustomer(customer));
+
+        // Call async a Dao or Repository ...
+        // Then
+        onCustomerCreated(customer);
+    }
+
+    private void onCustomerCreated(Customer customer) {
+        getOutput().ifPresent(output -> output.onCustomerCreated(customer));
+        view.dispose();
     }
 
 }
