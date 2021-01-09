@@ -14,87 +14,121 @@ package io.github.tobiasbriones.ep.factura.ui.mainbilling;
 
 import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketItemModel;
 import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketModel;
+import io.github.tobiasbriones.ep.factura.domain.model.customer.Customer;
 import io.github.tobiasbriones.ep.factura.domain.model.product.ProductModel;
 import io.github.tobiasbriones.ep.factura.ui.core.rx.AnyObservable;
+import io.github.tobiasbriones.ep.factura.ui.mainbilling.customer.CustomerCreationDialog;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.header.Header;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.items.Items;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.print.Print;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.summary.Summary;
 
-import javax.swing.*;
+final class MainBillingMediator {
 
-final class MainBillingMediator implements MainBillingWindow.ChildViewConfig,
-                                           Header.Output,
-                                           Print.Output,
-                                           Items.Output {
+    @FunctionalInterface
+    interface ShowCustomerCreationDialog {
 
-    private final BasketModel basket;
+        void apply();
+
+    }
+
+    private static final class HeaderOutput implements Header.Output {
+        private final BasketModel basket;
+        private final AnyObservable basketObservable;
+
+        private HeaderOutput(BasketModel basket, AnyObservable basketObservable) {
+            this.basket = basket;
+            this.basketObservable = basketObservable;
+        }
+
+        @Override
+        public void onAddProduct(ProductModel product) {
+            basket.pushProduct(product);
+            basketObservable.notifyObservers();
+        }
+    }
+
+    private static final class PrintOutput implements Print.Output {
+        private ShowCustomerCreationDialog showCustomerDialogFn;
+
+        private PrintOutput() {
+            this.showCustomerDialogFn = null;
+        }
+
+        void setShowCustomerDialogFn(ShowCustomerCreationDialog value) {
+            showCustomerDialogFn = value;
+        }
+
+        @Override
+        public void onPrint() {
+            print();
+        }
+
+        @Override
+        public void onPrintWithNewCustomer() {
+            if (showCustomerDialogFn != null) {
+                showCustomerDialogFn.apply();
+            }
+        }
+
+        private void printWithNewCustomer(Customer customer) {
+            System.out.println(customer);
+            print();
+        }
+
+        private void print() {
+            System.out.println("Printed");
+        }
+    }
+
+    private static final class ItemsOutput implements Items.Output {
+        private final AnyObservable basketObservable;
+
+        private ItemsOutput(AnyObservable basketObservable) {
+            this.basketObservable = basketObservable;
+        }
+
+        @Override
+        public void onItemUpdated(BasketItemModel item) {
+            basketObservable.notifyObservers();
+        }
+    }
+
     private final AnyObservable basketObservable;
-    private final Header header;
-    private final Items items;
-    private final Summary summary;
-    private final Print print;
+    private final HeaderOutput headerOutput;
+    private final ItemsOutput itemsOutput;
+    private final PrintOutput printOutput;
 
-    MainBillingMediator(MainBillingWindow.DependencyConfig config) {
-        this.basket = config.basket();
+    MainBillingMediator(BasketModel basket) {
         this.basketObservable = new AnyObservable();
-        this.header = Header.newInstance(config.productDao());
-        this.items = Items.newInstance(basket);
-        this.summary = Summary.newInstance(basket);
-        this.print = Print.newInstance();
+        this.headerOutput = new HeaderOutput(basket, basketObservable);
+        this.itemsOutput = new ItemsOutput(basketObservable);
+        this.printOutput = new PrintOutput();
     }
 
-    @Override
-    public JPanel getHeaderViewComponent() {
-        return header.getViewComponent();
+    void setShowCustomerDialogFn(ShowCustomerCreationDialog value) {
+        printOutput.setShowCustomerDialogFn(value);
     }
 
-    @Override
-    public JPanel getItemsViewComponent() {
-        return items.getViewComponent();
+    void onInitHeader(Header header) {
+        header.setOutput(headerOutput);
     }
 
-    @Override
-    public JPanel getSummaryViewComponent() {
-        return summary.getViewComponent();
-    }
-
-    @Override
-    public JPanel getPrintViewComponent() {
-        return print.getViewComponent();
-    }
-
-    @Override
-    public void onAddProduct(ProductModel product) {
-        pushToBasket(product);
-        basketObservable.notifyObservers();
-    }
-
-    @Override
-    public void onPrint() {
-
-    }
-
-    @Override
-    public void onPrintWithNewCustomer() {
-
-    }
-
-    @Override
-    public void onItemUpdated(BasketItemModel item) {
-        basketObservable.notifyObservers();
-    }
-
-    void init() {
-        header.setOutput(this);
-        items.setOutput(this);
+    void onInitItems(Items items) {
+        items.setOutput(itemsOutput);
         items.subscribe(basketObservable);
-        summary.subscribe(basketObservable);
-        print.setOutput(this);
     }
 
-    private void pushToBasket(ProductModel product) {
-        basket.pushProduct(product);
+    void onInitSummary(Summary summary) {
+        summary.subscribe(basketObservable);
+    }
+
+    void onInitPrint(Print print) {
+        print.setOutput(printOutput);
+    }
+
+    void onInitCustomerCreationDialog(CustomerCreationDialog dialog) {
+        dialog.setOutput(printOutput::printWithNewCustomer);
     }
 
 }
