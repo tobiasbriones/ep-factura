@@ -14,10 +14,8 @@ package io.github.tobiasbriones.ep.factura.ui.mainbilling;
 
 import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketItemModel;
 import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketModel;
-import io.github.tobiasbriones.ep.factura.domain.model.customer.Customer;
 import io.github.tobiasbriones.ep.factura.domain.model.product.ProductModel;
 import io.github.tobiasbriones.ep.factura.ui.core.rx.AnyObservable;
-import io.github.tobiasbriones.ep.factura.ui.mainbilling.customer.CustomerCreationDialog;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.header.Header;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.items.Items;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.print.Print;
@@ -26,7 +24,14 @@ import io.github.tobiasbriones.ep.factura.ui.mainbilling.summary.Summary;
 final class MainBillingMediator {
 
     @FunctionalInterface
-    interface ShowCustomerCreationDialog {
+    interface ShowCustomerCreationDialogFn {
+
+        void apply();
+
+    }
+
+    @FunctionalInterface
+    interface PrintFn {
 
         void apply();
 
@@ -49,19 +54,27 @@ final class MainBillingMediator {
     }
 
     private static final class PrintOutput implements Print.Output {
-        private ShowCustomerCreationDialog showCustomerDialogFn;
+        private PrintFn printFn;
+        private ShowCustomerCreationDialogFn showCustomerDialogFn;
 
         private PrintOutput() {
+            this.printFn = null;
             this.showCustomerDialogFn = null;
         }
 
-        void setShowCustomerDialogFn(ShowCustomerCreationDialog value) {
+        void setPrintFn(PrintFn value) {
+            printFn = value;
+        }
+
+        void setShowCustomerDialogFn(ShowCustomerCreationDialogFn value) {
             showCustomerDialogFn = value;
         }
 
         @Override
         public void onPrint() {
-            print();
+            if (printFn != null) {
+                printFn.apply();
+            }
         }
 
         @Override
@@ -69,15 +82,6 @@ final class MainBillingMediator {
             if (showCustomerDialogFn != null) {
                 showCustomerDialogFn.apply();
             }
-        }
-
-        private void printWithNewCustomer(Customer customer) {
-            System.out.println(customer);
-            print();
-        }
-
-        private void print() {
-            System.out.println("Printed");
         }
     }
 
@@ -106,7 +110,11 @@ final class MainBillingMediator {
         this.printOutput = new PrintOutput();
     }
 
-    void setShowCustomerDialogFn(ShowCustomerCreationDialog value) {
+    void setPrintFn(PrintFn printFn) {
+        printOutput.setPrintFn(printFn);
+    }
+
+    void setShowCustomerDialogFn(ShowCustomerCreationDialogFn value) {
         printOutput.setShowCustomerDialogFn(value);
     }
 
@@ -125,10 +133,6 @@ final class MainBillingMediator {
 
     void onInitPrint(Print print) {
         print.setOutput(printOutput);
-    }
-
-    void onInitCustomerCreationDialog(CustomerCreationDialog dialog) {
-        dialog.setOutput(printOutput::printWithNewCustomer);
     }
 
 }
