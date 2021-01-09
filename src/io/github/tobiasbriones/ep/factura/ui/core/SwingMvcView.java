@@ -17,8 +17,8 @@ import java.util.function.Supplier;
 
 public abstract class SwingMvcView<V extends Component, C> extends MvcView<V, C> implements SwingView<V> {
 
-    SwingMvcView(Supplier<V> view, C controller) {
-        super(view, controller);
+    SwingMvcView(Supplier<V> viewSupplier, C controller) {
+        super(viewSupplier, controller);
     }
 
     @Override
