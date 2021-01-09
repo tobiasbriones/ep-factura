@@ -13,11 +13,12 @@
 package io.github.tobiasbriones.ep.factura.ui.mainbilling.customer;
 
 import io.github.tobiasbriones.ep.factura.domain.model.city.City;
+import io.github.tobiasbriones.ep.factura.domain.model.city.CityModel;
 import io.github.tobiasbriones.ep.factura.domain.model.city.community.Community;
+import io.github.tobiasbriones.ep.factura.domain.model.city.community.CommunityModel;
 import io.github.tobiasbriones.ep.factura.domain.model.customer.Address;
 import io.github.tobiasbriones.ep.factura.domain.model.customer.AddressModel;
 import io.github.tobiasbriones.ep.factura.domain.model.customer.CustomerAccessor;
-import io.github.tobiasbriones.ep.factura.domain.model.product.ProductModel;
 import io.github.tobiasbriones.ep.factura.ui.core.JDialogMvcView;
 
 import javax.swing.*;
@@ -36,31 +37,46 @@ final class CustomerCreationView extends JDialogMvcView<CustomerCreationControll
         return buttonGroup.getSelection().getActionCommand();
     }
 
-    private static final class ProductBoxRenderer extends DefaultListCellRenderer {
-
-        private ProductBoxRenderer() {
+    private static final class CityBoxRenderer extends DefaultListCellRenderer {
+        private CityBoxRenderer() {
             super();
         }
 
         @Override
         public Component getListCellRendererComponent(
-            JList<?> list,
-            Object value,
-            int index,
-            boolean isSelected,
-            boolean cellHasFocus
+            JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus
         ) {
             super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 
             if (value != null) {
-                final var product = (ProductModel) value;
-                final var str = product.getCode() + " " + product.getDescription() + " " + product.getPrice();
+                final var city = (CityModel) value;
+                final var str = city.getName();
 
                 setText(str);
             }
             return this;
         }
+    }
 
+    private static final class CommunityBoxRenderer extends DefaultListCellRenderer {
+        private CommunityBoxRenderer() {
+            super();
+        }
+
+        @Override
+        public Component getListCellRendererComponent(
+            JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus
+        ) {
+            super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+
+            if (value != null) {
+                final var city = (CommunityModel) value;
+                final var str = city.getName();
+
+                setText(str);
+            }
+            return this;
+        }
     }
 
     private final List<City> cities;
@@ -173,6 +189,9 @@ final class CustomerCreationView extends JDialogMvcView<CustomerCreationControll
         final var rb1 = new JRadioButton("M");
         final var rb2 = new JRadioButton("F");
         final var rb3 = new JRadioButton("Otro");
+
+        citiesBox.setRenderer(new CityBoxRenderer());
+        communitiesBox.setRenderer(new CommunityBoxRenderer());
 
         rb1.setActionCommand("Masculino");
         rb1.setBackground(Color.WHITE);
