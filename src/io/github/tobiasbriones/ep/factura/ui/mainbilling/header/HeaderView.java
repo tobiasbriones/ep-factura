@@ -23,7 +23,6 @@ import java.util.List;
 final class HeaderView extends JPanelMvcView<HeaderController> implements Header.View {
 
     private static final class ProductBoxRenderer extends DefaultListCellRenderer {
-
         private ProductBoxRenderer() {
             super();
         }
@@ -46,7 +45,6 @@ final class HeaderView extends JPanelMvcView<HeaderController> implements Header
             }
             return this;
         }
-
     }
 
     private final JTextField nameField;

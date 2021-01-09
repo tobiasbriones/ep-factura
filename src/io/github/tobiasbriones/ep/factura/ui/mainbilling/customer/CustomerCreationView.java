@@ -17,6 +17,7 @@ import io.github.tobiasbriones.ep.factura.domain.model.city.community.Community;
 import io.github.tobiasbriones.ep.factura.domain.model.customer.Address;
 import io.github.tobiasbriones.ep.factura.domain.model.customer.AddressModel;
 import io.github.tobiasbriones.ep.factura.domain.model.customer.CustomerAccessor;
+import io.github.tobiasbriones.ep.factura.domain.model.product.ProductModel;
 import io.github.tobiasbriones.ep.factura.ui.core.JDialogMvcView;
 
 import javax.swing.*;
@@ -33,6 +34,33 @@ final class CustomerCreationView extends JDialogMvcView<CustomerCreationControll
             return null;
         }
         return buttonGroup.getSelection().getActionCommand();
+    }
+
+    private static final class ProductBoxRenderer extends DefaultListCellRenderer {
+
+        private ProductBoxRenderer() {
+            super();
+        }
+
+        @Override
+        public Component getListCellRendererComponent(
+            JList<?> list,
+            Object value,
+            int index,
+            boolean isSelected,
+            boolean cellHasFocus
+        ) {
+            super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+
+            if (value != null) {
+                final var product = (ProductModel) value;
+                final var str = product.getCode() + " " + product.getDescription() + " " + product.getPrice();
+
+                setText(str);
+            }
+            return this;
+        }
+
     }
 
     private final List<City> cities;

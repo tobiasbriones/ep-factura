@@ -27,22 +27,9 @@ import java.text.DecimalFormat;
 
 final class ItemsView extends JPanelMvcView<ItemsController> implements Observer {
 
-    //                                                                                            //
-    //                                                                                            //
-    //                                           CLASS                                            //
-    //                                                                                            //
-    //                                                                                            //
-
     private static final DecimalFormat decimalFormat = new DecimalFormat(".##");
 
-    //                                                                                            //
-    //                                                                                            //
-    //                                          INSTANCE                                          //
-    //                                                                                            //
-    //                                                                                            //
-
     private static final class ListRenderer extends JPanel implements ListCellRenderer<BasketItem> {
-
         private static final int ITEM_WIDTH = 600;
         private static final int ITEM_HEIGHT = 30;
         private static final Color BACKGROUND_COLOR = Color.decode("#FFFFFF");
@@ -119,7 +106,6 @@ final class ItemsView extends JPanelMvcView<ItemsController> implements Observer
             add(panelLeft, BorderLayout.LINE_START);
             add(panelRight, BorderLayout.LINE_END);
         }
-
     }
 
     private final StreamableBasketItems model;
@@ -158,7 +144,6 @@ final class ItemsView extends JPanelMvcView<ItemsController> implements Observer
     }
 
     private final class ListMouseAdapter extends MouseAdapter {
-
         private ListMouseAdapter() {
             super();
         }
@@ -186,7 +171,6 @@ final class ItemsView extends JPanelMvcView<ItemsController> implements Observer
             dialogComponent.setOutput(getController());
             dialogComponent.show();
         }
-
     }
 
 }
