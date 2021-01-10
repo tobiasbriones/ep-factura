@@ -123,6 +123,11 @@ final class HeaderView extends JPanelMvcView<HeaderController> implements Header
     }
 
     @Override
+    public LocalDate getDate() {
+        return LocalDate.parse(dateField.getText());
+    }
+
+    @Override
     public void setDate(LocalDate value) {
         dateField.setText(String.valueOf(value));
     }

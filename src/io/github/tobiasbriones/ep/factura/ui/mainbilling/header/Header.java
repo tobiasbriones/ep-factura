@@ -13,6 +13,10 @@
 package io.github.tobiasbriones.ep.factura.ui.mainbilling.header;
 
 import io.github.tobiasbriones.ep.factura.data.ProductDao;
+import io.github.tobiasbriones.ep.factura.domain.model.bill.Bill;
+import io.github.tobiasbriones.ep.factura.domain.model.bill.BillMutator;
+import io.github.tobiasbriones.ep.factura.domain.model.customer.Customer;
+import io.github.tobiasbriones.ep.factura.domain.model.customer.CustomerModel;
 import io.github.tobiasbriones.ep.factura.domain.model.customer.CustomerNameAccessor;
 import io.github.tobiasbriones.ep.factura.domain.model.customer.CustomerNameMutator;
 import io.github.tobiasbriones.ep.factura.domain.model.product.ProductModel;
@@ -20,6 +24,8 @@ import io.github.tobiasbriones.ep.factura.ui.core.SwingComponent;
 
 import javax.swing.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 public final class Header implements SwingComponent<JPanel> {
@@ -42,6 +48,8 @@ public final class Header implements SwingComponent<JPanel> {
         void setRtn(String value);
 
         void setProductList(List<? extends ProductModel> products);
+
+        LocalDate getDate();
 
         void setDate(LocalDate value);
 
@@ -70,6 +78,19 @@ public final class Header implements SwingComponent<JPanel> {
 
     public void setOutput(Header.Output output) {
         controller.setOutput(output);
+    }
+
+    public void onSetBill(BillMutator bill) {
+        final LocalDate viewDate = view.getDate();
+        final LocalDateTime date = LocalDateTime.of(viewDate, LocalTime.now());
+        final var customer = new Customer();
+
+        customer.setName(view.getName());
+        customer.setSurname(view.getSurname());
+
+        bill.setDate(date);
+        bill.setRtn(view.getRtn());
+        bill.setCustomer(customer);
     }
 
     private void init() {
