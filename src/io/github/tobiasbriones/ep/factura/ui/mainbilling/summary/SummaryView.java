@@ -66,7 +66,7 @@ final class SummaryView extends JPanelMvcView<SummaryController> implements Obse
         infoPanel.add(totalLabel, gbc);
 
         view.setLayout(new FlowLayout(FlowLayout.TRAILING));
-        view.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.decode("#737373")));
+        view.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, Color.decode("#737373")));
         view.add(infoPanel);
     }
 
