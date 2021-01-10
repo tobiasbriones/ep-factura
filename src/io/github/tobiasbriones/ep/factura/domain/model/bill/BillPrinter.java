@@ -16,7 +16,7 @@ import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketSummaryAcces
 
 public interface BillPrinter extends BillMutator {
 
-    void setBillResume(BasketSummaryAccessor accessor);
+    void setBillSummary(BasketSummaryAccessor accessor);
 
     void clear();
 

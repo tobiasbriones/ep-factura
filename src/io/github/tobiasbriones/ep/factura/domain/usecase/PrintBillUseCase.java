@@ -30,7 +30,7 @@ public final class PrintBillUseCase {
         printer.setDate(bill.getDate());
         printer.setRtn(bill.getRtn());
         bill.getItems().forEach(printer::addItem);
-        printer.setBillResume(bill);
+        printer.setBillSummary(bill);
         printer.print();
     }
 
