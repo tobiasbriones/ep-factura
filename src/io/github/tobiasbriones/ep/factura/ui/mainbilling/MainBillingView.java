@@ -22,7 +22,7 @@ final class MainBillingView extends JFrameMvcView<MainBillingController> {
 
     private static final String WINDOW_TITLE = "Factura";
     private final JPanel headerPanel;
-    private final JPanel itemsPanel;
+    private final JScrollPane itemsPanel;
     private final JPanel summaryPanel;
     private final JPanel printPanel;
 
@@ -37,17 +37,17 @@ final class MainBillingView extends JFrameMvcView<MainBillingController> {
     @Override
     public void createView(JFrame view) {
         final var panel = new JPanel();
-        final var endPanel = new JPanel();
+        final var outputPanel = new JPanel();
 
-        endPanel.setLayout(new BoxLayout(endPanel, BoxLayout.PAGE_AXIS));
-        endPanel.add(summaryPanel);
-        endPanel.add(printPanel);
+        outputPanel.setLayout(new BorderLayout());
+        outputPanel.add(itemsPanel, BorderLayout.PAGE_START);
+        outputPanel.add(summaryPanel, BorderLayout.CENTER);
 
         panel.setLayout(new BorderLayout());
         panel.setBorder(new EmptyBorder(10, 10, 10, 10));
         panel.add(headerPanel, BorderLayout.PAGE_START);
-        panel.add(itemsPanel, BorderLayout.CENTER);
-        panel.add(endPanel, BorderLayout.PAGE_END);
+        panel.add(outputPanel, BorderLayout.CENTER);
+        panel.add(printPanel, BorderLayout.PAGE_END);
         view.getContentPane().add(panel);
 
         view.setTitle(WINDOW_TITLE);

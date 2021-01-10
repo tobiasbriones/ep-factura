@@ -35,7 +35,7 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
 
         JPanel getHeaderViewComponent();
 
-        JPanel getItemsViewComponent();
+        JScrollPane getItemsViewComponent();
 
         JPanel getSummaryViewComponent();
 
@@ -111,7 +111,7 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
         }
 
         @Override
-        public JPanel getItemsViewComponent() {
+        public JScrollPane getItemsViewComponent() {
             return items.getViewComponent();
         }
 

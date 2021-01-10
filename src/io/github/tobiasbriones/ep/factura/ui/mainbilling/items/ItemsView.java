@@ -15,6 +15,8 @@ package io.github.tobiasbriones.ep.factura.ui.mainbilling.items;
 import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketItem;
 import io.github.tobiasbriones.ep.factura.domain.model.basket.StreamableBasketItems;
 import io.github.tobiasbriones.ep.factura.ui.core.JPanelMvcView;
+import io.github.tobiasbriones.ep.factura.ui.core.JScrollPaneMvcView;
+import io.github.tobiasbriones.ep.factura.ui.core.MvcView;
 import io.github.tobiasbriones.ep.factura.ui.core.rx.Observer;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.items.editor.ItemEditor;
 
@@ -25,7 +27,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
 
-final class ItemsView extends JPanelMvcView<ItemsController> implements Observer {
+final class ItemsView extends JScrollPaneMvcView<ItemsController> implements Observer {
 
     private static final DecimalFormat decimalFormat = new DecimalFormat(".##");
 
@@ -120,12 +122,10 @@ final class ItemsView extends JPanelMvcView<ItemsController> implements Observer
     }
 
     @Override
-    public void createView(JPanel view) {
-        final var scroll = new JScrollPane(list);
-
+    public void createView(JScrollPane view) {
         list.setCellRenderer(new ListRenderer());
-        scroll.setPreferredSize(new Dimension(630, 300));
-        view.add(scroll);
+        view.setPreferredSize(new Dimension(Items.WIDTH_PX, Items.HEIGHT_PX));
+        view.setViewportView(list);
     }
 
     @Override
