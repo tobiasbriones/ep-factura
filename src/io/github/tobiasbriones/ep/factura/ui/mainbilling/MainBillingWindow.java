@@ -16,8 +16,10 @@ import io.github.tobiasbriones.ep.factura.data.CityDao;
 import io.github.tobiasbriones.ep.factura.data.CommunityDao;
 import io.github.tobiasbriones.ep.factura.data.ProductDao;
 import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketModel;
-import io.github.tobiasbriones.ep.factura.domain.model.customer.Customer;
-import io.github.tobiasbriones.ep.factura.domain.usecase.PrintBillUseCase;
+import io.github.tobiasbriones.ep.factura.domain.model.bill.BillAccessor;
+import io.github.tobiasbriones.ep.factura.domain.model.bill.BillModel;
+import io.github.tobiasbriones.ep.factura.domain.model.bill.BillMutator;
+import io.github.tobiasbriones.ep.factura.domain.model.customer.CustomerNameAccessor;
 import io.github.tobiasbriones.ep.factura.ui.core.SwingComponent;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.customer.CustomerCreationDialog;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.header.Header;
@@ -46,6 +48,21 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
 
         component.init();
         return component;
+    }
+
+    private static String createPrintTitle(CustomerNameAccessor customer) {
+        return "Factura - " + customer.getName();
+    }
+
+    private static String createPrintMsg(BillAccessor bill) {
+        final BasketModel basket = bill.getBasket();
+        final int numberOfProducts = getNumberOfProducts(basket);
+        final double total = bill.getTotal();
+        return numberOfProducts + " productos. Total: $" + total;
+    }
+
+    private static int getNumberOfProducts(BasketModel basket) {
+        return basket.size();
     }
 
     // Again, this would be a record class in Java 17+
@@ -129,6 +146,10 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
             mediator.onInitSummary(summary);
             mediator.onInitPrint(print);
         }
+
+        void callHeaderSetBill(BillMutator bill) {
+            header.onSetBill(bill);
+        }
     }
 
     private final DependencyConfig config;
@@ -155,6 +176,8 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
     }
 
     private void init() {
+        mediator.setShowBillPrintedDialog(this::showBillPrintedDialog);
+        mediator.setSetBillFn(this::setBill);
         mediator.setShowCustomerDialogFn(this::showCustomerCreationDialog);
         childrenConfig.initChildren(mediator);
         view.init();
@@ -164,6 +187,21 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
     private void initController() {
         controller.setView(view);
         controller.init();
+    }
+
+    private void showBillPrintedDialog(BillAccessor bill) {
+        final JFrame parent = getViewComponent();
+        final String msg = createPrintMsg(bill);
+        final String title = createPrintTitle(bill.getCustomer());
+        final int type = JOptionPane.INFORMATION_MESSAGE;
+        JOptionPane.showMessageDialog(parent, msg, title, type);
+    }
+
+    // This shouldn't go here. I put it because this example app ends right
+    // here, and there's nothing else further after printing.
+    private void setBill(BillMutator bill) {
+        childrenConfig.callHeaderSetBill(bill);
+        bill.setBasket(config.basket());
     }
 
     private void showCustomerCreationDialog() {
