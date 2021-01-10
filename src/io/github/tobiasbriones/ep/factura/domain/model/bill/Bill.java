@@ -16,6 +16,7 @@ import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketList;
 import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketModel;
 import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketSummaryModel;
 import io.github.tobiasbriones.ep.factura.domain.model.customer.Customer;
+import io.github.tobiasbriones.ep.factura.domain.model.customer.CustomerModel;
 
 import java.time.LocalDateTime;
 
@@ -23,7 +24,7 @@ public final class Bill implements BillModel {
 
     private BasketModel basket;
     private BasketSummaryModel basketSummary;
-    private Customer customer;
+    private CustomerModel customer;
     private String rtn;
     private LocalDateTime date;
 
@@ -43,12 +44,12 @@ public final class Bill implements BillModel {
     }
 
     @Override
-    public Customer getCustomer() {
+    public CustomerModel getCustomer() {
         return customer;
     }
 
     @Override
-    public void setCustomer(Customer value) {
+    public void setCustomer(CustomerModel value) {
         this.customer = value;
     }
 
