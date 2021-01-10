@@ -14,9 +14,7 @@ package io.github.tobiasbriones.ep.factura.ui.mainbilling.customer;
 
 import io.github.tobiasbriones.ep.factura.data.CityDao;
 import io.github.tobiasbriones.ep.factura.data.CommunityDao;
-import io.github.tobiasbriones.ep.factura.domain.model.city.City;
 import io.github.tobiasbriones.ep.factura.domain.model.city.CityModel;
-import io.github.tobiasbriones.ep.factura.domain.model.city.community.Community;
 import io.github.tobiasbriones.ep.factura.domain.model.city.community.CommunityModel;
 import io.github.tobiasbriones.ep.factura.domain.model.customer.AddressModel;
 import io.github.tobiasbriones.ep.factura.domain.model.customer.Customer;
@@ -25,7 +23,6 @@ import io.github.tobiasbriones.ep.factura.domain.model.customer.CustomerNameAcce
 import io.github.tobiasbriones.ep.factura.ui.core.MvcController;
 
 import javax.swing.*;
-import java.util.List;
 
 final class CustomerCreationController extends MvcController<CustomerCreationView, CustomerCreationDialog.Output> {
 
@@ -54,7 +51,7 @@ final class CustomerCreationController extends MvcController<CustomerCreationVie
     }
 
     private static boolean isNameSet(CustomerNameAccessor accessor) {
-        return isSet(accessor.getName()) && isSet(accessor.getSurname());
+        return isSet(accessor.getFirstName()) && isSet(accessor.getSurname());
     }
 
     private static boolean isSet(String value) {

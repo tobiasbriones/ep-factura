@@ -14,8 +14,12 @@ package io.github.tobiasbriones.ep.factura.domain.model.customer;
 
 public interface CustomerNameAccessor {
 
-    String getName();
+    String getFirstName();
 
     String getSurname();
+
+    default String getFullName() {
+        return getFirstName() + " " + getSurname();
+    }
 
 }

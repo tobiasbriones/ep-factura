@@ -77,7 +77,7 @@ final class HeaderView extends JPanelMvcView<HeaderController> implements Header
     }
 
     @Override
-    public String getName() {
+    public String getFirstName() {
         return nameField.getText();
     }
 

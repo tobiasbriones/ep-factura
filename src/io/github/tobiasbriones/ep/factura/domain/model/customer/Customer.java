@@ -20,7 +20,7 @@ public final class Customer implements CustomerModel {
     public static Customer from(CustomerAccessor accessor) {
         final var customer = new Customer();
 
-        customer.setName(accessor.getName());
+        customer.setName(accessor.getFirstName());
         customer.setSurname(accessor.getSurname());
         customer.setAddress(accessor.getAddress());
         customer.setPhone(accessor.getPhone());
@@ -46,7 +46,7 @@ public final class Customer implements CustomerModel {
     }
 
     @Override
-    public String getName() {
+    public String getFirstName() {
         return name;
     }
 

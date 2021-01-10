@@ -117,7 +117,7 @@ final class CustomerCreationView extends JDialogMvcView<CustomerCreationControll
     }
 
     @Override
-    public String getName() {
+    public String getFirstName() {
         return nameField.getText();
     }
 

@@ -13,10 +13,8 @@
 package io.github.tobiasbriones.ep.factura.ui.mainbilling.header;
 
 import io.github.tobiasbriones.ep.factura.data.ProductDao;
-import io.github.tobiasbriones.ep.factura.domain.model.bill.Bill;
 import io.github.tobiasbriones.ep.factura.domain.model.bill.BillMutator;
 import io.github.tobiasbriones.ep.factura.domain.model.customer.Customer;
-import io.github.tobiasbriones.ep.factura.domain.model.customer.CustomerModel;
 import io.github.tobiasbriones.ep.factura.domain.model.customer.CustomerNameAccessor;
 import io.github.tobiasbriones.ep.factura.domain.model.customer.CustomerNameMutator;
 import io.github.tobiasbriones.ep.factura.domain.model.product.ProductModel;
@@ -85,7 +83,7 @@ public final class Header implements SwingComponent<JPanel> {
         final LocalDateTime date = LocalDateTime.of(viewDate, LocalTime.now());
         final var customer = new Customer();
 
-        customer.setName(view.getName());
+        customer.setName(view.getFirstName());
         customer.setSurname(view.getSurname());
 
         bill.setDate(date);
