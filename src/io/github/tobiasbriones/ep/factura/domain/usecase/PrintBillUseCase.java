@@ -12,14 +12,14 @@
 
 package io.github.tobiasbriones.ep.factura.domain.usecase;
 
-import io.github.tobiasbriones.ep.factura.domain.model.bill.Bill;
+import io.github.tobiasbriones.ep.factura.domain.model.bill.BillModel;
 import io.github.tobiasbriones.ep.factura.domain.model.bill.BillPrinter;
 
 public final class PrintBillUseCase {
 
-    private final Bill bill;
+    private final BillModel bill;
 
-    public PrintBillUseCase(Bill bill) {
+    public PrintBillUseCase(BillModel bill) {
         this.bill = bill;
     }
 
