@@ -16,6 +16,7 @@ import io.github.tobiasbriones.ep.factura.domain.model.product.ProductModel;
 import io.github.tobiasbriones.ep.factura.ui.core.JPanelMvcView;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -58,22 +59,6 @@ final class HeaderView extends JPanelMvcView<HeaderController> implements Header
         this.dateField = new JTextField();
         this.productsBox = new JComboBox<>();
         this.addButton = new JButton();
-    }
-
-    @Override
-    public void createView(JPanel view) {
-        final var gbc = new GridBagConstraints();
-
-        view.setLayout(new GridBagLayout());
-
-        setCustomerNameRows(view, gbc);
-        setRtnDateRows(view, gbc);
-        setProductsRow(view, gbc);
-    }
-
-    @Override
-    public void bindEvents(HeaderController controller) {
-        addButton.addActionListener(e -> controller.onAddButtonClick());
     }
 
     @Override
@@ -130,6 +115,23 @@ final class HeaderView extends JPanelMvcView<HeaderController> implements Header
     @Override
     public void setDate(LocalDate value) {
         dateField.setText(String.valueOf(value));
+    }
+
+    @Override
+    public void createView(JPanel view) {
+        final var gbc = new GridBagConstraints();
+
+        view.setLayout(new GridBagLayout());
+        view.setBorder(new EmptyBorder(0, 0, 10, 0));
+
+        setCustomerNameRows(view, gbc);
+        setRtnDateRows(view, gbc);
+        setProductsRow(view, gbc);
+    }
+
+    @Override
+    public void bindEvents(HeaderController controller) {
+        addButton.addActionListener(e -> controller.onAddButtonClick());
     }
 
     private void setCustomerNameRows(JPanel view, GridBagConstraints gbc) {
