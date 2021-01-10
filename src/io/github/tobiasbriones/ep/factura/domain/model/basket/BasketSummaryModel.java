@@ -14,16 +14,10 @@ package io.github.tobiasbriones.ep.factura.domain.model.basket;
 
 import io.github.tobiasbriones.ep.factura.domain.model.Money;
 
-public interface BasketSummaryModel {
+public interface BasketSummaryModel extends BasketSummaryAccessor {
 
     static double subtotal(double total, double isv) {
         return Money.decimalFormat(total - isv);
     }
-
-    double getIsv();
-
-    double getSubtotal();
-
-    double getTotal();
 
 }

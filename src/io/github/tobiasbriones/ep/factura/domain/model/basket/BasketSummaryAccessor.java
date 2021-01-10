@@ -10,13 +10,13 @@
  * https://opensource.org/licenses/MIT.
  */
 
-package io.github.tobiasbriones.ep.factura.domain.model.bill;
+package io.github.tobiasbriones.ep.factura.domain.model.basket;
 
-public interface BillResumeAccessor {
-
-    double getSubtotal();
+public interface BasketSummaryAccessor {
 
     double getIsv();
+
+    double getSubtotal();
 
     double getTotal();
 
