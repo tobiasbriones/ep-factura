@@ -12,33 +12,34 @@
 
 package io.github.tobiasbriones.ep.factura.domain.model.bill;
 
+import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketList;
+import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketModel;
+import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketSummaryModel;
 import io.github.tobiasbriones.ep.factura.domain.model.customer.Customer;
-import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketItem;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public final class Bill implements BillModel {
 
-    private final List<BasketItem> items;
+    private BasketModel basket;
+    private BasketSummaryModel basketSummary;
     private Customer customer;
     private String rtn;
     private LocalDateTime date;
-    private double subtotal;
-    private double isv;
-    private double total;
-    private int totalItems;
 
     public Bill() {
-        this(5);
+        init();
     }
 
-    public Bill(int estimatedNumberOfItems) {
-        this.items = new ArrayList<>(estimatedNumberOfItems);
+    @Override
+    public BasketModel getBasket() {
+        return basket;
+    }
 
-        init();
+    @Override
+    public void setBasket(BasketModel value) {
+        basket = value;
+        basketSummary = basket.computeSummary();
     }
 
     @Override
@@ -72,12 +73,18 @@ public final class Bill implements BillModel {
     }
 
     @Override
-    public void addItem(BasketItem item) {
-        items.add(item);
-        subtotal += item.getAmount();
-        isv += item.getIsv();
-        total += item.getTotal();
-        totalItems += item.getQuantity();
+    public double getSubtotal() {
+        return basketSummary.getSubtotal();
+    }
+
+    @Override
+    public double getIsv() {
+        return basketSummary.getIsv();
+    }
+
+    @Override
+    public double getTotal() {
+        return basketSummary.getTotal();
     }
 
     @Override
@@ -86,48 +93,22 @@ public final class Bill implements BillModel {
     }
 
     @Override
-    public List<BasketItem> getItems() {
-        return Collections.unmodifiableList(items);
-    }
-
-    @Override
-    public double getSubtotal() {
-        return subtotal;
-    }
-
-    @Override
-    public double getIsv() {
-        return isv;
-    }
-
-    @Override
-    public double getTotal() {
-        return total;
-    }
-
-    @Override
     public String toString() {
         return "Bill[" +
-               "items=" + items + ", " +
+               "basket=" + basket + ", " +
+               "basketSummary=" + basketSummary + ", " +
                "customer=" + customer + ", " +
                "rtn=" + rtn + ", " +
-               "date=" + date + ", " +
-               "subtotal=" + subtotal + ", " +
-               "isv=" + isv + ", " +
-               "total=" + total + ", " +
-               "totalItems=" + totalItems +
+               "date=" + date +
                "]";
     }
 
     private void init() {
-        items.clear();
+        basket = new BasketList();
+        basketSummary = basket.computeSummary();
         customer = new Customer();
         rtn = "";
         date = LocalDateTime.now();
-        subtotal = 0.0d;
-        isv = 0.0d;
-        total = 0.0d;
-        totalItems = 0;
     }
 
 }

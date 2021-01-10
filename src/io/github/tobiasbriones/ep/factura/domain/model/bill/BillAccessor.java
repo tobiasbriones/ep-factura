@@ -12,20 +12,19 @@
 
 package io.github.tobiasbriones.ep.factura.domain.model.bill;
 
-import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketItem;
+import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketModel;
 import io.github.tobiasbriones.ep.factura.domain.model.customer.Customer;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 public interface BillAccessor extends BillResumeAccessor {
+
+    BasketModel getBasket();
 
     Customer getCustomer();
 
     String getRtn();
 
     LocalDateTime getDate();
-
-    List<BasketItem> getItems();
 
 }
