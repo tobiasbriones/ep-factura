@@ -39,7 +39,7 @@ final class PrintView extends JPanelMvcView<PrintController> {
         createNewCustomerBox.setText("Nuevo cliente");
 
         view.setLayout(new BorderLayout());
-        view.setBorder(new EmptyBorder(10, 10, 10, 10));
+        view.setBorder(new EmptyBorder(10, 0, 10, 0));
         view.add(createNewCustomerBox, BorderLayout.LINE_START);
         view.add(printButton, BorderLayout.LINE_END);
     }
