@@ -21,9 +21,6 @@ import javax.swing.*;
 
 public final class Items implements SwingComponent<JScrollPane> {
 
-    public static final int WIDTH_PX = 630;
-    public static final int HEIGHT_PX = 300;
-
     @FunctionalInterface
     public interface Output {
 

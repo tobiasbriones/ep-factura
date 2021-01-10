@@ -14,9 +14,7 @@ package io.github.tobiasbriones.ep.factura.ui.mainbilling.items;
 
 import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketItem;
 import io.github.tobiasbriones.ep.factura.domain.model.basket.StreamableBasketItems;
-import io.github.tobiasbriones.ep.factura.ui.core.JPanelMvcView;
 import io.github.tobiasbriones.ep.factura.ui.core.JScrollPaneMvcView;
-import io.github.tobiasbriones.ep.factura.ui.core.MvcView;
 import io.github.tobiasbriones.ep.factura.ui.core.rx.Observer;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.items.editor.ItemEditor;
 
@@ -29,6 +27,8 @@ import java.text.DecimalFormat;
 
 final class ItemsView extends JScrollPaneMvcView<ItemsController> implements Observer {
 
+    private static final int HEIGHT_PX = 300;
+    private static final int WIDTH_PX = 630;
     private static final DecimalFormat decimalFormat = new DecimalFormat(".##");
 
     private static final class ListRenderer extends JPanel implements ListCellRenderer<BasketItem> {
@@ -124,7 +124,7 @@ final class ItemsView extends JScrollPaneMvcView<ItemsController> implements Obs
     @Override
     public void createView(JScrollPane view) {
         list.setCellRenderer(new ListRenderer());
-        view.setPreferredSize(new Dimension(Items.WIDTH_PX, Items.HEIGHT_PX));
+        view.setPreferredSize(new Dimension(WIDTH_PX, HEIGHT_PX));
         view.setViewportView(list);
     }
 
