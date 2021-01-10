@@ -189,17 +189,17 @@ final class HeaderView extends JPanelMvcView<HeaderController> implements Header
         gbc.gridx = 3;
         gbc.gridy = 3;
         view.add(dateField, gbc);
-    }
-
-    private void setProductsRow(JPanel view, GridBagConstraints gbc) {
-        productsBox.setRenderer(new ProductBoxRenderer());
-        addButton.setText("Agregar");
 
         gbc.gridx = 0;
         view.add(new JLabel(), gbc);
 
         gbc.gridx = 1;
         view.add(new JLabel(), gbc);
+    }
+
+    private void setProductsRow(JPanel view, GridBagConstraints gbc) {
+        productsBox.setRenderer(new ProductBoxRenderer());
+        addButton.setText("Agregar");
 
         gbc.gridx = 0;
         gbc.gridy = 4;
