@@ -12,9 +12,11 @@
 
 package io.github.tobiasbriones.ep.factura.domain.model.bill;
 
+import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketSummaryAccessor;
+
 public interface BillPrinter extends BillMutator {
 
-    void setBillResume(BillResumeAccessor resume);
+    void setBillResume(BasketSummaryAccessor accessor);
 
     void clear();
 
