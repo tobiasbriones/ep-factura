@@ -15,6 +15,7 @@ package io.github.tobiasbriones.ep.factura.database;
 import io.github.tobiasbriones.ep.factura.data.ProductDao;
 import io.github.tobiasbriones.ep.factura.database.util.FileUtils;
 import io.github.tobiasbriones.ep.factura.domain.model.product.IdProductAccessor;
+import io.github.tobiasbriones.ep.factura.domain.model.product.ProductAccessor;
 import io.github.tobiasbriones.ep.factura.domain.model.product.ProductModel;
 
 import java.io.IOException;
@@ -49,9 +50,15 @@ public final class DiskProductDao implements ProductDao {
         private static final int NUMBER_OF_ATTRIBUTES = 3;
         private static final String SEPARATOR_TOKEN = ",";
 
-        private static Optional<ProductModel> readProductFrom(String productStr) {
+        static Optional<ProductModel> readProductFrom(String productStr) {
             final var tokens = productStr.split(SEPARATOR_TOKEN);
             return readTokens(tokens);
+        }
+
+        static String writeProductFrom(ProductAccessor accessor) {
+            return accessor.getCode() + SEPARATOR_TOKEN +
+                   accessor.getDescription() + SEPARATOR_TOKEN +
+                   accessor.getPrice();
         }
 
         private static Optional<ProductModel> readTokens(String... tokens) {
@@ -71,10 +78,10 @@ public final class DiskProductDao implements ProductDao {
             String descriptionToken,
             String priceToken
         ) {
-            Optional<ProductModel> product;
             final int id;
             final String description;
             final double price;
+            Optional<ProductModel> product;
 
             try {
                 id = Integer.parseInt(idToken);
@@ -126,7 +133,19 @@ public final class DiskProductDao implements ProductDao {
     }
 
     private void save() {
-        // TODO
+        // Suppose the max capacity allowed is ESTIMATED_INITIAL_CAPACITY
+        final List<ProductModel> allProducts = fetchAll(0, ESTIMATED_INITIAL_CAPACITY);
+        final List<String> encodedProducts = allProducts.stream()
+                                                        .map(DiskProduct::writeProductFrom)
+                                                        .collect(Collectors.toList());
+
+        try {
+            FileUtils.saveLines(encodedProducts,PRODUCTS_FILE_PATH);
+        }
+        catch (IOException e) {
+            // This Dao should throw exceptions in a real use case
+            e.printStackTrace();
+        }
     }
 
 }
