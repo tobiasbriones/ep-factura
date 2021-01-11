@@ -101,6 +101,10 @@ final class DiskProductDaoTest {
         it("onlyReadsValidItems", this::onlyReadsValidItems);
         it("readsItems", this::readsItems);
         it("saves", this::saves);
+        it("fetchesById", this::fetchesById);
+        it("deletesItem", this::deletesItem);
+        it("updatesItem", this::updatesItem);
+        it("createsItem", this::createsItem);
     }
 
     private void createsFileIfNotExists() throws Exception {
@@ -153,6 +157,71 @@ final class DiskProductDaoTest {
         final var result = Files.readString(Path.of(TMP_FILE_NAME));
 
         assertTrue(result.equals(expected));
+    }
+
+    private void fetchesById() throws Exception {
+        final var dao = new DiskProductDao(TMP_FILE_NAME);
+        final var item1 = "1,Desc1,100.0";
+        final var item2 = "15,Desc15,10.5";
+        final var contents = item1 + File.separator + item2;
+
+        Files.writeString(Path.of(TMP_FILE_NAME), contents);
+        final var expected = ProductModel.of(15, "Desc15", 10.5);
+        final var result = dao.fetch(() -> 15);
+
+        assertTrue(result.isPresent() && result.get().equals(expected));
+    }
+
+    private void deletesItem() throws Exception {
+        final var dao = new DiskProductDao(TMP_FILE_NAME);
+        final var item1 = "1,Desc1,100.0";
+        final var deleteItem = "15,Desc15,10.5";
+        final var item3 = "100,Desc100,70.0";
+        final var contents = item1 + File.separator + deleteItem + File.separator + item3;
+
+        Files.writeString(Path.of(TMP_FILE_NAME), contents);
+        final var expected1 = ProductModel.of(1, "Desc1", 100.0);
+        final var expected2 = ProductModel.of(100, "Desc100", 70.0);
+        final var expectedSize = 2;
+        final var result = dao.fetchAll(0, 10);
+
+        assertTrue(result.size() == expectedSize);
+        assertTrue(result.get(0).equals(expected1));
+        assertTrue(result.get(1).equals(expected2));
+    }
+
+    private void updatesItem() throws Exception {
+        final var dao = new DiskProductDao(TMP_FILE_NAME);
+        final var item1 = "1,Desc1,100.0";
+        final var updateItem = "15,Desc15,10.5";
+        final var item3 = "100,Desc100,70.0";
+        final var contents = item1 + File.separator + updateItem + File.separator + item3;
+
+        Files.writeString(Path.of(TMP_FILE_NAME), contents);
+        final var expected1 = ProductModel.of(1, "Desc1", 100.0);
+        final var expected2 = ProductModel.of(15, "Desc50", 559.99);
+        final var expected3 = ProductModel.of(100, "Desc100", 70.0);
+        final var expectedSize = 3;
+
+        dao.update(expected2);
+        final var result = dao.fetchAll(0, 10);
+
+        assertTrue(result.size() == expectedSize);
+        assertTrue(result.get(0).equals(expected1));
+        assertTrue(result.get(1).equals(expected2));
+        assertTrue(result.get(2).equals(expected3));
+    }
+
+    private void createsItem() throws Exception {
+        final var dao = new DiskProductDao(TMP_FILE_NAME);
+        final var expected = ProductModel.of(1, "Desc1", 100.0);
+        final var expectedSize = 1;
+
+        dao.create(expected);
+        final var result = dao.fetchAll(0, 10);
+
+        assertTrue(result.size() == expectedSize);
+        assertTrue(result.get(0).equals(expected));
     }
 
 }
