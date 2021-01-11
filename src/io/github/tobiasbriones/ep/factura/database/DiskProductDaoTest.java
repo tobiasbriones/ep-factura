@@ -153,7 +153,7 @@ final class DiskProductDaoTest {
 
         dao.create(product);
 
-        final var expected = "1,Description,50.0";
+        final var expected = "1,Description,50.0" + LINE_SEPARATOR;
         final var result = Files.readString(Path.of(TMP_FILE_NAME));
 
         assertTrue(result.equals(expected));
