@@ -13,15 +13,14 @@
 package io.github.tobiasbriones.ep.factura.database;
 
 import io.github.tobiasbriones.ep.factura.data.ProductDao;
+import io.github.tobiasbriones.ep.factura.database.util.FileUtils;
 import io.github.tobiasbriones.ep.factura.domain.model.product.IdProductAccessor;
 import io.github.tobiasbriones.ep.factura.domain.model.product.ProductModel;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public final class DiskProductDao implements ProductDao {
 
@@ -38,30 +37,19 @@ public final class DiskProductDao implements ProductDao {
     }
 
     private static List<ProductModel> read() throws IOException {
-        final List<ProductModel> list = new ArrayList<>(getEstimatedInitialCapacity());
-
-        try (var br = new BufferedReader(new FileReader(PRODUCTS_FILE_PATH))) {
-            String line;
-
-            while ((line = br.readLine()) != null) {
-                final var product = DiskProduct.readProductFrom(line);
-
-                product.ifPresent(list::add);
-            }
-        }
-        return list;
-    }
-
-    private static void save(List<ProductModel> products) throws IOException {
-        // TODO
+        return FileUtils.readFile(PRODUCTS_FILE_PATH, getEstimatedInitialCapacity())
+                        .stream()
+                        .map(DiskProduct::readProductFrom)
+                        .filter(Optional::isPresent)
+                        .map(Optional::get)
+                        .collect(Collectors.toList());
     }
 
     private static final class DiskProduct {
-
         private static final int NUMBER_OF_ATTRIBUTES = 3;
         private static final String SEPARATOR_TOKEN = ",";
 
-        static Optional<ProductModel> readProductFrom(String productStr) {
+        private static Optional<ProductModel> readProductFrom(String productStr) {
             final var tokens = productStr.split(SEPARATOR_TOKEN);
             return readTokens(tokens);
         }
@@ -100,9 +88,7 @@ public final class DiskProductDao implements ProductDao {
             return product;
         }
 
-        private DiskProduct() {
-        }
-
+        private DiskProduct() {}
     }
 
     private final ProductDao inMemoryDao;
@@ -140,13 +126,7 @@ public final class DiskProductDao implements ProductDao {
     }
 
     private void save() {
-        try {
-            save(((InMemoryProductDao) inMemoryDao).getProducts());
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-            // Returning a Result to handle errors from the DAO methods is left yet ...
-        }
+        // TODO
     }
 
 }
