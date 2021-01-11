@@ -22,6 +22,32 @@ public final class FileUtils {
 
     private static final int DEF_FILE_LINES_INITIAL_CAPACITY = 15;
 
+    /**
+     * Returns a list containing the lines of the given file.
+     *
+     * @param fileName file name to read
+     *
+     * @return a list containing the lines of the given file
+     *
+     * @throws IOException if something fails
+     * @see FileUtils#readFile(String, int)
+     */
+    public static List<String> readFile(String fileName) throws IOException {
+        return readFile(fileName, DEF_FILE_LINES_INITIAL_CAPACITY);
+    }
+
+    /**
+     * Returns a list containing the lines of the given file.
+     *
+     * @param fileName        file name to read
+     * @param initialCapacity initial capacity to assign to the the list before
+     *                        reading the file, use this param to improve
+     *                        performance
+     *
+     * @return a list containing the lines of the given file
+     *
+     * @throws IOException if something fails
+     */
     public static List<String> readFile(String fileName, int initialCapacity) throws IOException {
         final List<String> list = new ArrayList<>(initialCapacity);
 
@@ -34,10 +60,6 @@ public final class FileUtils {
             }
         }
         return list;
-    }
-
-    public static List<String> readFile(String fileName) throws IOException {
-        return readFile(fileName, DEF_FILE_LINES_INITIAL_CAPACITY);
     }
 
     private FileUtils() {}
