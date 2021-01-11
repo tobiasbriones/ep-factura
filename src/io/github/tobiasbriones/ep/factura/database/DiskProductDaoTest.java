@@ -14,7 +14,6 @@ package io.github.tobiasbriones.ep.factura.database;
 
 import io.github.tobiasbriones.ep.factura.domain.model.product.ProductModel;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
@@ -28,6 +27,7 @@ final class DiskProductDaoTest {
     //                                                                                            //
     //                                                                                            //
 
+    private static final String LINE_SEPARATOR = System.lineSeparator();
     private static final String TMP_FILE_NAME = "products_test";
 
     public static void main(String[] args) {
@@ -119,7 +119,7 @@ final class DiskProductDaoTest {
         final var dao = new DiskProductDao(TMP_FILE_NAME);
         final var item1 = "1,Desc1,100.0";
         final var item2 = "15,Desc15,10.5";
-        final var contents = item1 + File.separator + item2;
+        final var contents = item1 + LINE_SEPARATOR + item2;
 
         Files.writeString(Path.of(TMP_FILE_NAME), contents);
         final var expected1 = ProductModel.of(1, "Desc1", 100.0);
@@ -135,7 +135,7 @@ final class DiskProductDaoTest {
         final var item1 = "1,Desc1,100.0";
         final var item2 = "15,Desc15,10.5";
         final var invalidItem = "1s,Desc,10.0";
-        final var contents = item1 + File.separator + item2 + File.separator + invalidItem;
+        final var contents = item1 + LINE_SEPARATOR + item2 + LINE_SEPARATOR + invalidItem;
 
         Files.writeString(Path.of(TMP_FILE_NAME), contents);
         final var expected1 = ProductModel.of(1, "Desc1", 100.0);
@@ -163,7 +163,7 @@ final class DiskProductDaoTest {
         final var dao = new DiskProductDao(TMP_FILE_NAME);
         final var item1 = "1,Desc1,100.0";
         final var item2 = "15,Desc15,10.5";
-        final var contents = item1 + File.separator + item2;
+        final var contents = item1 + LINE_SEPARATOR + item2;
 
         Files.writeString(Path.of(TMP_FILE_NAME), contents);
         final var expected = ProductModel.of(15, "Desc15", 10.5);
@@ -177,7 +177,7 @@ final class DiskProductDaoTest {
         final var item1 = "1,Desc1,100.0";
         final var deleteItem = "15,Desc15,10.5";
         final var item3 = "100,Desc100,70.0";
-        final var contents = item1 + File.separator + deleteItem + File.separator + item3;
+        final var contents = item1 + LINE_SEPARATOR + deleteItem + LINE_SEPARATOR + item3;
 
         Files.writeString(Path.of(TMP_FILE_NAME), contents);
         final var expected1 = ProductModel.of(1, "Desc1", 100.0);
@@ -195,7 +195,7 @@ final class DiskProductDaoTest {
         final var item1 = "1,Desc1,100.0";
         final var updateItem = "15,Desc15,10.5";
         final var item3 = "100,Desc100,70.0";
-        final var contents = item1 + File.separator + updateItem + File.separator + item3;
+        final var contents = item1 + LINE_SEPARATOR + updateItem + LINE_SEPARATOR + item3;
 
         Files.writeString(Path.of(TMP_FILE_NAME), contents);
         final var expected1 = ProductModel.of(1, "Desc1", 100.0);
