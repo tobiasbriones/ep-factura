@@ -12,9 +12,7 @@
 
 package io.github.tobiasbriones.ep.factura.database.util;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,6 +58,23 @@ public final class FileUtils {
             }
         }
         return list;
+    }
+
+    /**
+     * Writes the lines into the given file.
+     *
+     * @param lines    list of lines to write into the file
+     * @param fileName file name to write into
+     *
+     * @throws IOException if something fails
+     */
+    public static void saveLines(Iterable<String> lines, String fileName) throws IOException {
+        try (var bw = new BufferedWriter(new FileWriter(fileName))) {
+            for (var line : lines) {
+                bw.write(line);
+                bw.newLine();
+            }
+        }
     }
 
     private FileUtils() {}
