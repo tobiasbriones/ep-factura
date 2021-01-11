@@ -83,43 +83,69 @@ public final class DiskProductDao implements ProductDao {
     }
 
     private final String filePath;
-    private final ProductDao inMemoryDao;
+    private InMemoryProductDao inMemoryDao;
 
-    public DiskProductDao() throws IOException {
+    /**
+     * Creates a new DiskProductDao with the {@link DiskProductDao#DEF_PRODUCTS_FILE_PATH} file.
+     *
+     * @throws RuntimeException if something fails
+     */
+    public DiskProductDao() {
         this(DEF_PRODUCTS_FILE_PATH);
     }
 
-    public DiskProductDao(String filePath) throws IOException {
+    /**
+     * Creates a new DiskProductDao with the given file.
+     *
+     * @throws RuntimeException if something fails
+     */
+    public DiskProductDao(String filePath) {
         this.filePath = filePath;
-        this.inMemoryDao = newInMemoryDao();
+        this.inMemoryDao = null;
+
+        validateFileExists();
     }
 
     @Override
     public Optional<ProductModel> fetch(IdProductAccessor id) {
+        loadInMemoryDao();
         return inMemoryDao.fetch(id);
     }
 
     @Override
     public List<ProductModel> fetchAll(int page, int pageSize) {
-        return inMemoryDao.fetchAll(page, pageSize);
+        loadInMemoryDao();
+        return inMemoryDao.diskDaoFetchAll(page, pageSize);
     }
 
     @Override
     public void create(ProductModel record) {
+        loadInMemoryDao();
         inMemoryDao.create(record);
         save();
     }
 
     @Override
     public void update(ProductModel record) {
+        loadInMemoryDao();
         inMemoryDao.update(record);
         save();
     }
 
     @Override
     public void delete(ProductModel record) {
+        loadInMemoryDao();
         inMemoryDao.delete(record);
         save();
+    }
+
+    private void loadInMemoryDao() {
+        try {
+            inMemoryDao = newInMemoryDao();
+        }
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private InMemoryProductDao newInMemoryDao() throws IOException {
@@ -128,11 +154,17 @@ public final class DiskProductDao implements ProductDao {
         return new InMemoryProductDao(products);
     }
 
-    private void validateFileExists() throws IOException {
+    private void validateFileExists() {
         final var path = Path.of(filePath);
 
         if (Files.notExists(path)) {
-            Files.createFile(path);
+            try {
+                Files.createFile(path);
+            }
+            catch (IOException e) {
+                // This Dao would throw IOException for a real app
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -147,7 +179,7 @@ public final class DiskProductDao implements ProductDao {
 
     private void save() {
         // Suppose the max capacity allowed is ESTIMATED_INITIAL_CAPACITY
-        final List<ProductModel> allProducts = fetchAll(0, ESTIMATED_INITIAL_CAPACITY);
+        final List<ProductModel> allProducts = inMemoryDao.fetchAll(0, ESTIMATED_INITIAL_CAPACITY);
         final List<String> encodedProducts = allProducts.stream()
                                                         .map(DiskProduct::writeProductFrom)
                                                         .collect(Collectors.toList());
