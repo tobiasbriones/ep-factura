@@ -25,26 +25,8 @@ import java.util.stream.Collectors;
 
 public final class DiskProductDao implements ProductDao {
 
-    private static final String PRODUCTS_FILE_PATH = "products";
+    public static final String DEF_PRODUCTS_FILE_PATH = "products";
     private static final int ESTIMATED_INITIAL_CAPACITY = 50;
-
-    private static int getEstimatedInitialCapacity() {
-        return ESTIMATED_INITIAL_CAPACITY;
-    }
-
-    private static InMemoryProductDao newInMemoryDao() throws IOException {
-        final var products = read();
-        return new InMemoryProductDao(products);
-    }
-
-    private static List<ProductModel> read() throws IOException {
-        return FileUtils.readFile(PRODUCTS_FILE_PATH, getEstimatedInitialCapacity())
-                        .stream()
-                        .map(DiskProduct::readProductFrom)
-                        .filter(Optional::isPresent)
-                        .map(Optional::get)
-                        .collect(Collectors.toList());
-    }
 
     private static final class DiskProduct {
         private static final int NUMBER_OF_ATTRIBUTES = 3;
@@ -98,9 +80,15 @@ public final class DiskProductDao implements ProductDao {
         private DiskProduct() {}
     }
 
+    private final String filePath;
     private final ProductDao inMemoryDao;
 
     public DiskProductDao() throws IOException {
+        this(DEF_PRODUCTS_FILE_PATH);
+    }
+
+    public DiskProductDao(String filePath) throws IOException {
+        this.filePath = filePath;
         this.inMemoryDao = newInMemoryDao();
     }
 
@@ -132,6 +120,20 @@ public final class DiskProductDao implements ProductDao {
         save();
     }
 
+    private InMemoryProductDao newInMemoryDao() throws IOException {
+        final var products = read();
+        return new InMemoryProductDao(products);
+    }
+
+    private List<ProductModel> read() throws IOException {
+        return FileUtils.readFile(filePath, ESTIMATED_INITIAL_CAPACITY)
+                        .stream()
+                        .map(DiskProduct::readProductFrom)
+                        .filter(Optional::isPresent)
+                        .map(Optional::get)
+                        .collect(Collectors.toList());
+    }
+
     private void save() {
         // Suppose the max capacity allowed is ESTIMATED_INITIAL_CAPACITY
         final List<ProductModel> allProducts = fetchAll(0, ESTIMATED_INITIAL_CAPACITY);
@@ -140,7 +142,7 @@ public final class DiskProductDao implements ProductDao {
                                                         .collect(Collectors.toList());
 
         try {
-            FileUtils.saveLines(encodedProducts,PRODUCTS_FILE_PATH);
+            FileUtils.saveLines(encodedProducts, filePath);
         }
         catch (IOException e) {
             // This Dao should throw exceptions in a real use case
