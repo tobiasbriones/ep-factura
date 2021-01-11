@@ -19,6 +19,8 @@ import io.github.tobiasbriones.ep.factura.domain.model.product.ProductAccessor;
 import io.github.tobiasbriones.ep.factura.domain.model.product.ProductModel;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -121,8 +123,17 @@ public final class DiskProductDao implements ProductDao {
     }
 
     private InMemoryProductDao newInMemoryDao() throws IOException {
+        validateFileExists();
         final var products = read();
         return new InMemoryProductDao(products);
+    }
+
+    private void validateFileExists() throws IOException {
+        final var path = Path.of(filePath);
+
+        if (Files.notExists(path)) {
+            Files.createFile(path);
+        }
     }
 
     private List<ProductModel> read() throws IOException {
