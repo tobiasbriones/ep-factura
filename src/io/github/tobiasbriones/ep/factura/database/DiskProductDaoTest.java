@@ -98,13 +98,13 @@ final class DiskProductDaoTest {
 
     private void run() {
         it("createsFileIfNotExists", this::createsFileIfNotExists);
-        it("onlyReadsValidItems", this::onlyReadsValidItems);
         it("readsItems", this::readsItems);
-        it("saves", this::saves);
+        it("onlyReadsValidItems", this::onlyReadsValidItems);
         it("fetchesById", this::fetchesById);
+        it("createsItem", this::createsItem);
         it("deletesItem", this::deletesItem);
         it("updatesItem", this::updatesItem);
-        it("createsItem", this::createsItem);
+        it("saves", this::saves);
     }
 
     private void createsFileIfNotExists() throws Exception {
@@ -147,18 +147,6 @@ final class DiskProductDaoTest {
         assertTrue(result.get(1).equals(expected2));
     }
 
-    private void saves() throws Exception {
-        final var dao = new DiskProductDao(TMP_FILE_NAME);
-        final var product = ProductModel.of(1, "Description", 50.0);
-
-        dao.create(product);
-
-        final var expected = "1,Description,50.0" + LINE_SEPARATOR;
-        final var result = Files.readString(Path.of(TMP_FILE_NAME));
-
-        assertTrue(result.equals(expected));
-    }
-
     private void fetchesById() throws Exception {
         final var dao = new DiskProductDao(TMP_FILE_NAME);
         final var item1 = "1,Desc1,100.0";
@@ -175,6 +163,18 @@ final class DiskProductDaoTest {
         final var result = dao.fetch(() -> 15);
 
         assertTrue(result.isPresent() && result.get().equals(expected));
+    }
+
+    private void createsItem() throws Exception {
+        final var dao = new DiskProductDao(TMP_FILE_NAME);
+        final var expected = ProductModel.of(1, "Desc1", 100.0);
+        final var expectedSize = 1;
+
+        dao.create(expected);
+        final var result = dao.fetchAll(0, 10);
+
+        assertTrue(result.size() == expectedSize);
+        assertTrue(result.get(0).equals(expected));
     }
 
     private void deletesItem() throws Exception {
@@ -220,16 +220,16 @@ final class DiskProductDaoTest {
         assertTrue(result.get(2).equals(expected3));
     }
 
-    private void createsItem() throws Exception {
+    private void saves() throws Exception {
         final var dao = new DiskProductDao(TMP_FILE_NAME);
-        final var expected = ProductModel.of(1, "Desc1", 100.0);
-        final var expectedSize = 1;
+        final var product = ProductModel.of(1, "Description", 50.0);
 
-        dao.create(expected);
-        final var result = dao.fetchAll(0, 10);
+        dao.create(product);
 
-        assertTrue(result.size() == expectedSize);
-        assertTrue(result.get(0).equals(expected));
+        final var expected = "1,Description,50.0" + LINE_SEPARATOR;
+        final var result = Files.readString(Path.of(TMP_FILE_NAME));
+
+        assertTrue(result.equals(expected));
     }
 
 }
