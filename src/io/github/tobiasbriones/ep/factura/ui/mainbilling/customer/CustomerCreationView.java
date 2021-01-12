@@ -153,11 +153,14 @@ final class CustomerCreationView extends JDialogMvcView<CustomerCreationControll
     @Override
     public void createView(JDialog view) {
         final Container container = view.getContentPane();
+        final String iconPath = "icon.png";
+        final Image icon = Toolkit.getDefaultToolkit().getImage(iconPath);
 
         createPanel(container);
         view.pack();
         view.setLocationRelativeTo(null);
         view.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+        view.setIconImage(icon);
     }
 
     @Override
