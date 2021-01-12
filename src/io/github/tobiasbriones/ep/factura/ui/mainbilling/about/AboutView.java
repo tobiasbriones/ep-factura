@@ -33,7 +33,6 @@ final class AboutView extends JPanelMvcView<AboutController> {
 
         printButton.setIcon(icon);
         view.setLayout(new BorderLayout());
-        view.setBorder(new EmptyBorder(10, 0, 10, 0));
         view.add(printButton, BorderLayout.LINE_START);
     }
 
