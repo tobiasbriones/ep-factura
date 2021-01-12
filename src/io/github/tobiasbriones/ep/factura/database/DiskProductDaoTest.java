@@ -187,7 +187,10 @@ final class DiskProductDaoTest {
         Files.writeString(Path.of(TMP_FILE_NAME), contents);
         final var expected1 = ProductModel.of(1, "Desc1", 100.0);
         final var expected2 = ProductModel.of(100, "Desc100", 70.0);
+        final var deleteProduct = ProductModel.of(15, "Desc15", 10.5);
         final var expectedSize = 2;
+
+        dao.delete(deleteProduct);
         final var result = dao.fetchAll(0, 10);
 
         assertTrue(result.size() == expectedSize);
