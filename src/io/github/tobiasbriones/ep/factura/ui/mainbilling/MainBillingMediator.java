@@ -44,7 +44,7 @@ final class MainBillingMediator {
     @FunctionalInterface
     interface ShowCustomerCreationDialogFn {
 
-        void apply();
+        void apply(BillModel bill);
 
     }
 
@@ -112,7 +112,8 @@ final class MainBillingMediator {
         @Override
         public void onPrintWithNewCustomer() {
             validateFunctions();
-            showCustomerDialogFn.apply();
+            setBillFn.apply(bill);
+            showCustomerDialogFn.apply(bill);
         }
 
         private void onPrintWithNewCustomer(CustomerModel customer) {

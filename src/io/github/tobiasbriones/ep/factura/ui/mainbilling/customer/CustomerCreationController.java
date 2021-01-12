@@ -16,10 +16,7 @@ import io.github.tobiasbriones.ep.factura.data.CityDao;
 import io.github.tobiasbriones.ep.factura.data.CommunityDao;
 import io.github.tobiasbriones.ep.factura.domain.model.city.CityModel;
 import io.github.tobiasbriones.ep.factura.domain.model.city.community.CommunityModel;
-import io.github.tobiasbriones.ep.factura.domain.model.customer.AddressModel;
-import io.github.tobiasbriones.ep.factura.domain.model.customer.Customer;
-import io.github.tobiasbriones.ep.factura.domain.model.customer.CustomerAccessor;
-import io.github.tobiasbriones.ep.factura.domain.model.customer.CustomerNameAccessor;
+import io.github.tobiasbriones.ep.factura.domain.model.customer.*;
 import io.github.tobiasbriones.ep.factura.ui.core.MvcController;
 
 import javax.swing.*;
@@ -58,12 +55,18 @@ final class CustomerCreationController extends MvcController<CustomerCreationVie
         return !value.trim().isEmpty();
     }
 
+    private final CustomerModel customer;
     private final CityDao cityDao;
     private final CommunityDao communityDao;
     private CustomerCreationView view;
 
-    CustomerCreationController(CityDao cityDao, CommunityDao communityDao) {
+    CustomerCreationController(
+        CustomerModel customer,
+        CityDao cityDao,
+        CommunityDao communityDao
+    ) {
         super();
+        this.customer = customer;
         this.cityDao = cityDao;
         this.communityDao = communityDao;
         this.view = null;
@@ -81,6 +84,7 @@ final class CustomerCreationController extends MvcController<CustomerCreationVie
 
     @Override
     public void init() {
+        view.setCustomer(customer);
         view.setCities(cityDao.fetchAll());
         view.setCommunities(communityDao.fetchAll());
         view.update();

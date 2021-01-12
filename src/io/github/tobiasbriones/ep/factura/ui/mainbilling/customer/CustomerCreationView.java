@@ -19,6 +19,7 @@ import io.github.tobiasbriones.ep.factura.domain.model.city.community.CommunityM
 import io.github.tobiasbriones.ep.factura.domain.model.customer.Address;
 import io.github.tobiasbriones.ep.factura.domain.model.customer.AddressModel;
 import io.github.tobiasbriones.ep.factura.domain.model.customer.CustomerAccessor;
+import io.github.tobiasbriones.ep.factura.domain.model.customer.CustomerModel;
 import io.github.tobiasbriones.ep.factura.ui.core.JDialogMvcView;
 
 import javax.swing.*;
@@ -104,6 +105,13 @@ final class CustomerCreationView extends JDialogMvcView<CustomerCreationControll
         this.buttonGroup = new ButtonGroup();
         this.cancelButton = new JButton();
         this.saveButton = new JButton();
+    }
+
+    void setCustomer(CustomerAccessor customer) {
+        nameField.setText(customer.getFirstName());
+        surnameField.setText(customer.getSurname());
+        phoneField.setText(customer.getPhone());
+        birthdayField.setText(customer.getBirthday());
     }
 
     void setCities(Collection<City> value) {

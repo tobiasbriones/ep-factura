@@ -15,6 +15,7 @@ package io.github.tobiasbriones.ep.factura.ui.mainbilling.customer;
 import io.github.tobiasbriones.ep.factura.data.CityDao;
 import io.github.tobiasbriones.ep.factura.data.CommunityDao;
 import io.github.tobiasbriones.ep.factura.domain.model.customer.Customer;
+import io.github.tobiasbriones.ep.factura.domain.model.customer.CustomerModel;
 import io.github.tobiasbriones.ep.factura.ui.core.SwingComponent;
 
 import javax.swing.*;
@@ -28,8 +29,12 @@ public final class CustomerCreationDialog implements SwingComponent<JDialog> {
 
     }
 
-    public static CustomerCreationDialog newInstance(CityDao cityDao, CommunityDao communityDao) {
-        final var component = new CustomerCreationDialog(cityDao, communityDao);
+    public static CustomerCreationDialog newInstance(
+        CustomerModel customer,
+        CityDao cityDao,
+        CommunityDao communityDao
+    ) {
+        final var component = new CustomerCreationDialog(customer, cityDao, communityDao);
 
         component.init();
         return component;
@@ -38,8 +43,8 @@ public final class CustomerCreationDialog implements SwingComponent<JDialog> {
     private final CustomerCreationController controller;
     private final CustomerCreationView view;
 
-    private CustomerCreationDialog(CityDao cityDao, CommunityDao communityDao) {
-        this.controller = new CustomerCreationController(cityDao, communityDao);
+    private CustomerCreationDialog(CustomerModel customer, CityDao cityDao, CommunityDao communityDao) {
+        this.controller = new CustomerCreationController(customer, cityDao, communityDao);
         this.view = new CustomerCreationView(controller);
     }
 

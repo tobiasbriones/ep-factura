@@ -16,8 +16,10 @@ import io.github.tobiasbriones.ep.factura.data.CityDao;
 import io.github.tobiasbriones.ep.factura.data.CommunityDao;
 import io.github.tobiasbriones.ep.factura.data.ProductDao;
 import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketModel;
+import io.github.tobiasbriones.ep.factura.domain.model.bill.BillAccessor;
 import io.github.tobiasbriones.ep.factura.domain.model.bill.BillModel;
 import io.github.tobiasbriones.ep.factura.domain.model.bill.BillMutator;
+import io.github.tobiasbriones.ep.factura.domain.model.customer.CustomerModel;
 import io.github.tobiasbriones.ep.factura.domain.usecase.PrintBillUseCase;
 import io.github.tobiasbriones.ep.factura.io.Printer;
 import io.github.tobiasbriones.ep.factura.ui.core.SwingComponent;
@@ -189,8 +191,8 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
         bill.setBasket(config.basket());
     }
 
-    private void showCustomerCreationDialog() {
-        final CustomerCreationDialog dialog = newCustomerCreationDialog();
+    private void showCustomerCreationDialog(BillAccessor accessor) {
+        final CustomerCreationDialog dialog = newCustomerCreationDialog(accessor.getCustomer());
 
         showCustomerCreationDialog(dialog);
     }
@@ -200,10 +202,10 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
         dialog.show();
     }
 
-    private CustomerCreationDialog newCustomerCreationDialog() {
+    private CustomerCreationDialog newCustomerCreationDialog(CustomerModel customer) {
         final CityDao cityDao = config.cityDao();
         final CommunityDao communityDao = config.communityDao();
-        return CustomerCreationDialog.newInstance(cityDao, communityDao);
+        return CustomerCreationDialog.newInstance(customer, cityDao, communityDao);
     }
 
 }
