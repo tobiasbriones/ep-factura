@@ -17,6 +17,7 @@ import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketModel;
 import io.github.tobiasbriones.ep.factura.domain.model.bill.Bill;
 import io.github.tobiasbriones.ep.factura.domain.model.bill.BillModel;
 import io.github.tobiasbriones.ep.factura.domain.model.customer.CustomerModel;
+import io.github.tobiasbriones.ep.factura.domain.model.customer.CustomerNameAccessor;
 import io.github.tobiasbriones.ep.factura.domain.model.product.ProductModel;
 import io.github.tobiasbriones.ep.factura.ui.core.rx.AnyObservable;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.about.About;
@@ -27,27 +28,6 @@ import io.github.tobiasbriones.ep.factura.ui.mainbilling.print.Print;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.summary.Summary;
 
 final class MainBillingMediator {
-
-    @FunctionalInterface
-    interface ShowBillPrintedDialogFn {
-
-        void apply(BillModel bill);
-
-    }
-
-    @FunctionalInterface
-    interface SetBillFn {
-
-        void apply(BillModel bill);
-
-    }
-
-    @FunctionalInterface
-    interface ShowCustomerCreationDialogFn {
-
-        void apply(BillModel bill);
-
-    }
 
     @FunctionalInterface
     interface ShowAboutDialogFn {
@@ -86,57 +66,55 @@ final class MainBillingMediator {
     }
 
     private static final class PrintOutput implements Print.Output {
+        private static boolean isCustomerValid(CustomerNameAccessor accessor) {
+            return !accessor.getFullName().isBlank();
+        }
+
         private final BillModel bill;
-        private ShowBillPrintedDialogFn showBillPrintedDialogFn;
-        private SetBillFn setBillFn;
-        private ShowCustomerCreationDialogFn showCustomerDialogFn;
+        private final MainBillingWindow mw;
 
-        private PrintOutput() {
+        private PrintOutput(MainBillingWindow mw) {
             this.bill = new Bill();
-            this.showBillPrintedDialogFn = null;
-            this.setBillFn = null;
-            this.showCustomerDialogFn = null;
-        }
-
-        void setShowBillPrintedDialogFn(ShowBillPrintedDialogFn value) {
-            showBillPrintedDialogFn = value;
-        }
-
-        void setSetBillFn(SetBillFn value) {
-            setBillFn = value;
-        }
-
-        void setShowCustomerDialogFn(ShowCustomerCreationDialogFn value) {
-            showCustomerDialogFn = value;
+            this.mw = mw;
         }
 
         @Override
         public void onPrint() {
-            validateFunctions();
-            setBillFn.apply(bill);
-            showBillPrintedDialogFn.apply(bill);
+            mw.setBill(bill);
+            onSendToPrint();
         }
 
         @Override
         public void onPrintWithNewCustomer() {
-            validateFunctions();
-            setBillFn.apply(bill);
-            showCustomerDialogFn.apply(bill);
+            mw.setBill(bill);
+            mw.showCustomerCreationDialog(bill);
         }
 
         private void onPrintWithNewCustomer(CustomerModel customer) {
-            validateFunctions();
-            setBillFn.apply(bill);
+            mw.setBill(bill);
             bill.setCustomer(customer);
-            showBillPrintedDialogFn.apply(bill);
+            onSendToPrint();
         }
 
-        private void validateFunctions() {
-            if (showBillPrintedDialogFn == null || setBillFn == null || showCustomerDialogFn == null) {
-                final var msg = "PrintOutput Function not set";
-                throw new RuntimeException(msg);
+        private void onSendToPrint() {
+            // For a real use case, the parent component (MainBillingWindow)
+            // would send an input to each corresponding child to validate and
+            // then they would set a red flag in each of the invalid views.
+            // The parent would not proceed to print as one children would've
+            // return false when sending the validation input event if the user
+            // input is invalid.
+            if (isBillValid()) {
+                mw.showBillPrintedDialog(bill);
+            }
+            else {
+                mw.showSetAllFieldsDialog();
             }
         }
+
+        private boolean isBillValid() {
+            return isCustomerValid(bill.getCustomer()) && !bill.getRtn().isBlank();
+        }
+
     }
 
     private final AnyObservable basketObservable;
@@ -145,24 +123,12 @@ final class MainBillingMediator {
     private final PrintOutput printOutput;
     private ShowAboutDialogFn showAboutDialogFn;
 
-    MainBillingMediator(BasketModel basket) {
+    MainBillingMediator(BasketModel basket, MainBillingWindow mw) {
         this.basketObservable = new AnyObservable();
         this.headerOutput = new HeaderOutput(basket, basketObservable);
         this.itemsOutput = new ItemsOutput(basketObservable);
-        this.printOutput = new PrintOutput();
+        this.printOutput = new PrintOutput(mw);
         this.showAboutDialogFn = null;
-    }
-
-    void setShowBillPrintedDialog(ShowBillPrintedDialogFn value) {
-        printOutput.setShowBillPrintedDialogFn(value);
-    }
-
-    void setSetBillFn(SetBillFn value) {
-        printOutput.setSetBillFn(value);
-    }
-
-    void setShowCustomerDialogFn(ShowCustomerCreationDialogFn value) {
-        printOutput.setShowCustomerDialogFn(value);
     }
 
     void setShowAboutDialogFn(ShowAboutDialogFn value) {

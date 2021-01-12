@@ -163,7 +163,7 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
     private MainBillingWindow(DependencyConfig config) {
         this.config = config;
         this.childrenConfig = ChildrenConfig.newInstance(config);
-        this.mediator = new MainBillingMediator(config.basket());
+        this.mediator = new MainBillingMediator(config.basket(), this);
         this.controller = new MainBillingController();
         this.view = new MainBillingView(controller, childrenConfig);
     }
@@ -178,9 +178,6 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
     }
 
     private void init() {
-        mediator.setShowBillPrintedDialog(this::showBillPrintedDialog);
-        mediator.setSetBillFn(this::setBill);
-        mediator.setShowCustomerDialogFn(this::showCustomerCreationDialog);
         mediator.setShowAboutDialogFn(this::setShowAboutDialog);
         childrenConfig.initChildren(mediator);
         view.init();
@@ -192,7 +189,7 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
         controller.init();
     }
 
-    private void showBillPrintedDialog(BillModel bill) {
+    void showBillPrintedDialog(BillModel bill) {
         final JFrame parent = getViewComponent();
         final var printer = new Printer(parent);
         final var printUseCase =new PrintBillUseCase(bill);
@@ -202,15 +199,25 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
 
     // This shouldn't go here. I put it because this example app ends right
     // here, and there's nothing else further after printing.
-    private void setBill(BillMutator bill) {
+    void setBill(BillMutator bill) {
         childrenConfig.callHeaderSetBill(bill);
         bill.setBasket(config.basket());
     }
 
-    private void showCustomerCreationDialog(BillAccessor accessor) {
+    void showCustomerCreationDialog(BillAccessor accessor) {
         final CustomerCreationDialog dialog = newCustomerCreationDialog(accessor.getCustomer());
 
         showCustomerCreationDialog(dialog);
+    }
+
+    void showSetAllFieldsDialog() {
+        final String msg = "Set all the fields!";
+        final String title = "Invalid input";
+        final JFrame parent = getViewComponent();
+        final int type = JOptionPane.INFORMATION_MESSAGE;
+        final String iconPath = Resource.getFileLocation("ic_info_message.png");
+        final Icon icon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(iconPath));
+        JOptionPane.showMessageDialog(parent, msg, title, type, icon);
     }
 
     private void showCustomerCreationDialog(CustomerCreationDialog dialog) {
