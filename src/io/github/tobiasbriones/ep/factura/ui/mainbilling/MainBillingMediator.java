@@ -100,8 +100,8 @@ final class MainBillingMediator {
 
         private void onPrintWithNewCustomer(CustomerModel customer) {
             if (mwInput != null) {
+                mwInput.setCustomer(customer);
                 mwInput.setBill(bill);
-                bill.setCustomer(customer);
                 onSendToPrint();
             }
         }

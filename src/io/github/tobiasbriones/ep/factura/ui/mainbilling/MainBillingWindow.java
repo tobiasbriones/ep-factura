@@ -20,6 +20,7 @@ import io.github.tobiasbriones.ep.factura.domain.model.bill.BillAccessor;
 import io.github.tobiasbriones.ep.factura.domain.model.bill.BillModel;
 import io.github.tobiasbriones.ep.factura.domain.model.bill.BillMutator;
 import io.github.tobiasbriones.ep.factura.domain.model.customer.CustomerModel;
+import io.github.tobiasbriones.ep.factura.domain.model.customer.CustomerNameAccessor;
 import io.github.tobiasbriones.ep.factura.domain.usecase.PrintBillUseCase;
 import io.github.tobiasbriones.ep.factura.io.Printer;
 import io.github.tobiasbriones.ep.factura.ui.core.SwingComponent;
@@ -37,6 +38,8 @@ import java.awt.*;
 public final class MainBillingWindow implements SwingComponent<JFrame> {
 
     interface Input {
+
+        void setCustomer(CustomerModel customer);
 
         void setBill(BillMutator bill);
 
@@ -163,6 +166,10 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
             mediator.onInitAbout(about);
         }
 
+        void callHeaderSetCustomer(CustomerNameAccessor customer) {
+            header.onCustomerUpdated(customer);
+        }
+
         void callHeaderSetBill(BillMutator bill) {
             header.onSetBill(bill);
         }
@@ -207,6 +214,11 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
 
     private final class ComponentInput implements Input {
         private ComponentInput() {}
+
+        @Override
+        public void setCustomer(CustomerModel customer) {
+            childrenConfig.callHeaderSetCustomer(customer);
+        }
 
         // This shouldn't go here. I put it because this example app ends right
         // here, and there's nothing else further after printing.

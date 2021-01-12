@@ -12,6 +12,8 @@
 
 package io.github.tobiasbriones.ep.factura.ui.mainbilling.header;
 
+import io.github.tobiasbriones.ep.factura.domain.model.customer.CustomerAccessor;
+import io.github.tobiasbriones.ep.factura.domain.model.customer.CustomerNameAccessor;
 import io.github.tobiasbriones.ep.factura.domain.model.product.ProductModel;
 import io.github.tobiasbriones.ep.factura.ui.core.JPanelMvcView;
 
@@ -132,6 +134,11 @@ final class HeaderView extends JPanelMvcView<HeaderController> implements Header
     @Override
     public void bindEvents(HeaderController controller) {
         addButton.addActionListener(e -> controller.onAddButtonClick());
+    }
+
+    void update(CustomerNameAccessor accessor) {
+        setName(accessor.getFirstName());
+        setSurname(accessor.getSurname());
     }
 
     private void setCustomerNameRows(JPanel view, GridBagConstraints gbc) {
