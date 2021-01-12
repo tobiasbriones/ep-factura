@@ -12,7 +12,6 @@
 
 package io.github.tobiasbriones.ep.factura.ui.mainbilling.header;
 
-import io.github.tobiasbriones.ep.factura.domain.model.customer.CustomerAccessor;
 import io.github.tobiasbriones.ep.factura.domain.model.customer.CustomerNameAccessor;
 import io.github.tobiasbriones.ep.factura.domain.model.product.ProductModel;
 import io.github.tobiasbriones.ep.factura.ui.core.JPanelMvcView;
