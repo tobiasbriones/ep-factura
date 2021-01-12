@@ -179,7 +179,7 @@ public final class DiskProductDao implements ProductDao {
 
     private void save() {
         // Suppose the max capacity allowed is ESTIMATED_INITIAL_CAPACITY
-        final List<ProductModel> allProducts = inMemoryDao.fetchAll(0, ESTIMATED_INITIAL_CAPACITY);
+        final List<ProductModel> allProducts = inMemoryDao.diskDaoFetchAll(0, ESTIMATED_INITIAL_CAPACITY);
         final List<String> encodedProducts = allProducts.stream()
                                                         .map(DiskProduct::writeProductFrom)
                                                         .collect(Collectors.toList());
