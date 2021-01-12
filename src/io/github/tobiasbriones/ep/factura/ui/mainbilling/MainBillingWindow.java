@@ -230,7 +230,7 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
             final String msg = "Llena todos los campos.";
             final String title = "Entrada inválida";
             final JFrame parent = getViewComponent();
-            final int type = JOptionPane.INFORMATION_MESSAGE;
+            final int type = JOptionPane.WARNING_MESSAGE;
             final String iconPath = Resource.getFileLocation("ic_warning_message.png");
             final Icon icon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(iconPath));
             JOptionPane.showMessageDialog(parent, msg, title, type, icon);
