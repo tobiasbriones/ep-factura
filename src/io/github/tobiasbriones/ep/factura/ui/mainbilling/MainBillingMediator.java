@@ -71,29 +71,39 @@ final class MainBillingMediator {
         }
 
         private final BillModel bill;
-        private final MainBillingWindow mw;
+        private MainBillingWindow.Input mwInput;
 
-        private PrintOutput(MainBillingWindow mw) {
+        private PrintOutput() {
             this.bill = new Bill();
-            this.mw = mw;
+            this.mwInput = null;
+        }
+
+        void setMwInput(MainBillingWindow.Input value) {
+            mwInput = value;
         }
 
         @Override
         public void onPrint() {
-            mw.setBill(bill);
-            onSendToPrint();
+            if (mwInput != null) {
+                mwInput.setBill(bill);
+                onSendToPrint();
+            }
         }
 
         @Override
         public void onPrintWithNewCustomer() {
-            mw.setBill(bill);
-            mw.showCustomerCreationDialog(bill);
+            if (mwInput != null) {
+                mwInput.setBill(bill);
+                mwInput.showCustomerCreationDialog(bill);
+            }
         }
 
         private void onPrintWithNewCustomer(CustomerModel customer) {
-            mw.setBill(bill);
-            bill.setCustomer(customer);
-            onSendToPrint();
+            if (mwInput != null) {
+                mwInput.setBill(bill);
+                bill.setCustomer(customer);
+                onSendToPrint();
+            }
         }
 
         private void onSendToPrint() {
@@ -104,10 +114,10 @@ final class MainBillingMediator {
             // return false when sending the validation input event if the user
             // input is invalid.
             if (isBillValid()) {
-                mw.showBillPrintedDialog(bill);
+                mwInput.showBillPrintedDialog(bill);
             }
             else {
-                mw.showSetAllFieldsDialog();
+                mwInput.showSetAllFieldsDialog();
             }
         }
 
@@ -123,12 +133,16 @@ final class MainBillingMediator {
     private final PrintOutput printOutput;
     private ShowAboutDialogFn showAboutDialogFn;
 
-    MainBillingMediator(BasketModel basket, MainBillingWindow mw) {
+    MainBillingMediator(BasketModel basket) {
         this.basketObservable = new AnyObservable();
         this.headerOutput = new HeaderOutput(basket, basketObservable);
         this.itemsOutput = new ItemsOutput(basketObservable);
-        this.printOutput = new PrintOutput(mw);
+        this.printOutput = new PrintOutput();
         this.showAboutDialogFn = null;
+    }
+
+    void setComponentInput(MainBillingWindow.Input mwInput) {
+        printOutput.setMwInput(mwInput);
     }
 
     void setShowAboutDialogFn(ShowAboutDialogFn value) {

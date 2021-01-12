@@ -36,6 +36,20 @@ import java.awt.*;
 
 public final class MainBillingWindow implements SwingComponent<JFrame> {
 
+    interface Input {
+
+        void showBillPrintedDialog(BillModel bill);
+
+        void setBill(BillMutator bill);
+
+        void showCustomerCreationDialog(BillAccessor accessor);
+
+        void showSetAllFieldsDialog();
+
+        void setShowAboutDialog();
+
+    }
+
     interface ChildViewConfig {
 
         JPanel getHeaderViewComponent();
@@ -156,6 +170,7 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
 
     private final DependencyConfig config;
     private final ChildrenConfig childrenConfig;
+    private final ComponentInput input;
     private final MainBillingMediator mediator;
     private final MainBillingController controller;
     private final MainBillingView view;
@@ -163,7 +178,8 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
     private MainBillingWindow(DependencyConfig config) {
         this.config = config;
         this.childrenConfig = ChildrenConfig.newInstance(config);
-        this.mediator = new MainBillingMediator(config.basket(), this);
+        this.input = new ComponentInput();
+        this.mediator = new MainBillingMediator(config.basket());
         this.controller = new MainBillingController();
         this.view = new MainBillingView(controller, childrenConfig);
     }
@@ -178,7 +194,8 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
     }
 
     private void init() {
-        mediator.setShowAboutDialogFn(this::setShowAboutDialog);
+        mediator.setComponentInput(input);
+        mediator.setShowAboutDialogFn(input::setShowAboutDialog);
         childrenConfig.initChildren(mediator);
         view.init();
         initController();
@@ -189,60 +206,69 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
         controller.init();
     }
 
-    void showBillPrintedDialog(BillModel bill) {
-        final JFrame parent = getViewComponent();
-        final var printer = new Printer(parent);
-        final var printUseCase =new PrintBillUseCase(bill);
+    private final class ComponentInput implements Input {
+        private ComponentInput() {}
 
-        printUseCase.execute(printer);
-    }
+        @Override
+        public void showBillPrintedDialog(BillModel bill) {
+            final JFrame parent = getViewComponent();
+            final var printer = new Printer(parent);
+            final var printUseCase = new PrintBillUseCase(bill);
 
-    // This shouldn't go here. I put it because this example app ends right
-    // here, and there's nothing else further after printing.
-    void setBill(BillMutator bill) {
-        childrenConfig.callHeaderSetBill(bill);
-        bill.setBasket(config.basket());
-    }
+            printUseCase.execute(printer);
+        }
 
-    void showCustomerCreationDialog(BillAccessor accessor) {
-        final CustomerCreationDialog dialog = newCustomerCreationDialog(accessor.getCustomer());
+        // This shouldn't go here. I put it because this example app ends right
+        // here, and there's nothing else further after printing.
+        @Override
+        public void setBill(BillMutator bill) {
+            childrenConfig.callHeaderSetBill(bill);
+            bill.setBasket(config.basket());
+        }
 
-        showCustomerCreationDialog(dialog);
-    }
+        @Override
+        public void showCustomerCreationDialog(BillAccessor accessor) {
+            final CustomerCreationDialog dialog = newCustomerCreationDialog(accessor.getCustomer());
 
-    void showSetAllFieldsDialog() {
-        final String msg = "Set all the fields!";
-        final String title = "Invalid input";
-        final JFrame parent = getViewComponent();
-        final int type = JOptionPane.INFORMATION_MESSAGE;
-        final String iconPath = Resource.getFileLocation("ic_info_message.png");
-        final Icon icon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(iconPath));
-        JOptionPane.showMessageDialog(parent, msg, title, type, icon);
-    }
+            showCustomerCreationDialog(dialog);
+        }
 
-    private void showCustomerCreationDialog(CustomerCreationDialog dialog) {
-        mediator.onInitCustomerCreationDialog(dialog);
-        dialog.show();
-    }
+        @Override
+        public void showSetAllFieldsDialog() {
+            final String msg = "Set all the fields!";
+            final String title = "Invalid input";
+            final JFrame parent = getViewComponent();
+            final int type = JOptionPane.INFORMATION_MESSAGE;
+            final String iconPath = Resource.getFileLocation("ic_info_message.png");
+            final Icon icon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(iconPath));
+            JOptionPane.showMessageDialog(parent, msg, title, type, icon);
+        }
 
-    private CustomerCreationDialog newCustomerCreationDialog(CustomerModel customer) {
-        final CityDao cityDao = config.cityDao();
-        final CommunityDao communityDao = config.communityDao();
-        return CustomerCreationDialog.newInstance(customer, cityDao, communityDao);
-    }
+        @Override
+        public void setShowAboutDialog() {
+            final var lineSeparator = System.lineSeparator();
+            final String msg = "<html><strong>Example Project: Factura</strong></html>" + lineSeparator +
+                               "Billing application made in Java-Swing." + lineSeparator +
+                               "Great job by studying the Example Projects!" + lineSeparator + lineSeparator +
+                               "© 2019-2020 Tobias Briones.";
+            final String title = "Factura";
+            final JFrame parent = getViewComponent();
+            final int type = JOptionPane.INFORMATION_MESSAGE;
+            final String iconPath = Resource.getFileLocation("icon.png");
+            final Icon icon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(iconPath));
+            JOptionPane.showMessageDialog(parent, msg, title, type, icon);
+        }
 
-    private void setShowAboutDialog() {
-        final var lineSeparator = System.lineSeparator();
-        final String msg = "<html><strong>Example Project: Factura</strong></html>" + lineSeparator +
-                           "Billing application made in Java-Swing." + lineSeparator +
-                           "Great job by studying the Example Projects!" + lineSeparator + lineSeparator +
-                           "© 2019-2020 Tobias Briones.";
-        final String title = "Factura";
-        final JFrame parent = getViewComponent();
-        final int type = JOptionPane.INFORMATION_MESSAGE;
-        final String iconPath = Resource.getFileLocation("icon.png");
-        final Icon icon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(iconPath));
-        JOptionPane.showMessageDialog(parent, msg, title, type, icon);
+        private void showCustomerCreationDialog(CustomerCreationDialog dialog) {
+            mediator.onInitCustomerCreationDialog(dialog);
+            dialog.show();
+        }
+
+        private CustomerCreationDialog newCustomerCreationDialog(CustomerModel customer) {
+            final CityDao cityDao = config.cityDao();
+            final CommunityDao communityDao = config.communityDao();
+            return CustomerCreationDialog.newInstance(customer, cityDao, communityDao);
+        }
     }
 
 }
