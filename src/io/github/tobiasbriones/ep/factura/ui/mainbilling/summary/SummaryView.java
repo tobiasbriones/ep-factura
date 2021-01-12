@@ -18,7 +18,6 @@ import io.github.tobiasbriones.ep.factura.ui.core.JPanelMvcView;
 import io.github.tobiasbriones.ep.factura.ui.core.rx.Observer;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 final class SummaryView extends JPanelMvcView<SummaryController> implements Observer {

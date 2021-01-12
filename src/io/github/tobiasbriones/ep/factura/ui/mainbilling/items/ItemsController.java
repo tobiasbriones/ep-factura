@@ -18,8 +18,6 @@ import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketModel;
 import io.github.tobiasbriones.ep.factura.ui.core.MvcController;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.items.editor.ItemEditor;
 
-import java.util.Iterator;
-
 final class ItemsController extends MvcController<ItemsView, Items.Output> implements ItemEditor.Output {
 
     private final BasketModel basket;

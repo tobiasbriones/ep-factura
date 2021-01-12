@@ -14,8 +14,6 @@ package io.github.tobiasbriones.ep.factura.ui.mainbilling;
 
 import io.github.tobiasbriones.ep.factura.ui.core.MvcController;
 
-import javax.swing.*;
-
 final class MainBillingController extends MvcController<MainBillingView, Void> {
 
     private MainBillingView view;

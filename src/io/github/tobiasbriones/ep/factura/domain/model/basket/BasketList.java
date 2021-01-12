@@ -12,7 +12,6 @@
 
 package io.github.tobiasbriones.ep.factura.domain.model.basket;
 
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.stream.Stream;

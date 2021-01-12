@@ -14,7 +14,6 @@ package io.github.tobiasbriones.ep.factura.domain.model.bill;
 
 import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketModel;
 import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketSummaryAccessor;
-import io.github.tobiasbriones.ep.factura.domain.model.customer.Customer;
 import io.github.tobiasbriones.ep.factura.domain.model.customer.CustomerModel;
 
 import java.time.LocalDateTime;
