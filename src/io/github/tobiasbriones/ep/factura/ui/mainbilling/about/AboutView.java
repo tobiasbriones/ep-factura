@@ -31,6 +31,7 @@ final class AboutView extends JPanelMvcView<AboutController> {
     public void createView(JPanel view) {
         final var icon = new ImageIcon(Toolkit.getDefaultToolkit().getImage("ic_about.png"));
 
+        printButton.setFocusable(false);
         printButton.setIcon(icon);
         view.setLayout(new BorderLayout());
         view.add(printButton, BorderLayout.LINE_START);
