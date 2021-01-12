@@ -38,15 +38,15 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
 
     interface Input {
 
-        void showBillPrintedDialog(BillModel bill);
-
         void setBill(BillMutator bill);
 
-        void showCustomerCreationDialog(BillAccessor accessor);
+        void showBillPrintedDialog(BillModel bill);
 
         void showSetAllFieldsDialog();
 
         void showAboutDialog();
+
+        void showCustomerCreationDialog(BillAccessor accessor);
 
     }
 
@@ -208,15 +208,6 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
     private final class ComponentInput implements Input {
         private ComponentInput() {}
 
-        @Override
-        public void showBillPrintedDialog(BillModel bill) {
-            final JFrame parent = getViewComponent();
-            final var printer = new Printer(parent);
-            final var printUseCase = new PrintBillUseCase(bill);
-
-            printUseCase.execute(printer);
-        }
-
         // This shouldn't go here. I put it because this example app ends right
         // here, and there's nothing else further after printing.
         @Override
@@ -226,10 +217,12 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
         }
 
         @Override
-        public void showCustomerCreationDialog(BillAccessor accessor) {
-            final CustomerCreationDialog dialog = newCustomerCreationDialog(accessor.getCustomer());
+        public void showBillPrintedDialog(BillModel bill) {
+            final JFrame parent = getViewComponent();
+            final var printer = new Printer(parent);
+            final var printUseCase = new PrintBillUseCase(bill);
 
-            showCustomerCreationDialog(dialog);
+            printUseCase.execute(printer);
         }
 
         @Override
@@ -256,6 +249,13 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
             final String iconPath = Resource.getFileLocation("icon.png");
             final Icon icon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(iconPath));
             JOptionPane.showMessageDialog(parent, msg, title, type, icon);
+        }
+
+        @Override
+        public void showCustomerCreationDialog(BillAccessor accessor) {
+            final CustomerCreationDialog dialog = newCustomerCreationDialog(accessor.getCustomer());
+
+            showCustomerCreationDialog(dialog);
         }
 
         private void showCustomerCreationDialog(CustomerCreationDialog dialog) {
