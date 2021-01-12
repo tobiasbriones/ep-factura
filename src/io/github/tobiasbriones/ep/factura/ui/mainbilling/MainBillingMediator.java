@@ -19,6 +19,7 @@ import io.github.tobiasbriones.ep.factura.domain.model.bill.BillModel;
 import io.github.tobiasbriones.ep.factura.domain.model.customer.CustomerModel;
 import io.github.tobiasbriones.ep.factura.domain.model.product.ProductModel;
 import io.github.tobiasbriones.ep.factura.ui.core.rx.AnyObservable;
+import io.github.tobiasbriones.ep.factura.ui.mainbilling.about.About;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.customer.CustomerCreationDialog;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.header.Header;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.items.Items;
@@ -45,6 +46,13 @@ final class MainBillingMediator {
     interface ShowCustomerCreationDialogFn {
 
         void apply(BillModel bill);
+
+    }
+
+    @FunctionalInterface
+    interface ShowAboutDialogFn {
+
+        void apply();
 
     }
 
@@ -135,12 +143,14 @@ final class MainBillingMediator {
     private final HeaderOutput headerOutput;
     private final ItemsOutput itemsOutput;
     private final PrintOutput printOutput;
+    private ShowAboutDialogFn showAboutDialogFn;
 
     MainBillingMediator(BasketModel basket) {
         this.basketObservable = new AnyObservable();
         this.headerOutput = new HeaderOutput(basket, basketObservable);
         this.itemsOutput = new ItemsOutput(basketObservable);
         this.printOutput = new PrintOutput();
+        this.showAboutDialogFn = null;
     }
 
     void setShowBillPrintedDialog(ShowBillPrintedDialogFn value) {
@@ -153,6 +163,10 @@ final class MainBillingMediator {
 
     void setShowCustomerDialogFn(ShowCustomerCreationDialogFn value) {
         printOutput.setShowCustomerDialogFn(value);
+    }
+
+    void setShowAboutDialogFn(ShowAboutDialogFn value) {
+        showAboutDialogFn = value;
     }
 
     void onInitHeader(Header header) {
@@ -174,6 +188,10 @@ final class MainBillingMediator {
 
     void onInitCustomerCreationDialog(CustomerCreationDialog dialog) {
         dialog.setOutput(printOutput::onPrintWithNewCustomer);
+    }
+
+    void onInitAbout(About about) {
+        about.setOutput(showAboutDialogFn::apply);
     }
 
 }

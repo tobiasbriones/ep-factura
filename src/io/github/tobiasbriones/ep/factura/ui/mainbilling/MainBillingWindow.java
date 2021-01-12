@@ -23,6 +23,7 @@ import io.github.tobiasbriones.ep.factura.domain.model.customer.CustomerModel;
 import io.github.tobiasbriones.ep.factura.domain.usecase.PrintBillUseCase;
 import io.github.tobiasbriones.ep.factura.io.Printer;
 import io.github.tobiasbriones.ep.factura.ui.core.SwingComponent;
+import io.github.tobiasbriones.ep.factura.ui.mainbilling.about.About;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.customer.CustomerCreationDialog;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.header.Header;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.items.Items;
@@ -30,6 +31,7 @@ import io.github.tobiasbriones.ep.factura.ui.mainbilling.print.Print;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.summary.Summary;
 
 import javax.swing.*;
+import java.awt.*;
 
 public final class MainBillingWindow implements SwingComponent<JFrame> {
 
@@ -42,6 +44,8 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
         JPanel getSummaryViewComponent();
 
         JPanel getPrintViewComponent();
+
+        JPanel getAboutViewComponent();
 
     }
 
@@ -86,7 +90,8 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
                 Header.newInstance(config.productDao()),
                 Items.newInstance(config.basket()),
                 Summary.newInstance(config.basket()),
-                Print.newInstance()
+                Print.newInstance(),
+                About.newInstance()
             );
         }
 
@@ -94,17 +99,20 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
         private final Items items;
         private final Summary summary;
         private final Print print;
+        private final About about;
 
         private ChildrenConfig(
             Header header,
             Items items,
             Summary summary,
-            Print print
+            Print print,
+            About about
         ) {
             this.header = header;
             this.items = items;
             this.summary = summary;
             this.print = print;
+            this.about = about;
         }
 
         @Override
@@ -127,11 +135,17 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
             return print.getViewComponent();
         }
 
+        @Override
+        public JPanel getAboutViewComponent() {
+            return about.getViewComponent();
+        }
+
         void initChildren(MainBillingMediator mediator) {
             mediator.onInitHeader(header);
             mediator.onInitItems(items);
             mediator.onInitSummary(summary);
             mediator.onInitPrint(print);
+            mediator.onInitAbout(about);
         }
 
         void callHeaderSetBill(BillMutator bill) {
@@ -166,6 +180,7 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
         mediator.setShowBillPrintedDialog(this::showBillPrintedDialog);
         mediator.setSetBillFn(this::setBill);
         mediator.setShowCustomerDialogFn(this::showCustomerCreationDialog);
+        mediator.setShowAboutDialogFn(this::setShowAboutDialog);
         childrenConfig.initChildren(mediator);
         view.init();
         initController();
@@ -206,6 +221,19 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
         final CityDao cityDao = config.cityDao();
         final CommunityDao communityDao = config.communityDao();
         return CustomerCreationDialog.newInstance(customer, cityDao, communityDao);
+    }
+
+    private void setShowAboutDialog() {
+        final var lineSeparator = System.lineSeparator();
+        final String msg = "Billing application made in Java-Swing." + lineSeparator +
+                           "Great job by studying the Example Projects!" + lineSeparator + lineSeparator +
+                           "© 2020 Tobias Briones.";
+        final String title = "Example Project: Factura";
+        final JFrame parent = getViewComponent();
+        final int type = JOptionPane.INFORMATION_MESSAGE;
+        final String iconPath = "icon.png";
+        final Icon icon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(iconPath));
+        JOptionPane.showMessageDialog(parent, msg, title, type, icon);
     }
 
 }
