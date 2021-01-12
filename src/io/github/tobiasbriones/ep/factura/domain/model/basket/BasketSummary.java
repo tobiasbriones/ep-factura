@@ -62,7 +62,7 @@ public final class BasketSummary implements BasketSummaryModel {
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        final BasketSummaryModel basketResume = (BasketSummaryModel) obj;
+        final BasketSummaryAccessor basketResume = (BasketSummaryAccessor) obj;
         return Double.compare(basketResume.getIsv(), isv) == 0 &&
                Double.compare(
                    basketResume.getSubtotal(),
