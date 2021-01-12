@@ -29,7 +29,7 @@ final class AboutView extends JPanelMvcView<AboutController> {
 
     @Override
     public void createView(JPanel view) {
-        final var icon = new ImageIcon(Toolkit.getDefaultToolkit().getImage("icon.png"));
+        final var icon = new ImageIcon(Toolkit.getDefaultToolkit().getImage("ic_about.png"));
 
         printButton.setIcon(icon);
         view.setLayout(new BorderLayout());
