@@ -18,8 +18,10 @@ import io.github.tobiasbriones.ep.factura.domain.model.city.CityModel;
 import io.github.tobiasbriones.ep.factura.domain.model.city.community.CommunityModel;
 import io.github.tobiasbriones.ep.factura.domain.model.customer.*;
 import io.github.tobiasbriones.ep.factura.ui.core.MvcController;
+import res.Resource;
 
 import javax.swing.*;
+import java.awt.*;
 
 final class CustomerCreationController extends MvcController<CustomerCreationView, CustomerCreationDialog.Output> {
 
@@ -96,7 +98,12 @@ final class CustomerCreationController extends MvcController<CustomerCreationVie
         }
         else {
             final var msg = "Llena todos los campos.";
-            JOptionPane.showMessageDialog(view.getViewComponent(), msg);
+            final String title = "Entrada inválida";
+            final JDialog parent = view.getViewComponent();
+            final int type = JOptionPane.WARNING_MESSAGE;
+            final String iconPath = Resource.getFileLocation("ic_warning_message.png");
+            final Icon icon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(iconPath));
+            JOptionPane.showMessageDialog(parent, msg, title, type, icon);
         }
     }
 
