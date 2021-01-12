@@ -138,7 +138,7 @@ final class HeaderView extends JPanelMvcView<HeaderController> implements Header
         dateField.setEditable(false);
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.weightx = 1.0;
+        gbc.weightx = GridBagConstraints.BOTH;
         gbc.gridwidth = 2;
         gbc.insets.bottom = 5;
         gbc.insets.left = 0;
@@ -201,9 +201,11 @@ final class HeaderView extends JPanelMvcView<HeaderController> implements Header
         gbc.gridy = 4;
         view.add(new JLabel("Producto"), gbc);
 
+        gbc.gridwidth = 1;
         gbc.gridx = 1;
         view.add(productsBox, gbc);
 
+        gbc.gridwidth = 1;
         gbc.gridx = 3;
         view.add(addButton, gbc);
     }
