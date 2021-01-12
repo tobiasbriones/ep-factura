@@ -112,15 +112,15 @@ final class CustomerCreationController extends MvcController<CustomerCreationVie
     }
 
     private void createNewCustomer() {
-        final Customer customer = Customer.from(view);
+        final Customer newCustomer = Customer.from(view);
 
         // Call async a Dao or Repository ...
         // Then
-        onCustomerCreated(customer);
+        onCustomerCreated(newCustomer);
     }
 
-    private void onCustomerCreated(Customer customer) {
-        getOutput().ifPresent(output -> output.onCustomerCreated(customer));
+    private void onCustomerCreated(Customer newCustomer) {
+        getOutput().ifPresent(output -> output.onCustomerCreated(newCustomer));
         view.dispose();
     }
 
