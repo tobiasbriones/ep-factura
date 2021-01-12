@@ -54,7 +54,7 @@ final class CustomerCreationController extends MvcController<CustomerCreationVie
     }
 
     private static boolean isSet(String value) {
-        return !value.trim().isEmpty();
+        return value != null && !value.isBlank();
     }
 
     private final CustomerModel customer;
