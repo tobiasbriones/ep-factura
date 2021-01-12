@@ -73,8 +73,8 @@ final class SummaryView extends JPanelMvcView<SummaryController> implements Obse
     @Override
     public void update() {
         setModel();
-        setIsv();
         setSubtotal();
+        setIsv();
         setTotal();
     }
 
@@ -83,11 +83,11 @@ final class SummaryView extends JPanelMvcView<SummaryController> implements Obse
     }
 
     private void setSubtotal() {
-        subtotalLabel.setText(String.valueOf(model.getIsv()));
+        subtotalLabel.setText(String.valueOf(model.getSubtotal()));
     }
 
     private void setIsv() {
-        isvLabel.setText(String.valueOf(model.getSubtotal()));
+        isvLabel.setText(String.valueOf(model.getIsv()));
     }
 
     private void setTotal() {
