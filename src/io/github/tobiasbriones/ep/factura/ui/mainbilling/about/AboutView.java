@@ -13,12 +13,15 @@
 package io.github.tobiasbriones.ep.factura.ui.mainbilling.about;
 
 import io.github.tobiasbriones.ep.factura.ui.core.JPanelMvcView;
+import res.Resource;
 
 import javax.swing.*;
 import java.awt.*;
 
 final class AboutView extends JPanelMvcView<AboutController> {
 
+    private static final String IC_ABOUT_FILE_NAME = "ic_about.png";
+    private static final String IC_ABOUT_FILE_LOCATION = Resource.getFileLocation(IC_ABOUT_FILE_NAME);
     private final JButton showDialogButton;
 
     AboutView(AboutController controller) {
@@ -28,7 +31,7 @@ final class AboutView extends JPanelMvcView<AboutController> {
 
     @Override
     public void createView(JPanel view) {
-        final var icon = new ImageIcon(Toolkit.getDefaultToolkit().getImage("ic_about.png"));
+        final var icon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(IC_ABOUT_FILE_LOCATION));
 
         showDialogButton.setFocusable(false);
         showDialogButton.setIcon(icon);

@@ -19,8 +19,8 @@ import io.github.tobiasbriones.ep.factura.domain.model.city.community.CommunityM
 import io.github.tobiasbriones.ep.factura.domain.model.customer.Address;
 import io.github.tobiasbriones.ep.factura.domain.model.customer.AddressModel;
 import io.github.tobiasbriones.ep.factura.domain.model.customer.CustomerAccessor;
-import io.github.tobiasbriones.ep.factura.domain.model.customer.CustomerModel;
 import io.github.tobiasbriones.ep.factura.ui.core.JDialogMvcView;
+import res.Resource;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -30,6 +30,9 @@ import java.util.Collection;
 import java.util.List;
 
 final class CustomerCreationView extends JDialogMvcView<CustomerCreationController> implements CustomerAccessor {
+
+    private static final String ICON_NAME = "icon.png";
+    private static final String ICON_LOCATION = Resource.getFileLocation(ICON_NAME);
 
     private static String getRadioValue(ButtonGroup buttonGroup) {
         if (buttonGroup.getSelection() == null) {
@@ -161,8 +164,7 @@ final class CustomerCreationView extends JDialogMvcView<CustomerCreationControll
     @Override
     public void createView(JDialog view) {
         final Container container = view.getContentPane();
-        final String iconPath = "icon.png";
-        final Image icon = Toolkit.getDefaultToolkit().getImage(iconPath);
+        final Image icon = Toolkit.getDefaultToolkit().getImage(ICON_LOCATION);
 
         createPanel(container);
         view.pack();

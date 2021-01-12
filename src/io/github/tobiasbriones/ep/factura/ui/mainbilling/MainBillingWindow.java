@@ -29,6 +29,7 @@ import io.github.tobiasbriones.ep.factura.ui.mainbilling.header.Header;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.items.Items;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.print.Print;
 import io.github.tobiasbriones.ep.factura.ui.mainbilling.summary.Summary;
+import res.Resource;
 
 import javax.swing.*;
 import java.awt.*;
@@ -231,7 +232,7 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
         final String title = "Example Project: Factura";
         final JFrame parent = getViewComponent();
         final int type = JOptionPane.INFORMATION_MESSAGE;
-        final String iconPath = "icon.png";
+        final String iconPath = Resource.getFileLocation("icon.png");
         final Icon icon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(iconPath));
         JOptionPane.showMessageDialog(parent, msg, title, type, icon);
     }

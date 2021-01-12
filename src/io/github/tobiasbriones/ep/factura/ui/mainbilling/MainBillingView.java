@@ -13,6 +13,7 @@
 package io.github.tobiasbriones.ep.factura.ui.mainbilling;
 
 import io.github.tobiasbriones.ep.factura.ui.core.JFrameMvcView;
+import res.Resource;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -20,6 +21,8 @@ import java.awt.*;
 
 final class MainBillingView extends JFrameMvcView<MainBillingController> {
 
+    private static final String ICON_NAME = "icon.png";
+    private static final String ICON_LOCATION = Resource.getFileLocation(ICON_NAME);
     private static final String WINDOW_TITLE = "Factura";
     private final JPanel headerPanel;
     private final JScrollPane itemsPanel;
@@ -58,7 +61,7 @@ final class MainBillingView extends JFrameMvcView<MainBillingController> {
         view.getContentPane().add(panel);
 
         view.setTitle(WINDOW_TITLE);
-        view.setIconImage(Toolkit.getDefaultToolkit().getImage("icon.png"));
+        view.setIconImage(Toolkit.getDefaultToolkit().getImage(ICON_LOCATION));
         view.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         view.pack();
         view.setLocationRelativeTo(null);

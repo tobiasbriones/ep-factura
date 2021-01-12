@@ -16,6 +16,7 @@ import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketModel;
 import io.github.tobiasbriones.ep.factura.domain.model.basket.BasketSummaryAccessor;
 import io.github.tobiasbriones.ep.factura.domain.model.bill.BillPrinter;
 import io.github.tobiasbriones.ep.factura.domain.model.customer.CustomerModel;
+import res.Resource;
 
 import javax.swing.*;
 import java.awt.*;
@@ -65,7 +66,7 @@ public final class Printer implements BillPrinter {
         final String msg = createPrintMsg();
         final String title = createPrintTitle();
         final int type = JOptionPane.INFORMATION_MESSAGE;
-        final String iconPath = "ic_info_message.png";
+        final String iconPath = Resource.getFileLocation("ic_info_message.png");
         final Icon icon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(iconPath));
         JOptionPane.showMessageDialog(parent, msg, title, type, icon);
     }
