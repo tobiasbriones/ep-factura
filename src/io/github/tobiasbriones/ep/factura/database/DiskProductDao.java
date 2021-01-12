@@ -17,6 +17,7 @@ import io.github.tobiasbriones.ep.factura.database.util.FileUtils;
 import io.github.tobiasbriones.ep.factura.domain.model.product.IdProductAccessor;
 import io.github.tobiasbriones.ep.factura.domain.model.product.ProductAccessor;
 import io.github.tobiasbriones.ep.factura.domain.model.product.ProductModel;
+import res.Data;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -27,7 +28,7 @@ import java.util.stream.Collectors;
 
 public final class DiskProductDao implements ProductDao {
 
-    public static final String DEF_PRODUCTS_FILE_PATH = "products";
+    public static final String DEF_PRODUCTS_FILE_PATH = Data.getFileLocation("products");
     private static final int ESTIMATED_INITIAL_CAPACITY = 50;
 
     private static final class DiskProduct {

@@ -15,6 +15,7 @@ package io.github.tobiasbriones.ep.factura.database;
 import io.github.tobiasbriones.ep.factura.data.CityDao;
 import io.github.tobiasbriones.ep.factura.database.util.FileUtils;
 import io.github.tobiasbriones.ep.factura.domain.model.city.City;
+import res.Data;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ import java.util.List;
 
 public final class LocalStorageCityDao implements CityDao {
 
-    private static final String FILE_NAME = "cities";
+    private static final String FILE_NAME = Data.getFileLocation("cities");
     private static final int INITIAL_CAPACITY = 15;
     private final List<City> cities;
     private boolean isUpToDate;

@@ -15,6 +15,7 @@ package io.github.tobiasbriones.ep.factura.database;
 import io.github.tobiasbriones.ep.factura.data.CommunityDao;
 import io.github.tobiasbriones.ep.factura.database.util.FileUtils;
 import io.github.tobiasbriones.ep.factura.domain.model.city.community.Community;
+import res.Data;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ import java.util.List;
 
 public final class LocalStorageCommunityDao implements CommunityDao {
 
-    private static final String FILE_NAME = "communities";
+    private static final String FILE_NAME = Data.getFileLocation("communities");
     private static final int INITIAL_CAPACITY = 15;
     private final List<Community> cities;
     private boolean isUpToDate;
