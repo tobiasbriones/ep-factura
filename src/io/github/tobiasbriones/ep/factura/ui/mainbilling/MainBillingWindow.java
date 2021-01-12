@@ -226,10 +226,11 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
 
     private void setShowAboutDialog() {
         final var lineSeparator = System.lineSeparator();
-        final String msg = "Billing application made in Java-Swing." + lineSeparator +
+        final String msg = "<html><strong>Example Project: Factura</strong></html>" + lineSeparator +
+                           "Billing application made in Java-Swing." + lineSeparator +
                            "Great job by studying the Example Projects!" + lineSeparator + lineSeparator +
-                           "© 2020 Tobias Briones.";
-        final String title = "Example Project: Factura";
+                           "© 2019-2020 Tobias Briones.";
+        final String title = "Factura";
         final JFrame parent = getViewComponent();
         final int type = JOptionPane.INFORMATION_MESSAGE;
         final String iconPath = Resource.getFileLocation("icon.png");
