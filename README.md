@@ -8,6 +8,21 @@
 
 Example project for a silly billing application made in Java-Swing.
 
+## Getting started
+
+The project does not have any external dependencies, open the project with you IDE and run it with Java 11+.
+
+### Project structure
+
+In the project's root directory (`./`) there are the following folders:
+
+- ***data/***: Contains local data used by the application.
+
+- ***res/***: Contains images or resources used by the application.
+
+In the ***./src*** directory there is the `res` (`./src/res`) top level package with helpers to access the files located
+at the directories mentioned above; and the application package `io.github.tobiasbriones.ep.factura`.
+
 ## Screenshots
 
 [![Screenshot 1](https://raw.githubusercontent.com/TobiasBriones/images/main/example-projects/example.programming.java.factura/screenshot-1.png)](https://github.com/TobiasBriones/images/tree/main/example-projects)
