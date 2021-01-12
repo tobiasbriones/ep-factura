@@ -195,7 +195,6 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
 
     private void init() {
         mediator.setComponentInput(input);
-        mediator.setShowAboutDialogFn(input::setShowAboutDialog);
         childrenConfig.initChildren(mediator);
         view.init();
         initController();
