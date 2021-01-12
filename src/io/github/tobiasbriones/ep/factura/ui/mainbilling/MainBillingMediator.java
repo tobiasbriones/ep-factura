@@ -143,7 +143,7 @@ final class MainBillingMediator {
 
     void setComponentInput(MainBillingWindow.Input mwInput) {
         printOutput.setMwInput(mwInput);
-        showAboutDialogFn = mwInput::setShowAboutDialog;
+        showAboutDialogFn = mwInput::showAboutDialog;
     }
 
     void onInitHeader(Header header) {

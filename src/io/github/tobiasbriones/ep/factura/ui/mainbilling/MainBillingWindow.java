@@ -46,7 +46,7 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
 
         void showSetAllFieldsDialog();
 
-        void setShowAboutDialog();
+        void showAboutDialog();
 
     }
 
@@ -244,7 +244,7 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
         }
 
         @Override
-        public void setShowAboutDialog() {
+        public void showAboutDialog() {
             final var lineSeparator = System.lineSeparator();
             final String msg = "<html><strong>Example Project: Factura</strong></html>" + lineSeparator +
                                "Billing application made in Java-Swing." + lineSeparator +
