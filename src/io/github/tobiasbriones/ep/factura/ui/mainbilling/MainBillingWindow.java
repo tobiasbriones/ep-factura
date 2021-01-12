@@ -231,7 +231,7 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
             final String title = "Invalid input";
             final JFrame parent = getViewComponent();
             final int type = JOptionPane.INFORMATION_MESSAGE;
-            final String iconPath = Resource.getFileLocation("ic_info_message.png");
+            final String iconPath = Resource.getFileLocation("ic_warning_message.png");
             final Icon icon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(iconPath));
             JOptionPane.showMessageDialog(parent, msg, title, type, icon);
         }
