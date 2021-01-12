@@ -227,8 +227,8 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
 
         @Override
         public void showSetAllFieldsDialog() {
-            final String msg = "Set all the fields!";
-            final String title = "Invalid input";
+            final String msg = "Llena todos los campos.";
+            final String title = "Entrada inválida";
             final JFrame parent = getViewComponent();
             final int type = JOptionPane.INFORMATION_MESSAGE;
             final String iconPath = Resource.getFileLocation("ic_warning_message.png");
