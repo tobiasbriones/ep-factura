@@ -18,6 +18,7 @@ import io.github.tobiasbriones.ep.factura.domain.model.bill.BillPrinter;
 import io.github.tobiasbriones.ep.factura.domain.model.customer.CustomerModel;
 
 import javax.swing.*;
+import java.awt.*;
 import java.time.LocalDateTime;
 
 public final class Printer implements BillPrinter {
@@ -64,7 +65,9 @@ public final class Printer implements BillPrinter {
         final String msg = createPrintMsg();
         final String title = createPrintTitle();
         final int type = JOptionPane.INFORMATION_MESSAGE;
-        JOptionPane.showMessageDialog(parent, msg, title, type);
+        final String iconPath = "ic_info_message.png";
+        final Icon icon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(iconPath));
+        JOptionPane.showMessageDialog(parent, msg, title, type, icon);
     }
 
     @Override
