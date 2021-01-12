@@ -163,7 +163,12 @@ final class DiskProductDaoTest {
         final var dao = new DiskProductDao(TMP_FILE_NAME);
         final var item1 = "1,Desc1,100.0";
         final var item2 = "15,Desc15,10.5";
-        final var contents = item1 + LINE_SEPARATOR + item2;
+        final var item3 = "1500,Desc1500,100.5";
+        final var item4 = "9,Desc9,20.0";
+        final var contents = item1 + LINE_SEPARATOR +
+                             item2 + LINE_SEPARATOR +
+                             item3 + LINE_SEPARATOR +
+                             item4 + LINE_SEPARATOR;
 
         Files.writeString(Path.of(TMP_FILE_NAME), contents);
         final var expected = ProductModel.of(15, "Desc15", 10.5);
