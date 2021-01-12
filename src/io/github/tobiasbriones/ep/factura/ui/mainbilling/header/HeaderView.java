@@ -194,6 +194,7 @@ final class HeaderView extends JPanelMvcView<HeaderController> implements Header
     }
 
     private void setProductsRow(JPanel view, GridBagConstraints gbc) {
+        productsBox.setPreferredSize(new Dimension(96, 25));
         productsBox.setRenderer(new ProductBoxRenderer());
         addButton.setText("Agregar");
 
