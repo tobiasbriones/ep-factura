@@ -71,6 +71,10 @@ components, that also is, taking care of the children's outputs.
 
 [![Screenshot 2](https://raw.githubusercontent.com/TobiasBriones/images/main/example-projects/example.programming.java.factura/screenshot-2.png)](https://github.com/TobiasBriones/images/tree/main/example-projects)
 
+---
+
+[![Screenshot 3](https://raw.githubusercontent.com/TobiasBriones/images/main/example-projects/example.programming.java.factura/screenshot-3.png)](https://github.com/TobiasBriones/images/tree/main/example-projects)
+
 ## Contact
 
 This software: [GitHub Repository](https://github.com/TobiasBriones/example.programming.java.factura)
