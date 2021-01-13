@@ -45,6 +45,24 @@ the domain models. For example, the `productDao` can be set to be a `DiskProduct
 than random products since by default it's an `InMemoryProductDao` implementation which is set. This is useful to
 decouple the system and inject the dependencies into the UI Components.
 
+### UI package and Components
+
+I wanted to take [v1.0.0](https://github.com/TobiasBriones/example.programming.java.factura/releases/tag/v1.0.0) and
+refactor this app as something really close to MVC. This is in order to show how MVC works which is the basis for the
+other popular architectural patterns (MVP, MVVM). For a real non-basic application never use plain MVC as this pattern
+is closer to being a ball of mud (you can see that because it is harder to test). Instead, use MVP with passive View or
+MVVM. As mentioned below, I create UI Components and this practice should be followed whenever creating GUIs. The reason
+is that each part of your "screen" is a component with meaningful and highly-cohesive encapsulated UI logic.
+
+The [ui package](./src/io/github/tobiasbriones/ep/factura/ui) contains the UI Component implementations for the billing
+app. To understand each component, it suffices to say that the in-app library used is a set of abstract tools I made
+with MVC as a priority and located in the `core` package. Then, each component will have a view that implements the
+Swing view (probably JPanel), a controller for the view, and an entry class as a gateway for the component and
+assembling it. Each component may have an `Output` for delegating UI logic that may not be implemented in that component
+but instead, it should be implemented in a parent component. The parent component used here is the
+`MainBillingWindow` (a Swing JFrame) and this has a `Mediator` object that takes care of *mediating* among its children
+components, that also is, taking care of the children's outputs.
+
 ## Screenshots
 
 [![Screenshot 1](https://raw.githubusercontent.com/TobiasBriones/images/main/example-projects/example.programming.java.factura/screenshot-1.png)](https://github.com/TobiasBriones/images/tree/main/example-projects)
