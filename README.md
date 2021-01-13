@@ -53,17 +53,20 @@ other popular architectural patterns (MVP, MVVM). For a real non-basic applicati
 is closer to being a ball of mud (you can see that because it is harder to test). Instead, use MVP with passive View or
 MVVM. As mentioned below, I create UI Components and this practice should be followed whenever creating GUIs. The UI
 Components even make plain MVC look better designed and more powerful; a great combination is, as I said, using MVP with
-passive View instead of just "MVC". The reason is that each part of your "screen" is a component with meaningful and
-highly-cohesive encapsulated UI logic.
+passive View and Components instead of just "MVC". The reason is that each part of your "screen" is a component with
+meaningful and highly-cohesive encapsulated UI logic.
 
 The [ui package](./src/io/github/tobiasbriones/ep/factura/ui) contains the UI Component implementations for the billing
 app. To understand each component, it suffices to say that the in-app library used is a set of abstract tools I made
 with MVC as a priority and located in the `core` package. Then, each component will have a view that implements the
 Swing view (probably JPanel), a controller for the view, and an entry class as a gateway for the component and
 assembling it. Each component may have an `Output` for delegating UI logic that may not be implemented in that component
-but instead, it should be implemented in a parent component. The parent component used here is the
+but instead, it should be implemented in a parent component (in order to put UI logic in the appropriate place). The
+parent component used here is the
 `MainBillingWindow` (a Swing JFrame) and this has a `Mediator` object that takes care of *mediating* among its children
-components, that also is, taking care of the children's outputs.
+components, that also is, taking care of the children's outputs. Recall that a mediator from the Mediator Pattern is an
+object that tends to get bigger and have lower cohesion. If the mediator object has too many responsibilities (the
+parent has too many children) then by design principle you have to create a smaller parent to keep it highly cohesive.
 
 ## Screenshots
 
