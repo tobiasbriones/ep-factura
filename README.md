@@ -51,8 +51,10 @@ I wanted to take [v1.0.0](https://github.com/TobiasBriones/example.programming.j
 refactor this app as something really close to MVC. This is in order to show how MVC works which is the basis for the
 other popular architectural patterns (MVP, MVVM). For a real non-basic application never use plain MVC as this pattern
 is closer to being a ball of mud (you can see that because it is harder to test). Instead, use MVP with passive View or
-MVVM. As mentioned below, I create UI Components and this practice should be followed whenever creating GUIs. The reason
-is that each part of your "screen" is a component with meaningful and highly-cohesive encapsulated UI logic.
+MVVM. As mentioned below, I create UI Components and this practice should be followed whenever creating GUIs. The UI
+Components even make plain MVC look better designed and more powerful; a great combination is, as I said, using MVP with
+passive View instead of just "MVC". The reason is that each part of your "screen" is a component with meaningful and
+highly-cohesive encapsulated UI logic.
 
 The [ui package](./src/io/github/tobiasbriones/ep/factura/ui) contains the UI Component implementations for the billing
 app. To understand each component, it suffices to say that the in-app library used is a set of abstract tools I made
