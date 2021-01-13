@@ -16,11 +16,11 @@ The project does not have any external dependencies, open the project with you I
 
 In the project's root directory (`./`) there are the following folders:
 
-- ***data/***: Contains local data used by the application.
+- **data/**: Contains local data used by the application.
 
-- ***res/***: Contains images or resources used by the application.
+- **res/**: Contains images or resources used by the application.
 
-In the ***./src*** directory there is the `res` (`./src/res`) top level package with helpers to access the files located
+In the **./src** directory there is the `res` (`./src/res`) top level package with helpers to access the files located
 at the directories mentioned above; and the application package `io.github.tobiasbriones.ep.factura`.
 
 ### Some conventions
