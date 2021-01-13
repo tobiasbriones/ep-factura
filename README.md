@@ -23,6 +23,13 @@ In the project's root directory (`./`) there are the following folders:
 In the ***./src*** directory there is the `res` (`./src/res`) top level package with helpers to access the files located
 at the directories mentioned above; and the application package `io.github.tobiasbriones.ep.factura`.
 
+### Some conventions
+
+I used the suffix "Model" in the domain layer for the Domain Model interfaces so that it may be seen or related to the "
+M" from the "MVC" pattern. In a real scenario never suffix or prefix interfaces like this because interfaces define
+types and that suffix is noise for the type name you are defining, you may suffix or prefix classes instead if required.
+I also used the "Model" suffix just to see a different fashion of the code on this occasion.
+
 ## Screenshots
 
 [![Screenshot 1](https://raw.githubusercontent.com/TobiasBriones/images/main/example-projects/example.programming.java.factura/screenshot-1.png)](https://github.com/TobiasBriones/images/tree/main/example-projects)
