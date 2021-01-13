@@ -22,6 +22,10 @@ import java.awt.*;
 
 final class SummaryView extends JPanelMvcView<SummaryController> implements Observer {
 
+    private static String moneyValueToString(double money) {
+        return "$" + money;
+    }
+
     private final BasketModel basket;
     private final JLabel subtotalLabel;
     private final JLabel isvLabel;
@@ -82,15 +86,15 @@ final class SummaryView extends JPanelMvcView<SummaryController> implements Obse
     }
 
     private void setSubtotal() {
-        subtotalLabel.setText(String.valueOf(model.getSubtotal()));
+        subtotalLabel.setText(moneyValueToString(model.getSubtotal()));
     }
 
     private void setIsv() {
-        isvLabel.setText(String.valueOf(model.getIsv()));
+        isvLabel.setText(moneyValueToString(model.getIsv()));
     }
 
     private void setTotal() {
-        totalLabel.setText(String.valueOf(model.getTotal()));
+        totalLabel.setText(moneyValueToString(model.getTotal()));
     }
 
 }
