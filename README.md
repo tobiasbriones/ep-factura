@@ -38,6 +38,13 @@ definitions for some domain models. It uses the application's local storage loca
 particular, there is an `InMemoryProductDao` which loads random products into the memory, and also a
 `DiskProductDao` to load products in the file stored in the disk, also check `DiskProductDaoTest`.
 
+### Application Configuration
+
+The [AppConfig](./src/io/github/tobiasbriones/ep/factura/AppConfig.java) contains the selection of implementations for
+the domain models. For example, the `productDao` can be set to be a `DiskProductDao` to load in-disk products rather
+than random products since by default it's an `InMemoryProductDao` implementation which is set. This is useful to
+decouple the system and inject the dependencies into the UI Components.
+
 ## Screenshots
 
 [![Screenshot 1](https://raw.githubusercontent.com/TobiasBriones/images/main/example-projects/example.programming.java.factura/screenshot-1.png)](https://github.com/TobiasBriones/images/tree/main/example-projects)
