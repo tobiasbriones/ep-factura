@@ -30,6 +30,14 @@ M" from the "MVC" pattern. In a real scenario never suffix or prefix interfaces 
 types and that suffix is noise for the type name you are defining, you may suffix or prefix classes instead if required.
 I also used the "Model" suffix just to see a different fashion of the code on this occasion.
 
+### Database package
+
+The [database package](./src/io/github/tobiasbriones/ep/factura/database) implements
+the [data package](./src/io/github/tobiasbriones/ep/factura/data) which contains DAOs (Data Access Objects)
+definitions for some domain models. It uses the application's local storage located in the [data folder](./data). In
+particular, there is an `InMemoryProductDao` which loads random products into the memory, and also a
+`DiskProductDao` to load products in the file stored in the disk, also check `DiskProductDaoTest`.
+
 ## Screenshots
 
 [![Screenshot 1](https://raw.githubusercontent.com/TobiasBriones/images/main/example-projects/example.programming.java.factura/screenshot-1.png)](https://github.com/TobiasBriones/images/tree/main/example-projects)
