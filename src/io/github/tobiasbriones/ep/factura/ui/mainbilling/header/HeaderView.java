@@ -19,10 +19,13 @@ import io.github.tobiasbriones.ep.factura.ui.core.JPanelMvcView;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 final class HeaderView extends JPanelMvcView<HeaderController> implements Header.View {
+
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyy HH:mm:ss");
 
     private static final class ProductBoxRenderer extends DefaultListCellRenderer {
         private ProductBoxRenderer() {
@@ -109,13 +112,13 @@ final class HeaderView extends JPanelMvcView<HeaderController> implements Header
     }
 
     @Override
-    public LocalDate getDate() {
-        return LocalDate.parse(dateField.getText());
+    public LocalDateTime getDate() {
+        return LocalDateTime.parse(dateField.getText(), dateTimeFormatter);
     }
 
     @Override
-    public void setDate(LocalDate value) {
-        dateField.setText(String.valueOf(value));
+    public void setDate(LocalDateTime value) {
+        dateField.setText(value.format(dateTimeFormatter));
     }
 
     @Override

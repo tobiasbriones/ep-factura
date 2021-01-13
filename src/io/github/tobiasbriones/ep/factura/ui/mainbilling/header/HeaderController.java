@@ -17,6 +17,7 @@ import io.github.tobiasbriones.ep.factura.domain.model.product.ProductModel;
 import io.github.tobiasbriones.ep.factura.ui.core.MvcController;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 final class HeaderController extends MvcController<HeaderView, Header.Output> {
 
@@ -58,7 +59,7 @@ final class HeaderController extends MvcController<HeaderView, Header.Output> {
     }
 
     private void setDate() {
-        final var date = LocalDate.now();
+        final var date = LocalDateTime.now();
         view.setDate(date);
     }
 }

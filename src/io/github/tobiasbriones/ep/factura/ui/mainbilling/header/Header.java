@@ -47,9 +47,9 @@ public final class Header implements SwingComponent<JPanel> {
 
         void setProductList(List<? extends ProductModel> products);
 
-        LocalDate getDate();
+        LocalDateTime getDate();
 
-        void setDate(LocalDate value);
+        void setDate(LocalDateTime value);
 
     }
 
@@ -79,8 +79,7 @@ public final class Header implements SwingComponent<JPanel> {
     }
 
     public void onSetBill(BillMutator bill) {
-        final LocalDate viewDate = view.getDate();
-        final LocalDateTime date = LocalDateTime.of(viewDate, LocalTime.now());
+        final LocalDateTime date = view.getDate();
         final var customer = new Customer();
 
         customer.setName(view.getFirstName());
