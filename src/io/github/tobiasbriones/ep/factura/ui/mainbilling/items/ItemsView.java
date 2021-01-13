@@ -28,7 +28,7 @@ import java.text.DecimalFormat;
 final class ItemsView extends JScrollPaneMvcView<ItemsController> implements Observer {
 
     private static final int HEIGHT_PX = 300;
-    private static final int WIDTH_PX = 630;
+    private static final int WIDTH_PX = 800;
     private static final DecimalFormat decimalFormat = new DecimalFormat(".##");
 
     private static final class ListRenderer extends JPanel implements ListCellRenderer<BasketItem> {
