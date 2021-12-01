@@ -1,10 +1,10 @@
 # Example Project: Factura
 
-[![EP](https://raw.githubusercontent.com/TobiasBriones/images/main/example-projects/example.programming.java.factura/ep-factura-badge.svg)](https://tobiasbriones.github.io/example-project/ep/factura)
+[![EP](./docs/badge.svg)](https://tobiasbriones.github.io/example-project/ep/factura)
 &nbsp;
-[![GitHub Repository](https://raw.githubusercontent.com/TobiasBriones/general-images/main/example-projects/badges/ep-gh-repo-badge.svg)](https://github.com/TobiasBriones/example.programming.java.factura)
+[![GitHub Repository](https://raw.githubusercontent.com/tobiasbriones/general-images/main/example-projects/badges/ep-gh-repo-badge.svg)](https://github.com/tobiasbriones/ep-factura)
 
-[![Project GitHub License](https://img.shields.io/github/license/TobiasBriones/example.programming.java.factura.svg?style=flat-square)](https://github.com/TobiasBriones/example.programming.java.factura/blob/main/LICENSE)
+[![Project GitHub License](https://img.shields.io/github/license/tobiasbriones/ep-factura.svg?style=flat-square)](https://github.com/tobiasbriones/ep-factura/blob/main/LICENSE)
 
 Example project for a silly billing application made in Java-Swing.
 
@@ -47,7 +47,7 @@ decouple the system and inject the dependencies into the UI Components.
 
 ### UI package and Components
 
-I wanted to take [v1.0.0](https://github.com/TobiasBriones/example.programming.java.factura/releases/tag/v1.0.0) and
+I wanted to take [v1.0.0](https://github.com/tobiasbriones/ep-factura/releases/tag/v1.0.0) and
 refactor this app as something really close to MVC. This is in order to show how MVC works which is the basis for the
 other popular architectural patterns (MVP, MVVM). For a real non-basic application never use plain MVC as this pattern
 is closer to being a ball of mud (you can see that because it is harder to test). Instead, use MVP with passive View or
@@ -70,21 +70,21 @@ parent has too many children) then by design principle you have to create a smal
 
 ## Screenshots
 
-[![Screenshot 1](https://raw.githubusercontent.com/TobiasBriones/images/main/example-projects/example.programming.java.factura/screenshot-1.png)](https://github.com/TobiasBriones/images/tree/main/example-projects)
+![Screenshot 1](./docs/screenshot-1.png)
 
 ---
 
-[![Screenshot 2](https://raw.githubusercontent.com/TobiasBriones/images/main/example-projects/example.programming.java.factura/screenshot-2.png)](https://github.com/TobiasBriones/images/tree/main/example-projects)
+![Screenshot 2](./docs/screenshot-2.png)
 
 ---
 
-[![Screenshot 3](https://raw.githubusercontent.com/TobiasBriones/images/main/example-projects/example.programming.java.factura/screenshot-3.png)](https://github.com/TobiasBriones/images/tree/main/example-projects)
+![Screenshot 3](./docs/screenshot-3.png)
 
 ## Contact
 
-This software: [GitHub Repository](https://github.com/TobiasBriones/example.programming.java.factura)
+This software: [GitHub Repository](https://github.com/tobiasbriones/ep-factura)
 
-Tobias Briones: [GitHub](https://github.com/TobiasBriones)
+Tobias Briones: [GitHub](https://github.com/tobiasbriones)
 
 Example Project: [App](https://tobiasbriones.github.io/example-project)
 
