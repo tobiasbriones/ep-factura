@@ -18,7 +18,5 @@ import java.util.List;
 
 @FunctionalInterface
 public interface CommunityDao {
-
     List<Community> fetchAll();
-
 }

@@ -13,5 +13,4 @@
 /**
  * Main application entry point package.
  */
-
 package dev.tobiasbriones.ep.factura;

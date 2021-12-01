@@ -13,7 +13,6 @@
 package dev.tobiasbriones.ep.factura.domain.model.city.community;
 
 public final class Community implements CommunityModel {
-
     private final String name;
 
     public Community(String name) {
@@ -31,5 +30,4 @@ public final class Community implements CommunityModel {
                "name=" + name +
                "]";
     }
-
 }

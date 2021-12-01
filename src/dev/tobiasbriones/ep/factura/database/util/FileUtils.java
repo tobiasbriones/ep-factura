@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class FileUtils {
-
     private static final int DEF_FILE_LINES_INITIAL_CAPACITY = 15;
 
     /**
@@ -78,5 +77,4 @@ public final class FileUtils {
     }
 
     private FileUtils() {}
-
 }

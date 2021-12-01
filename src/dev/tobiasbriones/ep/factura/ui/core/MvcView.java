@@ -15,7 +15,6 @@ package dev.tobiasbriones.ep.factura.ui.core;
 import java.util.function.Supplier;
 
 public abstract class MvcView<V, C> implements Mvc.View<V, C> {
-
     private final V view;
     private final C controller;
 
@@ -37,5 +36,4 @@ public abstract class MvcView<V, C> implements Mvc.View<V, C> {
         createView(view);
         bindEvents(controller);
     }
-
 }

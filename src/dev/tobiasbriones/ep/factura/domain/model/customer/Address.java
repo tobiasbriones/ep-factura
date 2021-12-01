@@ -18,7 +18,6 @@ import dev.tobiasbriones.ep.factura.domain.model.city.community.Community;
 import java.util.Objects;
 
 public final class Address implements AddressModel {
-
     private final City city;
     private final Community community;
 
@@ -62,5 +61,4 @@ public final class Address implements AddressModel {
                "community=" + community +
                "]";
     }
-
 }

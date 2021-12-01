@@ -15,7 +15,6 @@ package res;
 import java.io.File;
 
 public final class Data {
-
     private static final String FILE_SEPARATOR = File.separator;
     private static final String DATA_ROOT_PATH = "." + FILE_SEPARATOR + "data" + FILE_SEPARATOR;
 
@@ -24,5 +23,4 @@ public final class Data {
     }
 
     private Data() {}
-
 }

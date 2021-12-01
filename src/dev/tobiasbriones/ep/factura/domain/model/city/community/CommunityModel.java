@@ -14,7 +14,5 @@ package dev.tobiasbriones.ep.factura.domain.model.city.community;
 
 @FunctionalInterface
 public interface CommunityModel {
-
     String getName();
-
 }

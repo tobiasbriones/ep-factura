@@ -15,9 +15,7 @@ package dev.tobiasbriones.ep.factura.ui.core;
 import javax.swing.*;
 
 public abstract class JPanelMvcView<C> extends SwingMvcView<JPanel, C> {
-
     protected JPanelMvcView(C controller) {
         super(JPanel::new, controller);
     }
-
 }

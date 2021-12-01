@@ -19,7 +19,6 @@ import java.util.Objects;
 import static dev.tobiasbriones.ep.factura.domain.model.product.ProductConstrains.*;
 
 final class Product implements ProductModel {
-
     private final Integer code;
     private final String description;
     private final Double price;
@@ -78,5 +77,4 @@ final class Product implements ProductModel {
     public int hashCode() {
         return Objects.hash(code, description, price);
     }
-
 }

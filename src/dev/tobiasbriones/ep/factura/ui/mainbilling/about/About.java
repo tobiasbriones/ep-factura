@@ -17,12 +17,9 @@ import dev.tobiasbriones.ep.factura.ui.core.SwingComponent;
 import javax.swing.*;
 
 public final class About implements SwingComponent<JPanel> {
-
     @FunctionalInterface
     public interface Output {
-
         void onShowAboutDialog();
-
     }
 
     public static About newInstance() {
@@ -58,5 +55,4 @@ public final class About implements SwingComponent<JPanel> {
         controller.setView(view);
         controller.init();
     }
-
 }

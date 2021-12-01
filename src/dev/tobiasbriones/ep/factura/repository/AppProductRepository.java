@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.Optional;
 
 public final class AppProductRepository implements ProductRepository {
-
     private final ProductDao productDao;
 
     public AppProductRepository(ProductDao productDao) {
@@ -52,5 +51,4 @@ public final class AppProductRepository implements ProductRepository {
     public void remove(ProductModel record) {
         productDao.delete(record);
     }
-
 }

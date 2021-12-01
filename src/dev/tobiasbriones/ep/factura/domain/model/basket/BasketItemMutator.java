@@ -13,9 +13,7 @@
 package dev.tobiasbriones.ep.factura.domain.model.basket;
 
 public interface BasketItemMutator {
-
     void setQuantity(int value);
 
     void incrementQuantity();
-
 }

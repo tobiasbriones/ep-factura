@@ -14,7 +14,5 @@ package dev.tobiasbriones.ep.factura.ui.core.rx;
 
 @FunctionalInterface
 public interface Observer {
-
     void update();
-
 }

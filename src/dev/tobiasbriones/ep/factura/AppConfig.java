@@ -23,7 +23,6 @@ import dev.tobiasbriones.ep.factura.domain.model.basket.BasketList;
 import dev.tobiasbriones.ep.factura.ui.mainbilling.MainBillingWindow;
 
 final class AppConfig {
-
     private final BasketModel basket;
     private final ProductDao productDao;
     private final CityDao cityDao;
@@ -39,5 +38,4 @@ final class AppConfig {
     MainBillingWindow.DependencyConfig newMainDependencyConfig() {
         return new MainBillingWindow.DependencyConfig(basket, productDao, cityDao, communityDao);
     }
-
 }

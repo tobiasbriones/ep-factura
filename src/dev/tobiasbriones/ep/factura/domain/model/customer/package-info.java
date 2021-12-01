@@ -13,5 +13,4 @@
 /**
  * Contains customer related models.
  */
-
 package dev.tobiasbriones.ep.factura.domain.model.customer;

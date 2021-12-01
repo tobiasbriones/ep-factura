@@ -21,7 +21,6 @@ import java.awt.*;
 import java.util.function.Consumer;
 
 final class ItemEditorView extends JDialogMvcView<ItemEditorController> {
-
     private final BasketItem item;
     private final JTextField quantityField;
     private final JButton deleteButton;
@@ -95,5 +94,4 @@ final class ItemEditorView extends JDialogMvcView<ItemEditorController> {
         final var msg = "Porfavor ingresar una cantidad válida";
         JOptionPane.showMessageDialog(getView(), msg);
     }
-
 }

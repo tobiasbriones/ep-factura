@@ -16,7 +16,6 @@ import dev.tobiasbriones.ep.factura.domain.model.city.City;
 import dev.tobiasbriones.ep.factura.domain.model.city.community.Community;
 
 public final class Customer implements CustomerModel {
-
     public static Customer from(CustomerAccessor accessor) {
         final var customer = new Customer();
 
@@ -116,5 +115,4 @@ public final class Customer implements CustomerModel {
                "birthday=" + birthday +
                "]";
     }
-
 }

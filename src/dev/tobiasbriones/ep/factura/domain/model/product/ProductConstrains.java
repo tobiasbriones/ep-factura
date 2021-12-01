@@ -13,9 +13,7 @@
 package dev.tobiasbriones.ep.factura.domain.model.product;
 
 public final class ProductConstrains {
-
     public static final int DEF_ISV_PERCENTAGE = 15;
 
     private ProductConstrains() {}
-
 }

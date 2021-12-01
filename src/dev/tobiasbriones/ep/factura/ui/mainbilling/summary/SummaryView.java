@@ -21,7 +21,6 @@ import javax.swing.*;
 import java.awt.*;
 
 final class SummaryView extends JPanelMvcView<SummaryController> implements Observer {
-
     private static String moneyValueToString(double money) {
         return "$" + money;
     }
@@ -96,5 +95,4 @@ final class SummaryView extends JPanelMvcView<SummaryController> implements Obse
     private void setTotal() {
         totalLabel.setText(moneyValueToString(model.getTotal()));
     }
-
 }

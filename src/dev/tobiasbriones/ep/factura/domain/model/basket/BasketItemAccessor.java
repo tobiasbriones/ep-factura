@@ -15,7 +15,6 @@ package dev.tobiasbriones.ep.factura.domain.model.basket;
 import dev.tobiasbriones.ep.factura.domain.model.product.ProductModel;
 
 public interface BasketItemAccessor {
-
     ProductModel getProduct();
 
     int getQuantity();
@@ -25,5 +24,4 @@ public interface BasketItemAccessor {
     double getIsv();
 
     double getTotal();
-
 }

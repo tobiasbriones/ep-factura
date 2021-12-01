@@ -15,7 +15,6 @@ package dev.tobiasbriones.ep.factura.ui.mainbilling.summary;
 import dev.tobiasbriones.ep.factura.ui.core.MvcController;
 
 final class SummaryController extends MvcController<SummaryView, Void> {
-
     private SummaryView view;
 
     SummaryController() {
@@ -37,5 +36,4 @@ final class SummaryController extends MvcController<SummaryView, Void> {
     public void init() {
         view.update();
     }
-
 }

@@ -13,9 +13,7 @@
 package dev.tobiasbriones.ep.factura.domain.model.customer;
 
 public interface CustomerNameMutator {
-
     void setName(String value);
 
     void setSurname(String value);
-
 }

@@ -15,9 +15,7 @@ package dev.tobiasbriones.ep.factura.domain.model.basket;
 import dev.tobiasbriones.ep.factura.domain.model.Money;
 
 public interface BasketSummaryModel extends BasketSummaryAccessor {
-
     static double subtotal(double total, double isv) {
         return Money.decimalFormat(total - isv);
     }
-
 }

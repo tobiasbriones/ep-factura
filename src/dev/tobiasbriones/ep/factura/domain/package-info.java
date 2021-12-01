@@ -13,5 +13,4 @@
 /**
  * Contains the Factura application models.
  */
-
 package dev.tobiasbriones.ep.factura.domain;

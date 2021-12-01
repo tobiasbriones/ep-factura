@@ -16,7 +16,6 @@ import dev.tobiasbriones.ep.factura.domain.model.basket.BasketItem;
 import dev.tobiasbriones.ep.factura.domain.model.basket.BasketModel;
 
 public final class RemoveItemFromBasketUseCase {
-
     private final BasketModel basket;
 
     public RemoveItemFromBasketUseCase(BasketModel basket) {
@@ -26,5 +25,4 @@ public final class RemoveItemFromBasketUseCase {
     public void execute(BasketItem item) {
         basket.remove(item);
     }
-
 }

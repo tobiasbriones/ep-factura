@@ -16,9 +16,7 @@ import dev.tobiasbriones.ep.factura.domain.model.city.City;
 import dev.tobiasbriones.ep.factura.domain.model.city.community.Community;
 
 public interface AddressModel {
-
     City getCity();
 
     Community getCommunity();
-
 }

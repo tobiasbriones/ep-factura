@@ -23,7 +23,6 @@ import java.util.Collections;
 import java.util.List;
 
 public final class LocalStorageCommunityDao implements CommunityDao {
-
     private static final String FILE_NAME = Data.getFileLocation("communities");
     private static final int INITIAL_CAPACITY = 15;
     private final List<Community> cities;
@@ -60,5 +59,4 @@ public final class LocalStorageCommunityDao implements CommunityDao {
                  .map(Community::new)
                  .forEach(cities::add);
     }
-
 }

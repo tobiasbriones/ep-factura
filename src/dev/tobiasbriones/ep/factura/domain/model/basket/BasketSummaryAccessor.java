@@ -13,11 +13,9 @@
 package dev.tobiasbriones.ep.factura.domain.model.basket;
 
 public interface BasketSummaryAccessor {
-
     double getIsv();
 
     double getSubtotal();
 
     double getTotal();
-
 }

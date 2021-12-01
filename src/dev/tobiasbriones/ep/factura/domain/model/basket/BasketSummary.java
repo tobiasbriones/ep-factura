@@ -19,7 +19,6 @@ import java.util.Objects;
 import static dev.tobiasbriones.ep.factura.domain.model.basket.BasketSummaryModel.*;
 
 public final class BasketSummary implements BasketSummaryModel {
-
     private final Double isv;
     private final Double subtotal;
     private final Double total;
@@ -75,5 +74,4 @@ public final class BasketSummary implements BasketSummaryModel {
     public int hashCode() {
         return Objects.hash(isv, subtotal, total);
     }
-
 }

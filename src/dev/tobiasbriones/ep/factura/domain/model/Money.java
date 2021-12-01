@@ -13,11 +13,9 @@
 package dev.tobiasbriones.ep.factura.domain.model;
 
 public interface Money {
-
     static double decimalFormat(double value) {
         final double decimalFactor = 100.0;
         final double integerForm = Math.floor(value * decimalFactor);
         return integerForm / decimalFactor;
     }
-
 }

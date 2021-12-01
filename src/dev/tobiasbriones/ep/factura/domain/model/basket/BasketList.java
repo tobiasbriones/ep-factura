@@ -20,7 +20,6 @@ import java.util.stream.Stream;
  * Default implementation of {@link BasketModel} based on a {@link LinkedHashSet}.
  */
 public final class BasketList extends AbstractBasket {
-
     private static final int DEF_INITIAL_CAPACITY = 15;
     private final Set<BasketItem> items;
 
@@ -64,5 +63,4 @@ public final class BasketList extends AbstractBasket {
     protected void pushItem(BasketItem item) {
         items.add(item);
     }
-
 }

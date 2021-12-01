@@ -18,7 +18,6 @@ import dev.tobiasbriones.ep.factura.domain.model.product.ProductModel;
 import java.util.Objects;
 
 public final class BasketItem implements BasketItemModel {
-
     public static final int DEF_QUANTITY = 1;
     private final ProductModel product;
     private int quantity;
@@ -98,5 +97,4 @@ public final class BasketItem implements BasketItemModel {
     public int hashCode() {
         return Objects.hash(product);
     }
-
 }

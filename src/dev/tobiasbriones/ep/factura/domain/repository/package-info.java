@@ -13,5 +13,4 @@
 /**
  * Contains the domain repository.
  */
-
 package dev.tobiasbriones.ep.factura.domain.repository;

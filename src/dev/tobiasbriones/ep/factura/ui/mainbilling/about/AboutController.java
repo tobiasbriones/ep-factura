@@ -15,7 +15,6 @@ package dev.tobiasbriones.ep.factura.ui.mainbilling.about;
 import dev.tobiasbriones.ep.factura.ui.core.MvcController;
 
 final class AboutController extends MvcController<AboutView, About.Output> {
-
     private AboutView view;
 
     AboutController() {
@@ -41,5 +40,4 @@ final class AboutController extends MvcController<AboutView, About.Output> {
     void onAboutButtonClick() {
         getOutput().ifPresent(About.Output::onShowAboutDialog);
     }
-
 }

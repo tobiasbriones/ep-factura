@@ -21,12 +21,9 @@ import dev.tobiasbriones.ep.factura.domain.model.customer.CustomerModel;
 import javax.swing.*;
 
 public final class CustomerCreationDialog implements SwingComponent<JDialog> {
-
     @FunctionalInterface
     public interface Output {
-
         void onCustomerCreated(Customer customer);
-
     }
 
     public static CustomerCreationDialog newInstance(
@@ -70,5 +67,4 @@ public final class CustomerCreationDialog implements SwingComponent<JDialog> {
         controller.setView(view);
         controller.init();
     }
-
 }

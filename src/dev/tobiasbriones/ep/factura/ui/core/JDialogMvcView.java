@@ -15,7 +15,6 @@ package dev.tobiasbriones.ep.factura.ui.core;
 import javax.swing.*;
 
 public abstract class JDialogMvcView<C> extends SwingMvcView<JDialog, C> {
-
     protected JDialogMvcView(C controller) {
         super(JDialog::new, controller);
     }
@@ -31,5 +30,4 @@ public abstract class JDialogMvcView<C> extends SwingMvcView<JDialog, C> {
     public final void dispose() {
         getViewComponent().dispose();
     }
-
 }

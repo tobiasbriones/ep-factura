@@ -30,59 +30,8 @@ import java.util.Collection;
 import java.util.List;
 
 final class CustomerCreationView extends JDialogMvcView<CustomerCreationController> implements CustomerAccessor {
-
     private static final String ICON_NAME = "icon.png";
     private static final String ICON_LOCATION = Resource.getFileLocation(ICON_NAME);
-
-    private static String getRadioValue(ButtonGroup buttonGroup) {
-        if (buttonGroup.getSelection() == null) {
-            return null;
-        }
-        return buttonGroup.getSelection().getActionCommand();
-    }
-
-    private static final class CityBoxRenderer extends DefaultListCellRenderer {
-        private CityBoxRenderer() {
-            super();
-        }
-
-        @Override
-        public Component getListCellRendererComponent(
-            JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus
-        ) {
-            super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-
-            if (value != null) {
-                final var city = (CityModel) value;
-                final var str = city.getName();
-
-                setText(str);
-            }
-            return this;
-        }
-    }
-
-    private static final class CommunityBoxRenderer extends DefaultListCellRenderer {
-        private CommunityBoxRenderer() {
-            super();
-        }
-
-        @Override
-        public Component getListCellRendererComponent(
-            JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus
-        ) {
-            super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-
-            if (value != null) {
-                final var city = (CommunityModel) value;
-                final var str = city.getName();
-
-                setText(str);
-            }
-            return this;
-        }
-    }
-
     private final List<City> cities;
     private final List<Community> communities;
     private final JTextField nameField;
@@ -255,4 +204,70 @@ final class CustomerCreationView extends JDialogMvcView<CustomerCreationControll
         panel.add(bottomPanel, BorderLayout.CENTER);
     }
 
+    private static String getRadioValue(ButtonGroup buttonGroup) {
+        if (buttonGroup.getSelection() == null) {
+            return null;
+        }
+        return buttonGroup.getSelection().getActionCommand();
+    }
+
+    private static final class CityBoxRenderer extends DefaultListCellRenderer {
+        private CityBoxRenderer() {
+            super();
+        }
+
+        @Override
+        public Component getListCellRendererComponent(
+            JList<?> list,
+            Object value,
+            int index,
+            boolean isSelected,
+            boolean cellHasFocus
+        ) {
+            super.getListCellRendererComponent(list,
+                value,
+                index,
+                isSelected,
+                cellHasFocus
+            );
+
+            if (value != null) {
+                final var city = (CityModel) value;
+                final var str = city.getName();
+
+                setText(str);
+            }
+            return this;
+        }
+    }
+
+    private static final class CommunityBoxRenderer extends DefaultListCellRenderer {
+        private CommunityBoxRenderer() {
+            super();
+        }
+
+        @Override
+        public Component getListCellRendererComponent(
+            JList<?> list,
+            Object value,
+            int index,
+            boolean isSelected,
+            boolean cellHasFocus
+        ) {
+            super.getListCellRendererComponent(list,
+                value,
+                index,
+                isSelected,
+                cellHasFocus
+            );
+
+            if (value != null) {
+                final var city = (CommunityModel) value;
+                final var str = city.getName();
+
+                setText(str);
+            }
+            return this;
+        }
+    }
 }

@@ -15,11 +15,9 @@ package dev.tobiasbriones.ep.factura.domain.model.bill;
 import dev.tobiasbriones.ep.factura.domain.model.basket.BasketSummaryAccessor;
 
 public interface BillPrinter extends BillMutator {
-
     void setBillSummary(BasketSummaryAccessor accessor);
 
     void clear();
 
     void print();
-
 }

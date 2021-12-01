@@ -13,7 +13,6 @@
 package dev.tobiasbriones.ep.factura.domain.model.basket;
 
 public abstract class AbstractBasket implements BasketModel {
-
     AbstractBasket() {}
 
     @Override
@@ -40,5 +39,4 @@ public abstract class AbstractBasket implements BasketModel {
      * @param item basket item to push
      */
     protected abstract void pushItem(BasketItem item);
-
 }

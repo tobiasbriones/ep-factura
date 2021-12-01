@@ -17,7 +17,6 @@ import dev.tobiasbriones.ep.factura.ui.mainbilling.MainBillingWindow;
 import javax.swing.*;
 
 public final class Main {
-
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
@@ -43,5 +42,4 @@ public final class Main {
     private void init() {
         mw.show();
     }
-
 }

@@ -18,7 +18,5 @@ import java.util.List;
 
 @FunctionalInterface
 public interface CityDao {
-
     List<City> fetchAll();
-
 }

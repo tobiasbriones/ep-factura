@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface Repository<R, I> {
-
     Optional<R> get(I id);
 
     List<R> getAll(int page, int pageSize);
@@ -26,5 +25,4 @@ public interface Repository<R, I> {
     void set(R record);
 
     void remove(R record);
-
 }

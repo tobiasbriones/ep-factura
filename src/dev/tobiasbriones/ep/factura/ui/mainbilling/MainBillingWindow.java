@@ -36,9 +36,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public final class MainBillingWindow implements SwingComponent<JFrame> {
-
     interface Input {
-
         void setCustomer(CustomerModel customer);
 
         void setBill(BillMutator bill);
@@ -50,11 +48,9 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
         void showAboutDialog();
 
         void showCustomerCreationDialog(BillAccessor accessor);
-
     }
 
     interface ChildViewConfig {
-
         JPanel getHeaderViewComponent();
 
         JScrollPane getItemsViewComponent();
@@ -64,7 +60,6 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
         JPanel getPrintViewComponent();
 
         JPanel getAboutViewComponent();
-
     }
 
     public static MainBillingWindow newInstance(DependencyConfig config) {
@@ -100,79 +95,6 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
         CityDao cityDao() { return cityDao; }
 
         CommunityDao communityDao() { return communityDao; }
-    }
-
-    private static final class ChildrenConfig implements ChildViewConfig {
-        private static ChildrenConfig newInstance(DependencyConfig config) {
-            return new ChildrenConfig(
-                Header.newInstance(config.productDao()),
-                Items.newInstance(config.basket()),
-                Summary.newInstance(config.basket()),
-                Print.newInstance(),
-                About.newInstance()
-            );
-        }
-
-        private final Header header;
-        private final Items items;
-        private final Summary summary;
-        private final Print print;
-        private final About about;
-
-        private ChildrenConfig(
-            Header header,
-            Items items,
-            Summary summary,
-            Print print,
-            About about
-        ) {
-            this.header = header;
-            this.items = items;
-            this.summary = summary;
-            this.print = print;
-            this.about = about;
-        }
-
-        @Override
-        public JPanel getHeaderViewComponent() {
-            return header.getViewComponent();
-        }
-
-        @Override
-        public JScrollPane getItemsViewComponent() {
-            return items.getViewComponent();
-        }
-
-        @Override
-        public JPanel getSummaryViewComponent() {
-            return summary.getViewComponent();
-        }
-
-        @Override
-        public JPanel getPrintViewComponent() {
-            return print.getViewComponent();
-        }
-
-        @Override
-        public JPanel getAboutViewComponent() {
-            return about.getViewComponent();
-        }
-
-        void initChildren(MainBillingMediator mediator) {
-            mediator.onInitHeader(header);
-            mediator.onInitItems(items);
-            mediator.onInitSummary(summary);
-            mediator.onInitPrint(print);
-            mediator.onInitAbout(about);
-        }
-
-        void callHeaderSetCustomer(CustomerNameAccessor customer) {
-            header.onCustomerUpdated(customer);
-        }
-
-        void callHeaderSetBill(BillMutator bill) {
-            header.onSetBill(bill);
-        }
     }
 
     private final DependencyConfig config;
@@ -282,4 +204,76 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
         }
     }
 
+    private static final class ChildrenConfig implements ChildViewConfig {
+        private static ChildrenConfig newInstance(DependencyConfig config) {
+            return new ChildrenConfig(
+                Header.newInstance(config.productDao()),
+                Items.newInstance(config.basket()),
+                Summary.newInstance(config.basket()),
+                Print.newInstance(),
+                About.newInstance()
+            );
+        }
+
+        private final Header header;
+        private final Items items;
+        private final Summary summary;
+        private final Print print;
+        private final About about;
+
+        private ChildrenConfig(
+            Header header,
+            Items items,
+            Summary summary,
+            Print print,
+            About about
+        ) {
+            this.header = header;
+            this.items = items;
+            this.summary = summary;
+            this.print = print;
+            this.about = about;
+        }
+
+        @Override
+        public JPanel getHeaderViewComponent() {
+            return header.getViewComponent();
+        }
+
+        @Override
+        public JScrollPane getItemsViewComponent() {
+            return items.getViewComponent();
+        }
+
+        @Override
+        public JPanel getSummaryViewComponent() {
+            return summary.getViewComponent();
+        }
+
+        @Override
+        public JPanel getPrintViewComponent() {
+            return print.getViewComponent();
+        }
+
+        @Override
+        public JPanel getAboutViewComponent() {
+            return about.getViewComponent();
+        }
+
+        void initChildren(MainBillingMediator mediator) {
+            mediator.onInitHeader(header);
+            mediator.onInitItems(items);
+            mediator.onInitSummary(summary);
+            mediator.onInitPrint(print);
+            mediator.onInitAbout(about);
+        }
+
+        void callHeaderSetCustomer(CustomerNameAccessor customer) {
+            header.onCustomerUpdated(customer);
+        }
+
+        void callHeaderSetBill(BillMutator bill) {
+            header.onSetBill(bill);
+        }
+    }
 }

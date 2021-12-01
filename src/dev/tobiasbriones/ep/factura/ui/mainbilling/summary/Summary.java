@@ -19,7 +19,6 @@ import dev.tobiasbriones.ep.factura.ui.core.rx.Observable;
 import javax.swing.*;
 
 public final class Summary implements SwingComponent<JPanel> {
-
     public static Summary newInstance(BasketModel basket) {
         final var component = new Summary(basket);
 
@@ -53,5 +52,4 @@ public final class Summary implements SwingComponent<JPanel> {
         controller.setView(view);
         controller.init();
     }
-
 }

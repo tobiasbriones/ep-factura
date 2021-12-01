@@ -15,9 +15,7 @@ package dev.tobiasbriones.ep.factura.ui.core;
 import javax.swing.*;
 
 public abstract class JScrollPaneMvcView<C> extends SwingMvcView<JScrollPane, C> {
-
     protected JScrollPaneMvcView(C controller) {
         super(JScrollPane::new, controller);
     }
-
 }

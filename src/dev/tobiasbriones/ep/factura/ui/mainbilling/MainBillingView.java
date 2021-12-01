@@ -20,7 +20,6 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 final class MainBillingView extends JFrameMvcView<MainBillingController> {
-
     private static final String ICON_NAME = "icon.png";
     private static final String ICON_LOCATION = Resource.getFileLocation(ICON_NAME);
     private static final String WINDOW_TITLE = "Factura";
@@ -71,5 +70,4 @@ final class MainBillingView extends JFrameMvcView<MainBillingController> {
     void show() {
         getViewComponent().setVisible(true);
     }
-
 }

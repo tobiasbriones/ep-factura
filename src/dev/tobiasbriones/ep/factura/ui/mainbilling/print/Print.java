@@ -17,13 +17,10 @@ import dev.tobiasbriones.ep.factura.ui.core.SwingComponent;
 import javax.swing.*;
 
 public final class Print implements SwingComponent<JPanel> {
-
     public interface Output {
-
         void onPrint();
 
         void onPrintWithNewCustomer();
-
     }
 
     public static Print newInstance() {
@@ -59,5 +56,4 @@ public final class Print implements SwingComponent<JPanel> {
         controller.setView(view);
         controller.init();
     }
-
 }

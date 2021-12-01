@@ -14,7 +14,5 @@ package dev.tobiasbriones.ep.factura.ui.core;
 
 @FunctionalInterface
 public interface Initializable {
-
     void init();
-
 }

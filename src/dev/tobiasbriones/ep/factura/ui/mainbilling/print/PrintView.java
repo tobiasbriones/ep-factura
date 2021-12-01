@@ -19,7 +19,6 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 final class PrintView extends JPanelMvcView<PrintController> {
-
     private final JCheckBox createNewCustomerBox;
     private final JButton printButton;
 
@@ -48,5 +47,4 @@ final class PrintView extends JPanelMvcView<PrintController> {
     public void bindEvents(PrintController controller) {
         printButton.addActionListener(e -> controller.onPrintButtonClick());
     }
-
 }

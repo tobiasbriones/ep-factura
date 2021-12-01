@@ -20,12 +20,9 @@ import dev.tobiasbriones.ep.factura.domain.model.basket.BasketItemModel;
 import javax.swing.*;
 
 public final class Items implements SwingComponent<JScrollPane> {
-
     @FunctionalInterface
     public interface Output {
-
         void onItemUpdated(BasketItemModel item);
-
     }
 
     public static Items newInstance(BasketModel basket) {
@@ -65,5 +62,4 @@ public final class Items implements SwingComponent<JScrollPane> {
         controller.setView(view);
         controller.init();
     }
-
 }

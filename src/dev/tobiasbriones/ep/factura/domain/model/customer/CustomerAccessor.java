@@ -13,7 +13,6 @@
 package dev.tobiasbriones.ep.factura.domain.model.customer;
 
 public interface CustomerAccessor extends CustomerNameAccessor {
-
     AddressModel getAddress();
 
     String getPhone();
@@ -21,5 +20,4 @@ public interface CustomerAccessor extends CustomerNameAccessor {
     String getGenre();
 
     String getBirthday();
-
 }

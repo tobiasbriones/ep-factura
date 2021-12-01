@@ -20,7 +20,6 @@ import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 
 final class DiskProductDaoTest {
-
     //                                                                                            //
     //                                                                                            //
     //                                           CLASS                                            //
@@ -231,5 +230,4 @@ final class DiskProductDaoTest {
 
         assertTrue(result.equals(expected));
     }
-
 }

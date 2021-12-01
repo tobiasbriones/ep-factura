@@ -15,7 +15,6 @@ package dev.tobiasbriones.ep.factura.ui.mainbilling.print;
 import dev.tobiasbriones.ep.factura.ui.core.MvcController;
 
 final class PrintController extends MvcController<PrintView, Print.Output> {
-
     private PrintView view;
 
     PrintController() {
@@ -50,5 +49,4 @@ final class PrintController extends MvcController<PrintView, Print.Output> {
             }
         });
     }
-
 }

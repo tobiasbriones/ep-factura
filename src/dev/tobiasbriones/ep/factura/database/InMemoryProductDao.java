@@ -20,7 +20,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public final class InMemoryProductDao implements ProductDao {
-
     private static final int ESTIMATED_NUMBER_OF_PRODUCTS = 1000;
     private final Map<Integer, ProductModel> products;
 
@@ -150,5 +149,4 @@ public final class InMemoryProductDao implements ProductDao {
                        .map(Map.Entry::getValue)
                        .collect(Collectors.toList());
     }
-
 }

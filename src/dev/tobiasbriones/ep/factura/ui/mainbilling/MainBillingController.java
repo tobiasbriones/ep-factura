@@ -15,7 +15,6 @@ package dev.tobiasbriones.ep.factura.ui.mainbilling;
 import dev.tobiasbriones.ep.factura.ui.core.MvcController;
 
 final class MainBillingController extends MvcController<MainBillingView, Void> {
-
     private MainBillingView view;
 
     MainBillingController() {
@@ -37,5 +36,4 @@ final class MainBillingController extends MvcController<MainBillingView, Void> {
     public void init() {
         view.update();
     }
-
 }

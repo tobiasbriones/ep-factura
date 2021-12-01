@@ -23,7 +23,6 @@ import java.util.Collections;
 import java.util.List;
 
 public final class LocalStorageCityDao implements CityDao {
-
     private static final String FILE_NAME = Data.getFileLocation("cities");
     private static final int INITIAL_CAPACITY = 15;
     private final List<City> cities;
@@ -60,5 +59,4 @@ public final class LocalStorageCityDao implements CityDao {
                  .map(City::new)
                  .forEach(cities::add);
     }
-
 }

@@ -14,7 +14,5 @@ package dev.tobiasbriones.ep.factura.domain.model.product;
 
 @FunctionalInterface
 public interface IdProductAccessor {
-
     int getCode();
-
 }

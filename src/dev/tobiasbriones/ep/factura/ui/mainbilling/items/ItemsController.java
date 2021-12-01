@@ -19,7 +19,6 @@ import dev.tobiasbriones.ep.factura.ui.core.MvcController;
 import dev.tobiasbriones.ep.factura.ui.mainbilling.items.editor.ItemEditor;
 
 final class ItemsController extends MvcController<ItemsView, Items.Output> implements ItemEditor.Output {
-
     private final BasketModel basket;
     private ItemsView view;
 
@@ -59,5 +58,4 @@ final class ItemsController extends MvcController<ItemsView, Items.Output> imple
     private void onItemUpdated(BasketItemModel item) {
         getOutput().ifPresent(output -> output.onItemUpdated(item));
     }
-
 }

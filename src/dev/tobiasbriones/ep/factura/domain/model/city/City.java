@@ -13,7 +13,6 @@
 package dev.tobiasbriones.ep.factura.domain.model.city;
 
 public final class City implements CityModel {
-
     private final String name;
 
     public City(String name) {
@@ -31,5 +30,4 @@ public final class City implements CityModel {
                "name=" + name +
                "]";
     }
-
 }

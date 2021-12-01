@@ -25,16 +25,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public final class Header implements SwingComponent<JPanel> {
-
     @FunctionalInterface
     public interface Output {
-
         void onAddProduct(ProductModel product);
-
     }
 
     interface View extends CustomerNameAccessor, CustomerNameMutator {
-
         ProductModel getProduct();
 
         void setProduct(ProductModel value);
@@ -48,7 +44,6 @@ public final class Header implements SwingComponent<JPanel> {
         LocalDateTime getDate();
 
         void setDate(LocalDateTime value);
-
     }
 
     public static Header newInstance(ProductDao productDao) {
@@ -101,5 +96,4 @@ public final class Header implements SwingComponent<JPanel> {
         controller.setView(view);
         controller.init();
     }
-
 }

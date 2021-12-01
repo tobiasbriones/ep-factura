@@ -23,7 +23,6 @@ import java.awt.*;
 import java.time.LocalDateTime;
 
 public final class Printer implements BillPrinter {
-
     private final JFrame parent;
     private String customerName;
     private int numberOfProducts;
@@ -85,5 +84,4 @@ public final class Printer implements BillPrinter {
     private String createPrintMsg() {
         return numberOfProducts + " productos. Total: $" + total;
     }
-
 }

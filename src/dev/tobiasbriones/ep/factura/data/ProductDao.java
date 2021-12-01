@@ -15,6 +15,4 @@ package dev.tobiasbriones.ep.factura.data;
 import dev.tobiasbriones.ep.factura.domain.model.product.IdProductAccessor;
 import dev.tobiasbriones.ep.factura.domain.model.product.ProductModel;
 
-public interface ProductDao extends Dao<ProductModel, IdProductAccessor> {
-
-}
+public interface ProductDao extends Dao<ProductModel, IdProductAccessor> {}

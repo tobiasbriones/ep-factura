@@ -13,5 +13,4 @@
 /**
  * Contains the UI package to present the app.
  */
-
 package dev.tobiasbriones.ep.factura.ui;

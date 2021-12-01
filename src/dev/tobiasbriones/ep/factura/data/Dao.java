@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface Dao<R, I> {
-
     Optional<R> fetch(I id);
 
     List<R> fetchAll(int page, int pageSize);
@@ -26,5 +25,4 @@ public interface Dao<R, I> {
     void update(R record);
 
     void delete(R record);
-
 }

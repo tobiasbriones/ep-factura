@@ -21,7 +21,6 @@ import dev.tobiasbriones.ep.factura.domain.model.customer.CustomerModel;
 import java.time.LocalDateTime;
 
 public final class Bill implements BillModel {
-
     private BasketModel basket;
     private BasketSummaryModel basketSummary;
     private CustomerModel customer;
@@ -111,5 +110,4 @@ public final class Bill implements BillModel {
         rtn = "";
         date = LocalDateTime.now();
     }
-
 }

@@ -19,7 +19,6 @@ import dev.tobiasbriones.ep.factura.domain.model.product.ProductModel;
 import java.time.LocalDateTime;
 
 final class HeaderController extends MvcController<HeaderView, Header.Output> {
-
     private final ProductDao productDao;
     private HeaderView view;
 

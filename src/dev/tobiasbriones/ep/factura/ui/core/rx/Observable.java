@@ -13,9 +13,7 @@
 package dev.tobiasbriones.ep.factura.ui.core.rx;
 
 public interface Observable {
-
     void subscribe(Observer observer);
 
     void unsubscribe(Observer observer);
-
 }

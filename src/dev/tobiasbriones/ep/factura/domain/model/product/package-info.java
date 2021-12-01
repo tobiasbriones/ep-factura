@@ -13,5 +13,4 @@
 /**
  * Contains the immutable Product model.
  */
-
 package dev.tobiasbriones.ep.factura.domain.model.product;

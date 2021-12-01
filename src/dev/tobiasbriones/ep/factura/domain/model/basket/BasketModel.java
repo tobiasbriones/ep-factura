@@ -17,6 +17,22 @@ import dev.tobiasbriones.ep.factura.domain.model.product.ProductModel;
 import java.util.Optional;
 
 public interface BasketModel extends StreamableBasketItems {
+    int size();
+
+    void push(BasketItem item);
+
+    boolean remove(BasketItem item);
+
+    default BasketSummaryModel computeSummary() {
+        return summary(this);
+    }
+
+    default void pushProduct(ProductModel product) {
+        findAnyProduct(this, product).ifPresentOrElse(
+            BasketItem::incrementQuantity,
+            () -> push(new BasketItem(product))
+        );
+    }
 
     static BasketSummaryModel summary(StreamableBasketItems items) {
         // This Holder example is in Java 11. Use Java Record in Java 17+.
@@ -53,22 +69,4 @@ public interface BasketModel extends StreamableBasketItems {
                     .filter(item -> item.getProduct().equals(product))
                     .findAny();
     }
-
-    int size();
-
-    void push(BasketItem item);
-
-    boolean remove(BasketItem item);
-
-    default BasketSummaryModel computeSummary() {
-        return summary(this);
-    }
-
-    default void pushProduct(ProductModel product) {
-        findAnyProduct(this, product).ifPresentOrElse(
-            BasketItem::incrementQuantity,
-            () -> push(new BasketItem(product))
-        );
-    }
-
 }

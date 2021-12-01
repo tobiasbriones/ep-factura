@@ -13,7 +13,6 @@
 package dev.tobiasbriones.ep.factura.domain.model.customer;
 
 public interface CustomerNameAccessor {
-
     String getFirstName();
 
     String getSurname();
@@ -21,5 +20,4 @@ public interface CustomerNameAccessor {
     default String getFullName() {
         return getFirstName() + " " + getSurname();
     }
-
 }

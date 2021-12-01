@@ -28,12 +28,9 @@ import dev.tobiasbriones.ep.factura.ui.mainbilling.header.Header;
 import dev.tobiasbriones.ep.factura.ui.mainbilling.items.Items;
 
 final class MainBillingMediator {
-
     @FunctionalInterface
     interface ShowAboutDialogFn {
-
         void apply();
-
     }
 
     private static final class HeaderOutput implements Header.Output {
@@ -124,7 +121,6 @@ final class MainBillingMediator {
         private boolean isBillValid() {
             return isCustomerValid(bill.getCustomer()) && !bill.getRtn().isBlank();
         }
-
     }
 
     private final AnyObservable basketObservable;
@@ -170,5 +166,4 @@ final class MainBillingMediator {
     void onInitAbout(About about) {
         about.setOutput(showAboutDialogFn::apply);
     }
-
 }

@@ -18,7 +18,6 @@ import dev.tobiasbriones.ep.factura.domain.model.customer.CustomerModel;
 import java.time.LocalDateTime;
 
 public interface BillMutator {
-
     void setBasket(BasketModel value);
 
     void setCustomer(CustomerModel value);
@@ -28,5 +27,4 @@ public interface BillMutator {
     void setDate(LocalDateTime value);
 
     void clear();
-
 }

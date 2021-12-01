@@ -27,62 +27,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public final class DiskProductDao implements ProductDao {
-
     public static final String DEF_PRODUCTS_FILE_PATH = Data.getFileLocation("products");
     private static final int ESTIMATED_INITIAL_CAPACITY = 50;
-
-    private static final class DiskProduct {
-        private static final int NUMBER_OF_ATTRIBUTES = 3;
-        private static final String SEPARATOR_TOKEN = ",";
-
-        static Optional<ProductModel> readProductFrom(String productStr) {
-            final var tokens = productStr.split(SEPARATOR_TOKEN);
-            return readTokens(tokens);
-        }
-
-        static String writeProductFrom(ProductAccessor accessor) {
-            return accessor.getCode() + SEPARATOR_TOKEN +
-                   accessor.getDescription() + SEPARATOR_TOKEN +
-                   accessor.getPrice();
-        }
-
-        private static Optional<ProductModel> readTokens(String... tokens) {
-            final Optional<ProductModel> product;
-
-            if (tokens.length == NUMBER_OF_ATTRIBUTES) {
-                product = readTokenValues(tokens[0], tokens[1], tokens[2]);
-            }
-            else {
-                product = Optional.empty();
-            }
-            return product;
-        }
-
-        private static Optional<ProductModel> readTokenValues(
-            String idToken,
-            String descriptionToken,
-            String priceToken
-        ) {
-            final int id;
-            final String description;
-            final double price;
-            Optional<ProductModel> product;
-
-            try {
-                id = Integer.parseInt(idToken);
-                description = descriptionToken;
-                price = Double.parseDouble(priceToken);
-                product = Optional.of(ProductModel.of(id, description, price));
-            }
-            catch (NumberFormatException | NullPointerException ignore) {
-                product = Optional.empty();
-            }
-            return product;
-        }
-
-        private DiskProduct() {}
-    }
-
     private final String filePath;
     private InMemoryProductDao inMemoryDao;
 
@@ -194,4 +140,55 @@ public final class DiskProductDao implements ProductDao {
         }
     }
 
+    private static final class DiskProduct {
+        private static final int NUMBER_OF_ATTRIBUTES = 3;
+        private static final String SEPARATOR_TOKEN = ",";
+
+        static Optional<ProductModel> readProductFrom(String productStr) {
+            final var tokens = productStr.split(SEPARATOR_TOKEN);
+            return readTokens(tokens);
+        }
+
+        static String writeProductFrom(ProductAccessor accessor) {
+            return accessor.getCode() + SEPARATOR_TOKEN +
+                   accessor.getDescription() + SEPARATOR_TOKEN +
+                   accessor.getPrice();
+        }
+
+        private static Optional<ProductModel> readTokens(String... tokens) {
+            final Optional<ProductModel> product;
+
+            if (tokens.length == NUMBER_OF_ATTRIBUTES) {
+                product = readTokenValues(tokens[0], tokens[1], tokens[2]);
+            }
+            else {
+                product = Optional.empty();
+            }
+            return product;
+        }
+
+        private static Optional<ProductModel> readTokenValues(
+            String idToken,
+            String descriptionToken,
+            String priceToken
+        ) {
+            final int id;
+            final String description;
+            final double price;
+            Optional<ProductModel> product;
+
+            try {
+                id = Integer.parseInt(idToken);
+                description = descriptionToken;
+                price = Double.parseDouble(priceToken);
+                product = Optional.of(ProductModel.of(id, description, price));
+            }
+            catch (NumberFormatException | NullPointerException ignore) {
+                product = Optional.empty();
+            }
+            return product;
+        }
+
+        private DiskProduct() {}
+    }
 }

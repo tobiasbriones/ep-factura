@@ -24,7 +24,6 @@ import javax.swing.*;
 import java.awt.*;
 
 final class CustomerCreationController extends MvcController<CustomerCreationView, CustomerCreationDialog.Output> {
-
     private static boolean isFormSet(CustomerAccessor accessor) {
         return isSet(accessor.getPhone()) &&
                isSet(accessor.getGenre()) &&
@@ -123,5 +122,4 @@ final class CustomerCreationController extends MvcController<CustomerCreationVie
         getOutput().ifPresent(output -> output.onCustomerCreated(newCustomer));
         view.dispose();
     }
-
 }

@@ -18,13 +18,10 @@ import dev.tobiasbriones.ep.factura.ui.core.SwingComponent;
 import javax.swing.*;
 
 public final class ItemEditor implements SwingComponent<JDialog> {
-
     public interface Output {
-
         void onDelete(BasketItem item);
 
         void onUpdateQuantity(BasketItem item, int quantity);
-
     }
 
     public static ItemEditor newInstance(BasketItem basketItem) {
@@ -64,5 +61,4 @@ public final class ItemEditor implements SwingComponent<JDialog> {
         controller.setView(view);
         controller.init();
     }
-
 }

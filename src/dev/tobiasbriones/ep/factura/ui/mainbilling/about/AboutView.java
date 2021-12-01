@@ -19,7 +19,6 @@ import javax.swing.*;
 import java.awt.*;
 
 final class AboutView extends JPanelMvcView<AboutController> {
-
     private static final String IC_ABOUT_FILE_NAME = "ic_about.png";
     private static final String IC_ABOUT_FILE_LOCATION = Resource.getFileLocation(IC_ABOUT_FILE_NAME);
     private final JButton showDialogButton;
@@ -43,5 +42,4 @@ final class AboutView extends JPanelMvcView<AboutController> {
     public void bindEvents(AboutController controller) {
         showDialogButton.addActionListener(e -> controller.onAboutButtonClick());
     }
-
 }

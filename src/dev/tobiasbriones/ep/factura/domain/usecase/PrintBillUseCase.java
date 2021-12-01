@@ -16,7 +16,6 @@ import dev.tobiasbriones.ep.factura.domain.model.bill.BillModel;
 import dev.tobiasbriones.ep.factura.domain.model.bill.BillPrinter;
 
 public final class PrintBillUseCase {
-
     private final BillModel bill;
 
     public PrintBillUseCase(BillModel bill) {
@@ -33,5 +32,4 @@ public final class PrintBillUseCase {
         printer.setBillSummary(bill);
         printer.print();
     }
-
 }

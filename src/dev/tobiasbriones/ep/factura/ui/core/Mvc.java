@@ -15,9 +15,7 @@ package dev.tobiasbriones.ep.factura.ui.core;
 import java.util.Optional;
 
 final class Mvc {
-
     interface View<V, C> extends Initializable {
-
         void createView(V view);
 
         default void bindEvents(C controller) {}
@@ -25,11 +23,9 @@ final class Mvc {
         default void clear() {}
 
         default void update() {}
-
     }
 
     interface Controller<View, Output> extends Initializable {
-
         View getView();
 
         void setView(View value);
@@ -37,9 +33,7 @@ final class Mvc {
         Optional<Output> getOutput();
 
         void setOutput(Output value);
-
     }
 
     private Mvc() {}
-
 }

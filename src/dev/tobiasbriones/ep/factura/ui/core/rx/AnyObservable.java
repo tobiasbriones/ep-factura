@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class AnyObservable implements Observable {
-
     private final List<Observer> observers;
 
     public AnyObservable() {
@@ -36,5 +35,4 @@ public final class AnyObservable implements Observable {
     public void notifyObservers() {
         observers.forEach(Observer::update);
     }
-
 }

@@ -24,30 +24,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 final class HeaderView extends JPanelMvcView<HeaderController> implements Header.View {
-
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyy HH:mm:ss");
-
-    private static final class ProductBoxRenderer extends DefaultListCellRenderer {
-        private ProductBoxRenderer() {
-            super();
-        }
-
-        @Override
-        public Component getListCellRendererComponent(
-            JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus
-        ) {
-            super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-
-            if (value != null) {
-                final var product = (ProductModel) value;
-                final var str = product.getCode() + " " + product.getDescription() + " " + product.getPrice();
-
-                setText(str);
-            }
-            return this;
-        }
-    }
-
     private final JTextField nameField;
     private final JTextField surnameField;
     private final JTextField rtnField;
@@ -220,4 +197,24 @@ final class HeaderView extends JPanelMvcView<HeaderController> implements Header
         view.add(addButton, gbc);
     }
 
+    private static final class ProductBoxRenderer extends DefaultListCellRenderer {
+        private ProductBoxRenderer() {
+            super();
+        }
+
+        @Override
+        public Component getListCellRendererComponent(
+            JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus
+        ) {
+            super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+
+            if (value != null) {
+                final var product = (ProductModel) value;
+                final var str = product.getCode() + " " + product.getDescription() + " " + product.getPrice();
+
+                setText(str);
+            }
+            return this;
+        }
+    }
 }

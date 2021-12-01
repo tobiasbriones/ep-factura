@@ -13,7 +13,6 @@
 package dev.tobiasbriones.ep.factura.domain.model.product;
 
 public interface ProductModel extends ProductAccessor {
-
     static ProductModel of(int code, String description, double price) {
         return new Product(code, description, price);
     }
@@ -21,5 +20,4 @@ public interface ProductModel extends ProductAccessor {
     default double getTotal() {
         return getPrice() + getIsv();
     }
-
 }

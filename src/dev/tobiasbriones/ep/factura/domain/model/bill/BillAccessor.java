@@ -19,7 +19,6 @@ import dev.tobiasbriones.ep.factura.domain.model.customer.CustomerModel;
 import java.time.LocalDateTime;
 
 public interface BillAccessor extends BasketSummaryAccessor {
-
     BasketModel getBasket();
 
     CustomerModel getCustomer();
@@ -27,5 +26,4 @@ public interface BillAccessor extends BasketSummaryAccessor {
     String getRtn();
 
     LocalDateTime getDate();
-
 }

@@ -15,7 +15,6 @@ package dev.tobiasbriones.ep.factura.ui.core;
 import java.util.Optional;
 
 public abstract class MvcController<View, Output> implements Mvc.Controller<View, Output> {
-
     private Output output;
 
     protected MvcController() {
@@ -31,5 +30,4 @@ public abstract class MvcController<View, Output> implements Mvc.Controller<View
     public final void setOutput(Output value) {
         output = value;
     }
-
 }

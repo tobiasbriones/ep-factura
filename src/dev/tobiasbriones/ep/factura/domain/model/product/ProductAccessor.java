@@ -13,7 +13,6 @@
 package dev.tobiasbriones.ep.factura.domain.model.product;
 
 public interface ProductAccessor extends IdProductAccessor {
-
     String getDescription();
 
     double getTotal();
@@ -21,5 +20,4 @@ public interface ProductAccessor extends IdProductAccessor {
     double getPrice();
 
     double getIsv();
-
 }

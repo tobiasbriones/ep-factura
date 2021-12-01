@@ -26,90 +26,9 @@ import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
 
 final class ItemsView extends JScrollPaneMvcView<ItemsController> implements Observer {
-
     private static final int HEIGHT_PX = 300;
     private static final int WIDTH_PX = 800;
     private static final DecimalFormat decimalFormat = new DecimalFormat(".##");
-
-    private static final class ListRenderer extends JPanel implements ListCellRenderer<BasketItem> {
-        private static final int ITEM_WIDTH = 600;
-        private static final int ITEM_HEIGHT = 30;
-        private static final Color BACKGROUND_COLOR = Color.decode("#FFFFFF");
-        private static final Color SELECTED_BACKGROUND_COLOR = Color.decode("#EAEAEA");
-        private final JPanel panelLeft;
-        private final JPanel panelRight;
-        private final JLabel quantityLabel;
-        private final JLabel productCodeLabel;
-        private final JLabel productDescriptionLabel;
-        private final JLabel priceLabel;
-
-        private ListRenderer() {
-            super();
-            this.panelLeft = new JPanel();
-            this.panelRight = new JPanel();
-            this.quantityLabel = new JLabel();
-            this.productCodeLabel = new JLabel();
-            this.productDescriptionLabel = new JLabel();
-            this.priceLabel = new JLabel();
-
-            init();
-        }
-
-        @Override
-        public Component getListCellRendererComponent(
-            JList<? extends BasketItem> list,
-            BasketItem value,
-            int index,
-            boolean isSelected,
-            boolean cellHasFocus
-        ) {
-            quantityLabel.setText(String.valueOf(value.getQuantity()));
-            productCodeLabel.setText(String.valueOf(value.getProduct().getCode()));
-            productDescriptionLabel.setText(value.getProduct().getDescription());
-            priceLabel.setText("$" + decimalFormat.format(value.getAmount()));
-
-            if (isSelected) {
-                panelLeft.setBackground(SELECTED_BACKGROUND_COLOR);
-                panelRight.setBackground(SELECTED_BACKGROUND_COLOR);
-                setBackground(SELECTED_BACKGROUND_COLOR);
-            }
-            else {
-                panelLeft.setBackground(BACKGROUND_COLOR);
-                panelRight.setBackground(BACKGROUND_COLOR);
-                setBackground(BACKGROUND_COLOR);
-            }
-            return this;
-        }
-
-        private void init() {
-            final var quantityLabelWidth = 40;
-            final var quantityLabelHeight = 20;
-            final var priceLabelWidth = 140;
-            final var priceLabelHeight = 20;
-
-            quantityLabel.setPreferredSize(new Dimension(quantityLabelWidth, quantityLabelHeight));
-            quantityLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-
-            panelLeft.setBackground(Color.decode("#FFFFFF"));
-            panelLeft.add(quantityLabel);
-            panelLeft.add(productCodeLabel);
-            panelLeft.add(productDescriptionLabel);
-
-            priceLabel.setPreferredSize(new Dimension(priceLabelWidth, priceLabelHeight));
-            priceLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-
-            panelRight.setBackground(Color.decode("#FFFFFF"));
-            panelRight.add(priceLabel);
-
-            setLayout(new BorderLayout());
-            setPreferredSize(new Dimension(ITEM_WIDTH, ITEM_HEIGHT));
-            setBorder(new EmptyBorder(0, 10, 0, 10));
-            setOpaque(true);
-            add(panelLeft, BorderLayout.LINE_START);
-            add(panelRight, BorderLayout.LINE_END);
-        }
-    }
-
     private final StreamableBasketItems model;
     private final DefaultListModel<BasketItem> listModel;
     private final JList<BasketItem> list;
@@ -173,4 +92,88 @@ final class ItemsView extends JScrollPaneMvcView<ItemsController> implements Obs
         }
     }
 
+    private static final class ListRenderer extends JPanel implements ListCellRenderer<BasketItem> {
+        private static final int ITEM_WIDTH = 600;
+        private static final int ITEM_HEIGHT = 30;
+        private static final Color BACKGROUND_COLOR = Color.decode("#FFFFFF");
+        private static final Color SELECTED_BACKGROUND_COLOR = Color.decode("#EAEAEA");
+        private final JPanel panelLeft;
+        private final JPanel panelRight;
+        private final JLabel quantityLabel;
+        private final JLabel productCodeLabel;
+        private final JLabel productDescriptionLabel;
+        private final JLabel priceLabel;
+
+        private ListRenderer() {
+            super();
+            this.panelLeft = new JPanel();
+            this.panelRight = new JPanel();
+            this.quantityLabel = new JLabel();
+            this.productCodeLabel = new JLabel();
+            this.productDescriptionLabel = new JLabel();
+            this.priceLabel = new JLabel();
+
+            init();
+        }
+
+        @Override
+        public Component getListCellRendererComponent(
+            JList<? extends BasketItem> list,
+            BasketItem value,
+            int index,
+            boolean isSelected,
+            boolean cellHasFocus
+        ) {
+            quantityLabel.setText(String.valueOf(value.getQuantity()));
+            productCodeLabel.setText(String.valueOf(value.getProduct().getCode()));
+            productDescriptionLabel.setText(value.getProduct().getDescription());
+            priceLabel.setText("$" + decimalFormat.format(value.getAmount()));
+
+            if (isSelected) {
+                panelLeft.setBackground(SELECTED_BACKGROUND_COLOR);
+                panelRight.setBackground(SELECTED_BACKGROUND_COLOR);
+                setBackground(SELECTED_BACKGROUND_COLOR);
+            }
+            else {
+                panelLeft.setBackground(BACKGROUND_COLOR);
+                panelRight.setBackground(BACKGROUND_COLOR);
+                setBackground(BACKGROUND_COLOR);
+            }
+            return this;
+        }
+
+        private void init() {
+            final var quantityLabelWidth = 40;
+            final var quantityLabelHeight = 20;
+            final var priceLabelWidth = 140;
+            final var priceLabelHeight = 20;
+
+            quantityLabel.setPreferredSize(new Dimension(
+                quantityLabelWidth,
+                quantityLabelHeight
+            ));
+            quantityLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+
+            panelLeft.setBackground(Color.decode("#FFFFFF"));
+            panelLeft.add(quantityLabel);
+            panelLeft.add(productCodeLabel);
+            panelLeft.add(productDescriptionLabel);
+
+            priceLabel.setPreferredSize(new Dimension(
+                priceLabelWidth,
+                priceLabelHeight
+            ));
+            priceLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+
+            panelRight.setBackground(Color.decode("#FFFFFF"));
+            panelRight.add(priceLabel);
+
+            setLayout(new BorderLayout());
+            setPreferredSize(new Dimension(ITEM_WIDTH, ITEM_HEIGHT));
+            setBorder(new EmptyBorder(0, 10, 0, 10));
+            setOpaque(true);
+            add(panelLeft, BorderLayout.LINE_START);
+            add(panelRight, BorderLayout.LINE_END);
+        }
+    }
 }

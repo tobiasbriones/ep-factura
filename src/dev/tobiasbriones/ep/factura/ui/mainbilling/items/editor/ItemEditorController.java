@@ -18,7 +18,6 @@ import dev.tobiasbriones.ep.factura.ui.core.MvcController;
 import static dev.tobiasbriones.ep.factura.ui.mainbilling.items.editor.ItemEditor.Output;
 
 final class ItemEditorController extends MvcController<ItemEditorView, Output> implements Output {
-
     private ItemEditorView view;
 
     ItemEditorController() {
@@ -52,5 +51,4 @@ final class ItemEditorController extends MvcController<ItemEditorView, Output> i
         getOutput().ifPresent(output -> output.onUpdateQuantity(item, quantity));
         view.onDestroy();
     }
-
 }

@@ -13,7 +13,6 @@
 package dev.tobiasbriones.ep.factura.domain.model.customer;
 
 public interface CustomerMutator extends CustomerNameMutator {
-
     void setAddress(AddressModel value);
 
     void setPhone(String value);
@@ -21,5 +20,4 @@ public interface CustomerMutator extends CustomerNameMutator {
     void setGenre(String value);
 
     void setBirthday(String value);
-
 }

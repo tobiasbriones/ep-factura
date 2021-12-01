@@ -16,7 +16,5 @@ import java.util.stream.Stream;
 
 @FunctionalInterface
 public interface StreamableBasketItems {
-
     Stream<BasketItem> stream();
-
 }
