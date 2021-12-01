@@ -8,11 +8,11 @@
 
 Example project for a silly billing application made in Java-Swing.
 
-## Getting started
+## Getting Started
 
 The project does not have any external dependencies, open the project with you IDE and run it with Java 11+.
 
-### Project structure
+### Project Structure
 
 In the project's root directory (`./`) there are the following folders:
 
@@ -23,14 +23,14 @@ In the project's root directory (`./`) there are the following folders:
 In the **./src** directory there is the `res` (`./src/res`) top level package with helpers to access the files located
 at the directories mentioned above; and the application package `dev.tobiasbriones.ep.factura`.
 
-### Some conventions
+### Some Conventions
 
 I used the suffix "Model" in the domain layer for the Domain Model interfaces so that it may be seen or related to the
 "M" from the "MVC" pattern. In a real scenario never suffix or prefix interfaces like this because interfaces define
 types and that suffix is noise for the type name you are defining, you may suffix or prefix classes instead if required.
 I also used the "Model" suffix just to see a different fashion of the code on this occasion.
 
-### Database package
+### Database Package
 
 The [database package](./src/dev/tobiasbriones/ep/factura/database) implements
 the [data package](./src/dev/tobiasbriones/ep/factura/data) which contains DAOs (Data Access Objects)
@@ -45,7 +45,7 @@ the domain models. For example, the `productDao` can be set to be a `DiskProduct
 than random products since by default it's an `InMemoryProductDao` implementation which is set. This is useful to
 decouple the system and inject the dependencies into the UI Components.
 
-### UI package and Components
+### UI Package and Components
 
 I wanted to take [v1.0.0](https://github.com/tobiasbriones/ep-factura/releases/tag/v1.0.0) and
 refactor this app as something really close to MVC. This is in order to show how MVC works which is the basis for the
