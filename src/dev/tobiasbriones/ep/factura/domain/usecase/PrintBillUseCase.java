@@ -12,17 +12,17 @@
 
 package dev.tobiasbriones.ep.factura.domain.usecase;
 
-import dev.tobiasbriones.ep.factura.domain.model.bill.BillModel;
+import dev.tobiasbriones.ep.factura.domain.model.bill.BillAccessor;
 import dev.tobiasbriones.ep.factura.domain.model.bill.BillPrinter;
 
 public final class PrintBillUseCase {
-    private final BillModel bill;
+    private final BillPrinter printer;
 
-    public PrintBillUseCase(BillModel bill) {
-        this.bill = bill;
+    public PrintBillUseCase(BillPrinter printer) {
+        this.printer = printer;
     }
 
-    public void execute(BillPrinter printer) {
+    public void execute(BillAccessor bill) {
         printer.clear();
 
         printer.setCustomer(bill.getCustomer());

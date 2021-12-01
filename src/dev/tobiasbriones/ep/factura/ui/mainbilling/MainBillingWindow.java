@@ -154,9 +154,9 @@ public final class MainBillingWindow implements SwingComponent<JFrame> {
         public void showBillPrintedDialog(BillModel bill) {
             final JFrame parent = getViewComponent();
             final var printer = new Printer(parent);
-            final var printUseCase = new PrintBillUseCase(bill);
+            final var printUseCase = new PrintBillUseCase(printer);
 
-            printUseCase.execute(printer);
+            printUseCase.execute(bill);
         }
 
         @Override
