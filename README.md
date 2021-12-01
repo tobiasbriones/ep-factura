@@ -21,7 +21,7 @@ In the project's root directory (`./`) there are the following folders:
 - **res/**: Contains images or resources used by the application.
 
 In the **./src** directory there is the `res` (`./src/res`) top level package with helpers to access the files located
-at the directories mentioned above; and the application package `io.github.tobiasbriones.ep.factura`.
+at the directories mentioned above; and the application package `dev.tobiasbriones.ep.factura`.
 
 ### Some conventions
 
@@ -32,15 +32,15 @@ I also used the "Model" suffix just to see a different fashion of the code on th
 
 ### Database package
 
-The [database package](./src/io/github/tobiasbriones/ep/factura/database) implements
-the [data package](./src/io/github/tobiasbriones/ep/factura/data) which contains DAOs (Data Access Objects)
+The [database package](./src/dev/tobiasbriones/ep/factura/database) implements
+the [data package](./src/dev/tobiasbriones/ep/factura/data) which contains DAOs (Data Access Objects)
 definitions for some domain models. It uses the application's local storage located in the [data folder](./data). In
 particular, there is an `InMemoryProductDao` which loads random products into the memory, and also a
 `DiskProductDao` to load products in the file stored in the disk, also check `DiskProductDaoTest`.
 
 ### Application Configuration
 
-The [AppConfig](./src/io/github/tobiasbriones/ep/factura/AppConfig.java) contains the selection of implementations for
+The [AppConfig](./src/dev/tobiasbriones/ep/factura/AppConfig.java) contains the selection of implementations for
 the domain models. For example, the `productDao` can be set to be a `DiskProductDao` to load in-disk products rather
 than random products since by default it's an `InMemoryProductDao` implementation which is set. This is useful to
 decouple the system and inject the dependencies into the UI Components.
@@ -56,7 +56,7 @@ Components even make plain MVC look better designed and more powerful; a great c
 passive View and Components instead of just "MVC". The reason is that each part of your "screen" is a component with
 meaningful and highly-cohesive encapsulated UI logic.
 
-The [ui package](./src/io/github/tobiasbriones/ep/factura/ui) contains the UI Component implementations for the billing
+The [ui package](./src/dev/tobiasbriones/ep/factura/ui) contains the UI Component implementations for the billing
 app. To understand each component, it suffices to say that the in-app library used is a set of abstract tools I made
 with MVC as a priority and located in the `core` package. Then, each component will have a view that implements the
 Swing view (probably JPanel), a controller for the view, and an entry class as a gateway for the component and
