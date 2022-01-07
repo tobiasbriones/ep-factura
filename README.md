@@ -1,10 +1,10 @@
 # Example Project: Factura
 
-[![EP](./docs/badge.svg)](https://tobiasbriones.github.io/example-project/ep/factura)
+[![Project](./docs/badge.svg)](https://tobiasbriones.github.io/example-project/ep/factura)
 &nbsp;
-[![GitHub Repository](https://raw.githubusercontent.com/tobiasbriones/general-images/main/example-projects/badges/ep-gh-repo-badge.svg)](https://github.com/tobiasbriones/ep-factura)
+[![GitHub Repository](https://img.shields.io/static/v1?label=GITHUB&message=REPOSITORY&labelColor=555&color=0277bd&style=for-the-badge&logo=GITHUB)](https://github.com/tobiasbriones/ep-factura)
 
-[![Project GitHub License](https://img.shields.io/github/license/tobiasbriones/ep-factura.svg?style=flat-square)](https://github.com/tobiasbriones/ep-factura/blob/main/LICENSE)
+[![GitHub Project License](https://img.shields.io/github/license/tobiasbriones/ep-factura.svg?style=flat-square)](https://github.com/tobiasbriones/ep-factura/blob/main/LICENSE)
 
 Example project for a silly billing application made in Java-Swing.
 
